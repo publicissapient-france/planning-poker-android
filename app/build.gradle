@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "fr.publicissapient.planningpoker"
+        minSdkVersion 23
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    composeOptions {
+        kotlinCompilerVersion '1.4.0'
+        kotlinCompilerExtensionVersion "${Compose.compose_version}"
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation AndroidX.core
+    implementation AndroidX.appcompat
+    implementation AndroidX.material
+
+    implementation Compose.ui
+    implementation Compose.tooling
+    implementation Compose.foundation
+    implementation Compose.material
+    implementation Compose.material_icon
+    implementation Compose.material_icons_extended
+    implementation Compose.runtime_livedata
+    implementation Compose.runtime_rxjava2
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.mockito:mockito-core:2.24.0'
+}

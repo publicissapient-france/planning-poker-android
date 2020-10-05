@@ -1,1 +1,2 @@
-# planning-poker-android
+Planning Poker Android
+======================
