@@ -32,6 +32,8 @@ object Compose {
     // Integration with observables
     val runtime_livedata = "androidx.compose.runtime:runtime-livedata:$compose_version"
     val runtime_rxjava2 = "androidx.compose.runtime:runtime-rxjava2:$compose_version"
+
+    val ui_test = "androidx.ui:ui-test:$compose_version"
 }
 
 object Test {
