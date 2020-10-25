@@ -5,6 +5,7 @@ import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CARDS
+import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
 fun CardScreen(
@@ -47,7 +49,9 @@ fun CardScreen(
 						Text(
 							description,
 							modifier = Modifier.padding(horizontal = 30.dp),
-							style = TextStyle(textAlign = TextAlign.Center)
+							style = MaterialTheme.typography.body1.copy(
+								textAlign = TextAlign.Center
+							)
 						)
 						Count(Modifier.drawLayer(rotationZ = -180f))
 					}
@@ -82,8 +86,10 @@ private fun Count(modifier: Modifier = Modifier) =
 @Preview
 @Composable
 fun CardScreenPreview() {
-	CardScreen(
-		imageResourceId = CARDS.red[0].imageResourceId,
-		description = CARDS.red[0].description
-	)
+	PlanningPokerTheme {
+		CardScreen(
+			imageResourceId = CARDS.red[0].imageResourceId,
+			description = CARDS.red[0].description
+		)
+	}
 }

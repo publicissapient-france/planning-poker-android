@@ -6,17 +6,13 @@ import androidx.compose.foundation.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import androidx.ui.tooling.preview.Preview
-import fr.publicissapient.planningpoker.data.CARDS
-import fr.publicissapient.planningpoker.ui.CardScreen
+import fr.publicissapient.planningpoker.ui.PlanningPokerApp
 
 class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContent {
-			CardScreen(
-				imageResourceId = CARDS.red[0].imageResourceId,
-				description = CARDS.red[0].description
-			)
+			PlanningPokerApp()
 		}
 	}
 }
