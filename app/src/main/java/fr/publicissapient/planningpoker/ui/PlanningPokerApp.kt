@@ -8,8 +8,9 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 fun PlanningPokerApp() {
 	PlanningPokerTheme {
 		CardScreen(
-			imageResourceId = CARDS.red[0].imageResourceId,
-			description = CARDS.red[0].description
+			vectorResourceId = CARDS.red.cards[0].imageResourceId,
+			description = CARDS.red.cards[0].description,
+			color = CARDS.red.color
 		)
 	}
 }
