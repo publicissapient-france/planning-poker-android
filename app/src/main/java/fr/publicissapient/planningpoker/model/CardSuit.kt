@@ -1,8 +1,6 @@
 package fr.publicissapient.planningpoker.model
 
-import androidx.compose.ui.graphics.Color
-
 data class CardSuit(
-    val color: Color,
+    val color: CardSuitColor,
     val cards: List<Card>
 )

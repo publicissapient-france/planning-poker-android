@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.ui.theme.getThemeColor
 
 @Composable
 fun CardScreen(
@@ -99,7 +100,7 @@ fun CardScreenPreview() {
             imageResId = redCardSuit.cards[0].imageResourceId,
             description = redCardSuit.cards[0].description,
             pointValue = redCardSuit.cards[0].pointValue,
-            color = redCardSuit.color
+            color = redCardSuit.color.getThemeColor()
         )
     }
 }
