@@ -3,7 +3,6 @@ package planningpoker
 import androidx.ui.test.assertIsDisplayed
 import androidx.ui.test.createAndroidComposeRule
 import androidx.ui.test.onNodeWithText
-import fr.publicissapient.planningpoker.Greeting
 import fr.publicissapient.planningpoker.MainActivity
 import org.junit.Before
 import org.junit.Rule
@@ -12,7 +11,7 @@ import org.junit.Test
 class MainActivityTest {
 
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<MainActivity>(disableTransitions = true)
+    val composeTestRule = createAndroidComposeRule<MainActivity>()
 
     @Before
     fun setUp() {
@@ -21,11 +20,12 @@ class MainActivityTest {
     @Test
     fun shouldGreetByName() {
         composeTestRule.setContent {
-            Greeting(name = "John")
+            // TODO
         }
 
-        composeTestRule
-            .onNodeWithText("Hello John")
-            .assertIsDisplayed()
+        // TODO
+//        composeTestRule
+//            .onNodeWithText("")
+//            .assertIsDisplayed()
     }
 }
