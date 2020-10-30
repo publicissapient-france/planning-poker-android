@@ -5,10 +5,10 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun PlanningPokerTheme(
-	content: @Composable () -> Unit
+    content: @Composable () -> Unit
 ) {
-	MaterialTheme(
-		typography = planningPokerTypography,
-		content = content
-	)
+    MaterialTheme(
+        typography = planningPokerTypography,
+        content = content
+    )
 }

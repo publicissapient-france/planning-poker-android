@@ -9,21 +9,21 @@ import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.ui.PlanningPokerApp
 
 class MainActivity : AppCompatActivity() {
-	override fun onCreate(savedInstanceState: Bundle?) {
-		super.onCreate(savedInstanceState)
-		setContent {
-			PlanningPokerApp()
-		}
-	}
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            PlanningPokerApp()
+        }
+    }
 }
 
 @Composable
 fun Greeting(name: String) {
-	Text(text = "Hello $name")
+    Text(text = "Hello $name")
 }
 
 @Preview
 @Composable
 fun PreviewGreeting() {
-	Greeting("Android")
+    Greeting("Android")
 }

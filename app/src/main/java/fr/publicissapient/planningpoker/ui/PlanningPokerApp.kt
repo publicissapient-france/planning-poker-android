@@ -6,11 +6,11 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
 fun PlanningPokerApp() {
-	PlanningPokerTheme {
-		CardScreen(
-			vectorResourceId = CARDS.red.cards[0].imageResourceId,
-			description = CARDS.red.cards[0].description,
-			color = CARDS.red.color
-		)
-	}
+    PlanningPokerTheme {
+        CardScreen(
+            vectorResourceId = CARDS.red.cards[0].imageResourceId,
+            description = CARDS.red.cards[0].description,
+            color = CARDS.red.color
+        )
+    }
 }
