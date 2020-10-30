@@ -11,7 +11,7 @@ object AndroidX {
 
 object Compose {
 
-    private const val compose_version = "1.0.0-alpha04"
+    private const val compose_version = "1.0.0-alpha06"
 
     val ui = "androidx.compose.ui:ui:$compose_version"
 
