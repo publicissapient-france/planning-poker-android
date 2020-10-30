@@ -1,9 +1,10 @@
 package fr.publicissapient.planningpoker.model
 
+import androidx.annotation.DrawableRes
 import androidx.compose.ui.text.AnnotatedString
 
 data class Card(
-    val imageResourceId: Int,
+    @DrawableRes val imageResourceId: Int,
     val description: AnnotatedString,
-    val value: Int,
+    val pointValue: Int,
 )

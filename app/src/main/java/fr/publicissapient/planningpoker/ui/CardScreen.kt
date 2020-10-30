@@ -1,5 +1,6 @@
 package fr.publicissapient.planningpoker.ui
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
@@ -20,13 +21,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
-import fr.publicissapient.planningpoker.data.CARDS
+import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
 fun CardScreen(
-    vectorResourceId: Int,
+    @DrawableRes imageResId: Int,
     description: AnnotatedString,
+    pointValue: Int,
     color: Color,
 ) =
     Scaffold(
@@ -42,9 +44,9 @@ fun CardScreen(
                         modifier = Modifier.fillMaxWidth().fillMaxHeight(),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Count()
+                        Count(pointValue)
                         Image(
-                            asset = vectorResource(id = vectorResourceId),
+                            asset = vectorResource(id = imageResId),
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),
                             contentScale = ContentScale.FillWidth
                         )
@@ -55,7 +57,7 @@ fun CardScreen(
                                 textAlign = TextAlign.Center
                             )
                         )
-                        Count(Modifier.drawLayer(rotationZ = -180f))
+                        Count(pointValue, Modifier.drawLayer(rotationZ = -180f))
                     }
                 }
             }
@@ -63,7 +65,7 @@ fun CardScreen(
     )
 
 @Composable
-private fun Count(modifier: Modifier = Modifier) =
+private fun Count(pointValue: Int, modifier: Modifier = Modifier) =
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,13 +77,13 @@ private fun Count(modifier: Modifier = Modifier) =
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = "1",
+            text = pointValue.toString(),
             color = Color.White,
             style = style,
             modifier = modifier
         )
         Text(
-            text = "1",
+            text = pointValue.toString(),
             color = Color.White,
             style = style,
             modifier = modifier
@@ -91,11 +93,13 @@ private fun Count(modifier: Modifier = Modifier) =
 @Preview
 @Composable
 fun CardScreenPreview() {
+    val redCardSuit = CardRepository().allCards().redCardSuit
     PlanningPokerTheme {
         CardScreen(
-            vectorResourceId = CARDS.red.cards[0].imageResourceId,
-            description = CARDS.red.cards[0].description,
-            color = CARDS.red.color
+            imageResId = redCardSuit.cards[0].imageResourceId,
+            description = redCardSuit.cards[0].description,
+            pointValue = redCardSuit.cards[0].pointValue,
+            color = redCardSuit.color
         )
     }
 }
