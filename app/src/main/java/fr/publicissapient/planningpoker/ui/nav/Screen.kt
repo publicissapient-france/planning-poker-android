@@ -5,7 +5,14 @@ import androidx.navigation.compose.navArgument
 
 sealed class Screen(val route: String) {
 
-    object Home : Screen("home")
+    object CardType : Screen("cardType")
+
+    object CardList : Screen("cards/{cardSuit}") {
+        val navArgCardSuit = "cardSuit"
+        val arguments = listOf(
+            navArgument("cardSuit") { type = NavType.StringType }
+        )
+    }
 
     class Card : Screen("cards/{cardSuit}/{cardId}") {
         val navArgCardSuit = "cardSuit"
