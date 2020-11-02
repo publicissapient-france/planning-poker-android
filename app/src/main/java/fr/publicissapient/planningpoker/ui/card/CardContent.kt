@@ -1,5 +1,6 @@
 package fr.publicissapient.planningpoker.ui.card
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
@@ -35,19 +36,19 @@ fun CardContent(
     onClick: () -> Unit
 ) {
     WithConstraints {
-        val width = with(DensityAmbient.current) { constraints.maxWidth.toDp() - 32.dp }
-        val height =
-            with(DensityAmbient.current) { constraints.maxWidth.toDp() + constraints.maxWidth.toDp() / 5 }
         Card(
             modifier = Modifier
                 .padding(16.dp)
                 .clickable(onClick = onClick)
-                .width(width)
-                .height(height),
-            shape = RoundedCornerShape(24.dp),
+                .width(316.dp)
+                .height(460.dp),
+            shape = RoundedCornerShape(32.dp),
+            elevation = 8.dp
         ) {
             Surface(
-                color = cardSuit.color.getThemeColor()
+                color = cardSuit.color.getThemeColor(),
+                border = BorderStroke(16.dp, color = Color.White),
+                shape = RoundedCornerShape(24.dp)
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -78,7 +79,7 @@ private fun Count(pointValue: Int, modifier: Modifier = Modifier) =
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp),
+            .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val style = MaterialTheme.typography.body1.copy(
