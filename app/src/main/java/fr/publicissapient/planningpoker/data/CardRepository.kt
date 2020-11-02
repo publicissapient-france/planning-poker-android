@@ -7,14 +7,14 @@ import androidx.compose.ui.text.font.FontWeight
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuit
-import fr.publicissapient.planningpoker.model.CardSuitColor
-import fr.publicissapient.planningpoker.model.Deck
+import fr.publicissapient.planningpoker.model.CardSuitColor.RED
+import fr.publicissapient.planningpoker.model.CardSuitType.Companion.FIBONACCI_RED
 
 class CardRepository {
 
-    fun allCards() = Deck(
-        redCardSuit = CardSuit(
-            color = CardSuitColor.RED,
+    fun allCards() = mapOf(
+        FIBONACCI_RED to CardSuit(
+            color = RED,
             cards = listOf(
                 Card(
                     R.drawable.ic_red_1,

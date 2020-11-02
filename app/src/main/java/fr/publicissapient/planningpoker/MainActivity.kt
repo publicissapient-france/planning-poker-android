@@ -2,10 +2,7 @@ package fr.publicissapient.planningpoker
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
-import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.ui.PlanningPokerApp
 
 class MainActivity : AppCompatActivity() {

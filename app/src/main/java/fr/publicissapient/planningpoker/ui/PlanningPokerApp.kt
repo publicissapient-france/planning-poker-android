@@ -1,20 +1,28 @@
 package fr.publicissapient.planningpoker.ui
 
 import androidx.compose.runtime.Composable
-import fr.publicissapient.planningpoker.data.CardRepository
+import androidx.navigation.compose.*
+import fr.publicissapient.planningpoker.model.CardSuitType.Companion.FIBONACCI_RED
+import fr.publicissapient.planningpoker.ui.nav.Screen
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
-import fr.publicissapient.planningpoker.ui.theme.getThemeColor
 
 @Composable
 fun PlanningPokerApp() {
-    val redCardSuit = CardRepository().allCards().redCardSuit
-
+    val navController = rememberNavController()
+    val screenCard = Screen.Card()
     PlanningPokerTheme {
-        CardScreen(
-            imageResId = redCardSuit.cards[0].imageResourceId,
-            description = redCardSuit.cards[0].description,
-            pointValue = redCardSuit.cards[0].pointValue,
-            color = redCardSuit.color.getThemeColor()
-        )
+        NavHost(navController = navController, startDestination = Screen.Home.route) {
+            composable(Screen.Home.route) {
+                HomeScreen {
+                    navController.navigate(screenCard.toRoute(FIBONACCI_RED, 0))
+                }
+            }
+            composable(screenCard.route, screenCard.arguments) {
+                CardScreen(
+                    it.arguments?.getString(screenCard.navArgCardSuit),
+                    it.arguments?.getInt(screenCard.navArgCardId)
+                )
+            }
+        }
     }
 }

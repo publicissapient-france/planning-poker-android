@@ -3,10 +3,12 @@ object AndroidX {
     private const val core_version = "1.3.1"
     private const val appcompat_version = "1.2.0"
     private const val material_version = "1.2.1"
+    private const val nav_compose_version = "1.0.0-alpha01"
 
     val core = "androidx.core:core-ktx:$core_version"
     val appcompat = "androidx.appcompat:appcompat:$appcompat_version"
     val material = "com.google.android.material:material:$material_version"
+    val nav = "androidx.navigation:navigation-compose:$nav_compose_version"
 }
 
 object Compose {
