@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
-import fr.publicissapient.planningpoker.model.CardSuitType.Companion.FIBONACCI_RED
+import fr.publicissapient.planningpoker.model.CardSuitType.Companion.FIBONACCI
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 import fr.publicissapient.planningpoker.ui.theme.getThemeColor
 
@@ -98,7 +98,7 @@ private fun Count(pointValue: Int, modifier: Modifier = Modifier) =
 fun CardScreenPreview() {
     PlanningPokerTheme {
         CardScreen(
-            cardSuit = FIBONACCI_RED,
+            cardSuit = FIBONACCI,
             cardId = 0
         )
     }

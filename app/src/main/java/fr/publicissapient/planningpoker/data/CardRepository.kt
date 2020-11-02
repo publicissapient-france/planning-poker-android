@@ -8,12 +8,12 @@ import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuit
 import fr.publicissapient.planningpoker.model.CardSuitColor.RED
-import fr.publicissapient.planningpoker.model.CardSuitType.Companion.FIBONACCI_RED
+import fr.publicissapient.planningpoker.model.CardSuitType.Companion.FIBONACCI
 
 class CardRepository {
 
     fun allCards() = mapOf(
-        FIBONACCI_RED to CardSuit(
+        FIBONACCI to CardSuit(
             color = RED,
             cards = listOf(
                 Card(
