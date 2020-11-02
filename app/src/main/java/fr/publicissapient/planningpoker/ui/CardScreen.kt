@@ -26,20 +26,20 @@ import fr.publicissapient.planningpoker.ui.theme.getThemeColor
 
 @Composable
 fun CardScreen(
-    cardSuit: String?,
-    cardId: Int?,
+    cardSuit: String,
+    cardId: Int,
 ) {
     Scaffold(
         bodyContent = {
             val suit = CardRepository().allCards()[cardSuit]
-            if (suit != null && cardId != null) {
-                val card = suit.cards[cardId]
+            suit?.let {
+                val card = it.cards[cardId]
                 Card(
                     modifier = Modifier.padding(16.dp),
                     shape = RoundedCornerShape(24.dp)
                 ) {
                     Surface(
-                        color = suit.color.getThemeColor()
+                        color = it.color.getThemeColor()
                     ) {
                         Column(
                             modifier = Modifier.fillMaxWidth().fillMaxHeight(),
@@ -62,7 +62,7 @@ fun CardScreen(
                         }
                     }
                 }
-            }
+            } ?: error("Cannot find cart suit!")
         }
     )
 }

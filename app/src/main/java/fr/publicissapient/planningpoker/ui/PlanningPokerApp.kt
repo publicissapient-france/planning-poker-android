@@ -18,10 +18,14 @@ fun PlanningPokerApp() {
                 }
             }
             composable(screenCard.route, screenCard.arguments) {
-                CardScreen(
-                    it.arguments?.getString(screenCard.navArgCardSuit),
-                    it.arguments?.getInt(screenCard.navArgCardId)
-                )
+                it.arguments?.let { bundle ->
+                    bundle.getString(screenCard.navArgCardSuit)?.let { cardSuit ->
+                        CardScreen(
+                            cardSuit,
+                            bundle.getInt(screenCard.navArgCardId)
+                        )
+                    } ?: error("Card suit is required!")
+                } ?: error("Card screen should have arguments!")
             }
         }
     }
