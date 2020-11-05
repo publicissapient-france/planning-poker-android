@@ -8,14 +8,42 @@ import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuit
 import fr.publicissapient.planningpoker.model.CardSuitColor.RED
-import fr.publicissapient.planningpoker.model.CardSuitType.Companion.FIBONACCI
+import fr.publicissapient.planningpoker.model.CardSuitType
 
 class CardRepository {
 
     fun allCards() = mapOf(
-        FIBONACCI to CardSuit(
+        CardSuitType.Fibonacci to CardSuit(
             color = RED,
             cards = listOf(
+                Card(
+                    R.drawable.ic_red_1,
+                    with(AnnotatedString.Builder("C‘est le ")) {
+                        pushStyle(SpanStyle(color = Color.White, fontWeight = FontWeight.Bold))
+                        append("1er")
+                        pop()
+                        append(
+                            " avril 1976 que la startup Apple Computer est née, dans la " +
+                                "maison d'enfance de Steve Jobs à Los Altos, en Californie."
+                        )
+                        toAnnotatedString()
+                    },
+                    1
+                ),
+                Card(
+                    R.drawable.ic_red_1,
+                    with(AnnotatedString.Builder("C‘est le ")) {
+                        pushStyle(SpanStyle(color = Color.White, fontWeight = FontWeight.Bold))
+                        append("1er")
+                        pop()
+                        append(
+                            " avril 1976 que la startup Apple Computer est née, dans la " +
+                                "maison d'enfance de Steve Jobs à Los Altos, en Californie."
+                        )
+                        toAnnotatedString()
+                    },
+                    1
+                ),
                 Card(
                     R.drawable.ic_red_1,
                     with(AnnotatedString.Builder("C‘est le ")) {
