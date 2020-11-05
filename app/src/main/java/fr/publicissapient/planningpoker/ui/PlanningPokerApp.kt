@@ -27,9 +27,11 @@ fun PlanningPokerApp() {
                             "t-shirt" -> CardSuitType.TShirt
                             else -> error("Unknown card suit type!")
                         }
-                        CardListScreen(cardSuitType) {
-                            navController.navigate("cards/${cardSuitType.type}/$id")
-                        }
+                        CardListScreen(
+                            cardSuitType,
+                            { navController.navigate("cards/${cardSuitType.type}/$id") },
+                            navController::popBackStack
+                        )
                     } ?: error("Card suit required!")
                 } ?: error("Arguments required!")
             }
@@ -43,7 +45,9 @@ fun PlanningPokerApp() {
                             else -> error("Unknown card suit type!")
                         }
                         CardScreen(
-                            cardSuitType, bundle.getInt(screenCard.navArgCardId)
+                            cardSuitType,
+                            bundle.getInt(screenCard.navArgCardId),
+                            navController::popBackStack
                         )
                     } ?: error("Card suit required!")
                 } ?: error("Card screen should have arguments!")
