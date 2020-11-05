@@ -15,8 +15,7 @@ import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.drawLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.DensityAmbient
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -54,9 +53,9 @@ fun CardContent(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Count(card.pointValue)
+                    Count(card.name)
                     Image(
-                        asset = vectorResource(id = card.imageResourceId),
+                        asset = imageResource(id = card.imageResourceId),
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),
                         contentScale = ContentScale.FillWidth
                     )
@@ -67,7 +66,7 @@ fun CardContent(
                             textAlign = TextAlign.Center
                         )
                     )
-                    Count(card.pointValue, Modifier.drawLayer(rotationZ = -180f))
+                    Count(card.name, Modifier.drawLayer(rotationZ = -180f))
                 }
             }
         }
@@ -75,7 +74,7 @@ fun CardContent(
 }
 
 @Composable
-private fun Count(pointValue: Int, modifier: Modifier = Modifier) =
+private fun Count(cardName: String, modifier: Modifier = Modifier) =
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,13 +86,13 @@ private fun Count(pointValue: Int, modifier: Modifier = Modifier) =
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = pointValue.toString(),
+            text = cardName.toString(),
             color = Color.White,
             style = style,
             modifier = modifier
         )
         Text(
-            text = pointValue.toString(),
+            text = cardName.toString(),
             color = Color.White,
             style = style,
             modifier = modifier
