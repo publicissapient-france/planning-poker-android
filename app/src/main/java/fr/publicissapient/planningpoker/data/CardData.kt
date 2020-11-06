@@ -64,22 +64,6 @@ val fibo21 = with(AnnotatedString.Builder("Le binaire de ")) {
     append(" est 10101 qui est palindrome.")
     toAnnotatedString()
 }
-val fibo40 =
-    with(AnnotatedString.Builder("En 1996, le tout premier serveur des créateurs de Google représentait un stockage de ")) {
-        pushStyle(highlightSpanStyle)
-        append("40")
-        pop()
-        append("Go et il était installé sur des briques de Lego.")
-        toAnnotatedString()
-    }
-val fibo100 =
-    with(AnnotatedString.Builder("Le nom « Google » vient du mot « Googol » (ou « Gogol » en français), un terme mathématique qui vaut 10 puissance 100, \nc’est-à-dire un 1 suivi de ")) {
-        pushStyle(highlightSpanStyle)
-        append("100")
-        pop()
-        append(" zéros.")
-        toAnnotatedString()
-    }
 val fiboQuestion = with(AnnotatedString.Builder("Aux échecs, en notation algébrique : « ")) {
     pushStyle(highlightSpanStyle)
     append("?")

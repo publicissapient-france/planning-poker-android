@@ -20,8 +20,6 @@ class CardRepository {
                 Card("fib8", "8", R.drawable.ic_red_8, fibo8),
                 Card("fib13", "13", R.drawable.ic_red_13, fibo13),
                 Card("fib21", "21", R.drawable.ic_red_21, fibo21),
-                Card("fib40", "40", R.drawable.ic_red_21, fibo40),
-                Card("fib100", "100", R.drawable.ic_red_21, fibo100),
                 Card("fibques", "?", R.drawable.ic_red_question, fiboQuestion),
             )
         )
