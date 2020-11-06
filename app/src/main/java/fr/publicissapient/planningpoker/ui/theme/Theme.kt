@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 private val RedThemeColors = lightColors(
     primary = primaryRed,
     primaryVariant = primaryRed,
-    onPrimary = Color.White,
+    onPrimary = Color.Black,
     secondary = primaryRed,
     secondaryVariant = primaryRed,
     onSecondary = Color.White

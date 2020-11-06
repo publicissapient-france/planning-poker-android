@@ -47,7 +47,10 @@ fun CardTypeScreen(
                         navigateToList(Fibonacci)
                     }
                 ) {
-                    Text(text = "Fibonacci")
+                    Text(
+                        text = "Fibonacci",
+                        color = Color.White
+                    )
                 }
                 Button(
                     modifier = Modifier.padding(8.dp),
@@ -55,7 +58,10 @@ fun CardTypeScreen(
                         navigateToList(TShirt)
                     }
                 ) {
-                    Text(text = "T-shirt")
+                    Text(
+                        text = "T-shirt",
+                        color = Color.White
+                    )
                 }
             }
         }
