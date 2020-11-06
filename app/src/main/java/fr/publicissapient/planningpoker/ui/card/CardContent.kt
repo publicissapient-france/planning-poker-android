@@ -18,6 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
@@ -32,67 +33,67 @@ import fr.publicissapient.planningpoker.ui.theme.getThemeColor
 fun CardContent(
     cardSuit: CardSuit,
     card: Card,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    ratio: Float = 1f
 ) {
-    WithConstraints {
-        Card(
-            modifier = Modifier
-                .padding(16.dp)
-                .clickable(onClick = onClick)
-                .width(316.dp)
-                .height(460.dp),
-            shape = RoundedCornerShape(32.dp),
-            elevation = 8.dp
+    Card(
+        modifier = Modifier
+            .padding(16.dp * ratio)
+            .clickable(onClick = onClick)
+            .width(316.dp * ratio)
+            .height(460.dp * ratio),
+        shape = RoundedCornerShape(32.dp * ratio),
+        elevation = 8.dp
+    ) {
+        Surface(
+            color = cardSuit.color.getThemeColor(),
+            border = BorderStroke(16.dp * ratio, color = Color.White),
+            shape = RoundedCornerShape(24.dp * ratio)
         ) {
-            Surface(
-                color = cardSuit.color.getThemeColor(),
-                border = BorderStroke(16.dp, color = Color.White),
-                shape = RoundedCornerShape(24.dp)
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Count(card.name)
-                    Image(
-                        asset = imageResource(id = card.imageResourceId),
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),
-                        contentScale = ContentScale.FillWidth
+                Count(card.name, ratio = ratio)
+                Image(
+                    asset = imageResource(id = card.imageResourceId),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
+                    contentScale = ContentScale.FillWidth
+                )
+                Text(
+                    card.description,
+                    modifier = Modifier.padding(horizontal = 30.dp * ratio),
+                    style = MaterialTheme.typography.body1.copy(
+                        textAlign = TextAlign.Center,
+                        fontSize = MaterialTheme.typography.body1.fontSize * ratio
                     )
-                    Text(
-                        card.description,
-                        modifier = Modifier.padding(horizontal = 30.dp),
-                        style = MaterialTheme.typography.body1.copy(
-                            textAlign = TextAlign.Center
-                        )
-                    )
-                    Count(card.name, Modifier.drawLayer(rotationZ = -180f))
-                }
+                )
+                Count(card.name, Modifier.drawLayer(rotationZ = -180f), ratio)
             }
         }
     }
 }
 
 @Composable
-private fun Count(cardName: String, modifier: Modifier = Modifier) =
+private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float = 1f) =
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(16.dp * ratio),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val style = MaterialTheme.typography.body1.copy(
-            fontSize = 40.sp,
+            fontSize = 40.sp * ratio,
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = cardName.toString(),
+            text = cardName,
             color = Color.White,
             style = style,
             modifier = modifier
         )
         Text(
-            text = cardName.toString(),
+            text = cardName,
             color = Color.White,
             style = style,
             modifier = modifier

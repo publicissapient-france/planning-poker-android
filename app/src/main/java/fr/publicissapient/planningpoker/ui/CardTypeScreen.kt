@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
@@ -21,6 +23,13 @@ fun CardTypeScreen(
     navigateToList: (CardSuitType) -> Unit,
 ) {
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Planning Poker", textAlign = TextAlign.Center) },
+                backgroundColor = Color.Black,
+                contentColor = Color.White
+            )
+        },
         bodyContent = {
             Column(
                 modifier = Modifier.fillMaxHeight().fillMaxWidth(),
@@ -38,7 +47,10 @@ fun CardTypeScreen(
                         navigateToList(Fibonacci)
                     }
                 ) {
-                    Text(text = "Fibonacci")
+                    Text(
+                        text = "Fibonacci",
+                        color = Color.White
+                    )
                 }
                 Button(
                     modifier = Modifier.padding(8.dp),
@@ -46,7 +58,10 @@ fun CardTypeScreen(
                         navigateToList(TShirt)
                     }
                 ) {
-                    Text(text = "T-shirt")
+                    Text(
+                        text = "T-shirt",
+                        color = Color.White
+                    )
                 }
             }
         }

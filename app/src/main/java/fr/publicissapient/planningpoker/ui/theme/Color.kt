@@ -3,7 +3,9 @@ package fr.publicissapient.planningpoker.ui.theme
 import androidx.compose.ui.graphics.Color
 import fr.publicissapient.planningpoker.model.CardSuitColor
 
-private val themeRed = Color(0xFFE50040)
+val primaryRed = Color(0xFFE50040)
+
+private val themeRed = primaryRed
 private val themeBlue = Color(0xFF079FFF)
 private val themeGreen = Color(0xFF00E6C3)
 private val themeYellow = Color(0xFFFFE63B)
