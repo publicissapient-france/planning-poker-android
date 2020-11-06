@@ -1,7 +1,10 @@
 package fr.publicissapient.planningpoker.ui
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.card.CardScreen
 import fr.publicissapient.planningpoker.ui.nav.Screen
@@ -29,7 +32,9 @@ fun PlanningPokerApp() {
                         }
                         CardListScreen(
                             cardSuitType,
-                            { navController.navigate("cards/${cardSuitType.type}/$id") },
+                            { cardId ->
+                                navController.navigate("cards/${cardSuitType.type}/$cardId")
+                            },
                             navController::popBackStack
                         )
                     } ?: error("Card suit required!")
@@ -44,11 +49,13 @@ fun PlanningPokerApp() {
                             "t-shirt" -> CardSuitType.TShirt
                             else -> error("Unknown card suit type!")
                         }
-                        CardScreen(
-                            cardSuitType,
-                            bundle.getInt(screenCard.navArgCardId),
-                            navController::popBackStack
-                        )
+                        bundle.getString(screenCard.navArgCardId)?.let { cardId ->
+                            CardScreen(
+                                cardSuitType,
+                                cardId,
+                                navController::popBackStack
+                            )
+                        }
                     } ?: error("Card suit required!")
                 } ?: error("Card screen should have arguments!")
             }

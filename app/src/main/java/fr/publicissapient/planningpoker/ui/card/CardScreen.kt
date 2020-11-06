@@ -7,7 +7,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +22,7 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 @Composable
 fun CardScreen(
     cardSuit: CardSuitType,
-    cardId: Int,
+    cardId: String,
     onBackClick: () -> Unit = {}
 ) {
     Scaffold(
@@ -42,17 +41,20 @@ fun CardScreen(
         bodyContent = {
             val suit = CardRepository().allCards()[cardSuit]
             suit?.let {
-                val card = it.cards[cardId]
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    alignment = Alignment.Center,
-                ) {
-                    CardContent(
-                        cardSuit = it,
-                        card = card,
-                        onClick = {}
-                    )
-                }
+                val card = it.cards.find { card ->
+                    card.id == cardId
+                }?.let { card ->
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        alignment = Alignment.Center,
+                    ) {
+                        CardContent(
+                            cardSuit = it,
+                            card = card,
+                            onClick = {}
+                        )
+                    }
+                } ?: error("Cannot find card")
             } ?: error("Cannot find cart suit!")
         }
     )
@@ -64,7 +66,7 @@ fun CardScreenPreview() {
     PlanningPokerTheme {
         CardScreen(
             cardSuit = CardSuitType.Fibonacci,
-            cardId = 0
+            cardId = "fib0"
         )
     }
 }

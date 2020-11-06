@@ -22,7 +22,7 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 @Composable
 fun CardListScreen(
     cardSuitType: CardSuitType,
-    navigateToCard: (Int) -> Unit = {},
+    navigateToCard: (String) -> Unit = {},
     onBackClick: () -> Unit = {}
 ) {
     Scaffold(
@@ -62,7 +62,7 @@ fun CardListScreen(
                                     cardSuit = cardSuit,
                                     card = card,
                                     onClick = {
-                                        navigateToCard(index)
+                                        navigateToCard(card.id)
                                     },
                                     ratio = .58f
                                 )

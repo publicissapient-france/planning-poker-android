@@ -19,7 +19,7 @@ sealed class Screen(val route: String) {
         val navArgCardId = "cardId"
         val arguments = listOf(
             navArgument(navArgCardSuit) { type = NavType.StringType },
-            navArgument(navArgCardId) { type = NavType.IntType }
+            navArgument(navArgCardId) { type = NavType.StringType }
         )
 
         fun toRoute(cardSuit: String, cardId: Int): String = "cards/$cardSuit/$cardId"
