@@ -8,6 +8,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
+import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
@@ -23,7 +26,8 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 fun CardScreen(
     cardSuit: CardSuitType,
     cardId: String,
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    backOfTheCard: Boolean = true,
 ) {
     Scaffold(
         topBar = {
@@ -41,23 +45,37 @@ fun CardScreen(
         bodyContent = {
             val suit = CardRepository().allCards()[cardSuit]
             suit?.let {
-                val card = it.cards.find { card ->
+                it.cards.find { card ->
                     card.id == cardId
                 }?.let { card ->
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        alignment = Alignment.Center,
-                    ) {
-                        CardContent(
-                            cardSuit = it,
-                            card = card,
-                            onClick = {}
-                        )
-                    }
+                    CardScreenContent(card, backOfTheCard)
                 } ?: error("Cannot find card")
-            } ?: error("Cannot find cart suit!")
+            } ?: error("Cannot find suit $cardSuit")
         }
     )
+}
+
+@Composable
+fun CardScreenContent(card: Card, backOfTheCard: Boolean) {
+    val isBackOfTheCard = remember { mutableStateOf(backOfTheCard) }
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        alignment = Alignment.Center,
+    ) {
+        val toggleVisibility = {
+            isBackOfTheCard.value = !isBackOfTheCard.value
+        }
+        if (isBackOfTheCard.value) {
+            CardBackSideContent(
+                onClick = toggleVisibility
+            )
+        } else {
+            CardContent(
+                card = card,
+                onClick = toggleVisibility
+            )
+        }
+    }
 }
 
 @Preview
