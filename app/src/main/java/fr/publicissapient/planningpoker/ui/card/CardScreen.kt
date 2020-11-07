@@ -27,7 +27,7 @@ fun CardScreen(
     cardSuit: CardSuitType,
     cardId: String,
     onBackClick: () -> Unit = {},
-    backOfTheCard: Boolean = true,
+    isFaceUp: Boolean = false,
 ) {
     Scaffold(
         topBar = {
@@ -48,7 +48,7 @@ fun CardScreen(
                 it.cards.find { card ->
                     card.id == cardId
                 }?.let { card ->
-                    CardScreenContent(card, backOfTheCard)
+                    CardScreenContent(card, isFaceUp)
                 } ?: error("Cannot find card")
             } ?: error("Cannot find suit $cardSuit")
         }
@@ -56,22 +56,22 @@ fun CardScreen(
 }
 
 @Composable
-fun CardScreenContent(card: Card, backOfTheCard: Boolean) {
-    val isBackOfTheCard = remember { mutableStateOf(backOfTheCard) }
+fun CardScreenContent(card: Card, faceUp: Boolean) {
+    val isFaceUp = remember { mutableStateOf(faceUp) }
     Box(
         modifier = Modifier.fillMaxSize(),
         alignment = Alignment.Center,
     ) {
         val toggleVisibility = {
-            isBackOfTheCard.value = !isBackOfTheCard.value
+            isFaceUp.value = !isFaceUp.value
         }
-        if (isBackOfTheCard.value) {
-            CardBackSideContent(
+        if (isFaceUp.value) {
+            CardContent(
+                card = card,
                 onClick = toggleVisibility
             )
         } else {
-            CardContent(
-                card = card,
+            CardBackSideContent(
                 onClick = toggleVisibility
             )
         }
