@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
+
     <style name="Theme.PlanningPoker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">#FF000000</item>
     </style>

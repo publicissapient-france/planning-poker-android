@@ -11,27 +11,22 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.drawLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
-import fr.publicissapient.planningpoker.model.CardSuit
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
-import fr.publicissapient.planningpoker.ui.theme.getThemeColor
 
 @Composable
 fun CardContent(
-    cardSuit: CardSuit,
     card: Card,
     onClick: () -> Unit,
     ratio: Float = 1f
@@ -41,12 +36,12 @@ fun CardContent(
             .padding(16.dp * ratio)
             .clickable(onClick = onClick)
             .width(316.dp * ratio)
-            .height(460.dp * ratio),
+            .height(470.dp * ratio),
         shape = RoundedCornerShape(32.dp * ratio),
         elevation = 8.dp
     ) {
         Surface(
-            color = cardSuit.color.getThemeColor(),
+            color = MaterialTheme.colors.primary,
             border = BorderStroke(16.dp * ratio, color = Color.White),
             shape = RoundedCornerShape(24.dp * ratio)
         ) {
@@ -79,7 +74,7 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp * ratio),
+            .padding(24.dp * ratio, 16.dp * ratio),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val style = MaterialTheme.typography.body1.copy(
@@ -107,7 +102,6 @@ fun CardContentPreview() {
         val cardSuit = CardRepository().allCards()[CardSuitType.Fibonacci]
         cardSuit?.let {
             CardContent(
-                cardSuit = cardSuit,
                 card = cardSuit.cards[0],
                 onClick = {}
             )
