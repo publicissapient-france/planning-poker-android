@@ -19,13 +19,15 @@ import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.card.CardContent
+import fr.publicissapient.planningpoker.ui.fab.SpeedDialFloatingActionButton
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
 fun CardListScreen(
     cardSuitType: CardSuitType,
     navigateToCard: (String) -> Unit = {},
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    onFabDialClick: (colors: Colors) -> Unit = {}
 ) {
     Scaffold(
         topBar = {
@@ -72,6 +74,9 @@ fun CardListScreen(
                     }
                 }
             } ?: error("Unknown card suit!")
+        },
+        floatingActionButton = {
+            SpeedDialFloatingActionButton(onFabDialClick)
         }
     )
 }
