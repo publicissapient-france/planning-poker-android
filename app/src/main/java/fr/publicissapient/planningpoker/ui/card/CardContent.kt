@@ -24,6 +24,7 @@ import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
+import java.util.*
 
 @Composable
 fun CardContent(
@@ -55,14 +56,16 @@ fun CardContent(
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
                     contentScale = ContentScale.FillWidth,
                 )
-                Text(
-                    card.description,
-                    modifier = Modifier.padding(horizontal = 30.dp * ratio),
-                    style = MaterialTheme.typography.body2.copy(
-                        textAlign = TextAlign.Center,
-                        fontSize = MaterialTheme.typography.body2.fontSize * ratio
+                card.description?.let { description ->
+                    Text(
+                        description,
+                        modifier = Modifier.padding(horizontal = 30.dp * ratio),
+                        style = MaterialTheme.typography.body2.copy(
+                            textAlign = TextAlign.Center,
+                            fontSize = MaterialTheme.typography.body2.fontSize * ratio
+                        )
                     )
-                )
+                }
                 Count(card.name, Modifier.drawLayer(rotationZ = -180f), ratio)
             }
         }
@@ -82,13 +85,13 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = cardName,
+            text = cardName.toUpperCase(Locale.ROOT),
             color = MaterialTheme.colors.onSurface,
             style = style,
             modifier = modifier
         )
         Text(
-            text = cardName,
+            text = cardName.toUpperCase(Locale.ROOT),
             color = MaterialTheme.colors.onSurface,
             style = style,
             modifier = modifier
