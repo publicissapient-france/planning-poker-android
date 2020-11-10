@@ -4,6 +4,7 @@ import androidx.compose.material.Typography
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.font
 import androidx.compose.ui.text.font.fontFamily
+import androidx.compose.ui.unit.sp
 import fr.publicissapient.planningpoker.R
 
 private val futuraNextFontFamily = fontFamily(
@@ -12,6 +13,9 @@ private val futuraNextFontFamily = fontFamily(
 )
 
 val planningPokerTypography = Typography(
-    defaultFontFamily = futuraNextFontFamily
+    defaultFontFamily = futuraNextFontFamily,
+    body2 = Typography().body2.copy(
+        fontSize = 5.sp
+    )
 )
 

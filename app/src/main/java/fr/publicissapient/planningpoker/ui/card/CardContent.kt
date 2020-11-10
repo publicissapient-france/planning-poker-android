@@ -35,8 +35,8 @@ fun CardContent(
         modifier = Modifier
             .padding(16.dp * ratio)
             .clickable(onClick = onClick)
-            .width(316.dp * ratio)
-            .height(470.dp * ratio),
+            .width(330.dp * ratio)
+            .height(480.dp * ratio),
         shape = RoundedCornerShape(32.dp * ratio),
         elevation = 8.dp
     ) {
@@ -52,13 +52,13 @@ fun CardContent(
                 Count(card.name, ratio = ratio)
                 Image(
                     asset = imageResource(id = card.imageResourceId),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp * ratio),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
                     contentScale = ContentScale.FillWidth
                 )
                 Text(
                     card.description,
                     modifier = Modifier.padding(horizontal = 30.dp * ratio),
-                    style = MaterialTheme.typography.body1.copy(
+                    style = MaterialTheme.typography.body2.copy(
                         textAlign = TextAlign.Center,
                         fontSize = MaterialTheme.typography.body1.fontSize * ratio
                     )
@@ -83,13 +83,13 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
         )
         Text(
             text = cardName,
-            color = Color.White,
+            color = MaterialTheme.colors.onSecondary,
             style = style,
             modifier = modifier
         )
         Text(
             text = cardName,
-            color = Color.White,
+            color = MaterialTheme.colors.onSecondary,
             style = style,
             modifier = modifier
         )
@@ -102,7 +102,7 @@ fun CardContentPreview() {
         val cards = CardRepository().allCards(MaterialTheme.colors.primary)[CardSuitType.Fibonacci]
         cards?.let {
             CardContent(
-                card = cards[0],
+                card = cards[1],
                 onClick = {}
             )
         } ?: error("Should not happen!")

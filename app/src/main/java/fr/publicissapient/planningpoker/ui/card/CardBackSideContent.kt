@@ -24,8 +24,8 @@ fun CardBackSideContent(
     Card(
         modifier = Modifier
             .padding(16.dp * ratio)
-            .width(316.dp * ratio)
-            .height(470.dp * ratio)
+            .width(330.dp * ratio)
+            .height(480.dp * ratio)
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(32.dp * ratio),
         elevation = 8.dp,

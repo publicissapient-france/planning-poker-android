@@ -4,68 +4,79 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
+import fr.publicissapient.planningpoker.ui.theme.secondaryYellow
 
-val highlightSpanStyle = SpanStyle(color = Color.White, fontWeight = FontWeight.Bold)
-val fibo0 =
+val highlightLightSpanStyle = SpanStyle(color = Color.White, fontWeight = FontWeight.Bold)
+val highlightDarkSpanStyle = SpanStyle(color = secondaryYellow, fontWeight = FontWeight.Bold)
+
+fun fibo0(spanStyle: SpanStyle) =
     with(AnnotatedString.Builder("En 1991, le taux de couverture du marché du téléphone mobile dans le monde était de ")) {
-        pushStyle(highlightSpanStyle)
+        pushStyle(spanStyle)
         append("0.6%")
         pop()
         append(".")
         toAnnotatedString()
     }
-val fibo1 = with(AnnotatedString.Builder("C‘est le ")) {
-    pushStyle(highlightSpanStyle)
+
+fun fibo1(spanStyle: SpanStyle) = with(AnnotatedString.Builder("C‘est le ")) {
+    pushStyle(spanStyle)
     append("1er")
     pop()
     append(" avril 1976 que la startup Apple Computer est née, dans la maison d'enfance de Steve Jobs à Los Altos, en Californie.")
     toAnnotatedString()
 }
-val fibo2 = with(AnnotatedString.Builder("La racine carrée de ")) {
-    pushStyle(highlightSpanStyle)
+
+fun fibo2(spanStyle: SpanStyle) = with(AnnotatedString.Builder("La racine carrée de ")) {
+    pushStyle(spanStyle)
     append("2")
     pop()
     append(" a été le premier nombre irrationnel connu par les pythagoriciens. Sa valeur approchée est 1,414 213 562.")
     toAnnotatedString()
 }
-val fibo3 = with(AnnotatedString.Builder("Android ")) {
-    pushStyle(highlightSpanStyle)
+
+fun fibo3(spanStyle: SpanStyle) = with(AnnotatedString.Builder("Android ")) {
+    pushStyle(spanStyle)
     append("3.0")
     pop()
     append(" n'a jamais été utilisé sur des téléphones : Android 3.0 Honeycomb était construit uniquement pour les tablettes.")
     toAnnotatedString()
 }
-val fibo5 =
+
+fun fibo5(spanStyle: SpanStyle) =
     with(AnnotatedString.Builder("En alchimie, les 4 éléments, terre, eau, air, feu sont complétés d’un ")) {
-        pushStyle(highlightSpanStyle)
+        pushStyle(spanStyle)
         append("cinquième")
         pop()
         append(" élément ou “quintessence” : l’éther, qui est au centre de tout et dans lequel baignerait le cosmos.")
         toAnnotatedString()
     }
-val fibo8 = with(AnnotatedString.Builder("")) {
-    pushStyle(highlightSpanStyle)
+
+fun fibo8(spanStyle: SpanStyle) = with(AnnotatedString.Builder("")) {
+    pushStyle(spanStyle)
     append("8")
     pop()
     append(" pouces étaient la première génération de disquettes. Lancées en 1967 par IBM, elles pouvaient stocker 80 000 caractères.")
     toAnnotatedString()
 }
-val fibo13 = with(AnnotatedString.Builder()) {
-    pushStyle(highlightSpanStyle)
+
+fun fibo13(spanStyle: SpanStyle) = with(AnnotatedString.Builder()) {
+    pushStyle(spanStyle)
     append("13")
     pop()
     append(" est le code ASCII et Unicode exprimé en base 10 pour le retour chariot.")
     toAnnotatedString()
 }
-val fibo21 = with(AnnotatedString.Builder("Le binaire de ")) {
-    pushStyle(highlightSpanStyle)
+
+fun fibo21(spanStyle: SpanStyle) = with(AnnotatedString.Builder("Le binaire de ")) {
+    pushStyle(spanStyle)
     append("21")
     pop()
     append(" est 10101 qui est palindrome.")
     toAnnotatedString()
 }
-val fiboQuestion = with(AnnotatedString.Builder("Aux échecs, en notation algébrique : « ")) {
-    pushStyle(highlightSpanStyle)
+
+fun fiboQuestion(spanStyle: SpanStyle) = with(AnnotatedString.Builder("Aux échecs, en notation algébrique : « ")) {
+    pushStyle(spanStyle)
     append("?")
     pop()
     append(" » signale un mauvais coup, « ?? » une erreur grossière, « ?! » un coup douteux, « !? » un coup intéressant.")
