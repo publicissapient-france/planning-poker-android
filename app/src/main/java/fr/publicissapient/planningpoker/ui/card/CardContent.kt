@@ -33,7 +33,6 @@ fun CardContent(
 ) {
     Card(
         modifier = Modifier
-            .padding(16.dp * ratio)
             .clickable(onClick = onClick)
             .width(325.dp * ratio)
             .height(480.dp * ratio),
@@ -60,7 +59,7 @@ fun CardContent(
                     modifier = Modifier.padding(horizontal = 30.dp * ratio),
                     style = MaterialTheme.typography.body2.copy(
                         textAlign = TextAlign.Center,
-                        fontSize = MaterialTheme.typography.body1.fontSize * ratio
+                        fontSize = MaterialTheme.typography.body2.fontSize * ratio
                     )
                 )
                 Count(card.name, Modifier.drawLayer(rotationZ = -180f), ratio)

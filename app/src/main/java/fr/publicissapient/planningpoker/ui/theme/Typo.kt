@@ -20,7 +20,7 @@ val planningPokerTypography = Typography(
         fontWeight = FontWeight.Bold,
     ),
     body2 = TextStyle(
-        fontSize = 5.sp,
+        fontSize = 14.sp,
     )
 )
 
