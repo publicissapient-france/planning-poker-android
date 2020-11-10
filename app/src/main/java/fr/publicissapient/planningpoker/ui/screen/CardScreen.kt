@@ -1,4 +1,4 @@
-package fr.publicissapient.planningpoker.ui.card
+package fr.publicissapient.planningpoker.ui.screen
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Box
@@ -17,6 +17,9 @@ import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
+import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
+import fr.publicissapient.planningpoker.ui.card.CardBackSideContent
+import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
@@ -40,14 +43,16 @@ fun CardScreen(
             )
         },
         bodyContent = {
-            val cards = CardRepository().allCards(MaterialTheme.colors.primary)[cardSuit]
-            cards?.let {
-                it.find { card ->
-                    card.name == cardId
-                }?.let { card ->
-                    CardScreenContent(card, isFaceUp)
-                } ?: error("Cannot find card")
-            } ?: error("Cannot find suit $cardSuit")
+            BodyWithBlop {
+                val cards = CardRepository().allCards(MaterialTheme.colors.primary)[cardSuit]
+                cards?.let {
+                    it.find { card ->
+                        card.name == cardId
+                    }?.let { card ->
+                        CardScreenContent(card, isFaceUp)
+                    } ?: error("Cannot find card")
+                } ?: error("Cannot find suit $cardSuit")
+            }
         }
     )
 }

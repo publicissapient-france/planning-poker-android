@@ -9,23 +9,27 @@ import androidx.compose.ui.graphics.Color
 
 val RedThemeColors = lightColors(
     primary = primaryRed,
+    primaryVariant = primaryRedVariant,
     onPrimary = Color.Black,
     onSecondary = Color.White
 )
 
 val BlueThemeColors = lightColors(
     primary = primaryBlue,
+    primaryVariant = primaryBlueVariant,
     onPrimary = Color.Black,
     onSecondary = Color.White
 )
 
 val YellowThemeColors = lightColors(
     primary = primaryYellow,
+    primaryVariant = primaryYellowVariant,
     onPrimary = Color.Black,
 )
 
 val GreenThemeColors = lightColors(
     primary = primaryGreen,
+    primaryVariant = primaryGreenVariant,
     onPrimary = Color.Black,
     onSecondary = Color.White
 )
