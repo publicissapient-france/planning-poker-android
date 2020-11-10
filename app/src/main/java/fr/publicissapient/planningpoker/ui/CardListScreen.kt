@@ -43,10 +43,10 @@ fun CardListScreen(
             )
         },
         bodyContent = {
-            val cardSuit = CardRepository().allCards()[cardSuitType]
-            cardSuit?.let {
+            val cards = CardRepository().allCards(MaterialTheme.colors.primary)[cardSuitType]
+            cards?.let {
                 Column {
-                    val rows = cardSuit.cards.windowed(2, 2, true)
+                    val rows = cards.windowed(2, 2, true)
                     LazyColumnForIndexed(
                         modifier = Modifier.fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,7 +65,7 @@ fun CardListScreen(
                                 CardContent(
                                     card = card,
                                     onClick = {
-                                        navigateToCard(card.id)
+                                        navigateToCard(card.name)
                                     },
                                     ratio = .58f
                                 )

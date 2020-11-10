@@ -3,10 +3,7 @@ package fr.publicissapient.planningpoker.ui.card
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,10 +40,10 @@ fun CardScreen(
             )
         },
         bodyContent = {
-            val suit = CardRepository().allCards()[cardSuit]
-            suit?.let {
-                it.cards.find { card ->
-                    card.id == cardId
+            val cards = CardRepository().allCards(MaterialTheme.colors.primary)[cardSuit]
+            cards?.let {
+                it.find { card ->
+                    card.name == cardId
                 }?.let { card ->
                     CardScreenContent(card, isFaceUp)
                 } ?: error("Cannot find card")

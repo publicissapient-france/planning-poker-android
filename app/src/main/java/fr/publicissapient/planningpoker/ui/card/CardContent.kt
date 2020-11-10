@@ -52,7 +52,7 @@ fun CardContent(
                 Count(card.name, ratio = ratio)
                 Image(
                     asset = imageResource(id = card.imageResourceId),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp * ratio),
                     contentScale = ContentScale.FillWidth
                 )
                 Text(
@@ -99,10 +99,10 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
 @Composable
 fun CardContentPreview() {
     PlanningPokerTheme {
-        val cardSuit = CardRepository().allCards()[CardSuitType.Fibonacci]
-        cardSuit?.let {
+        val cards = CardRepository().allCards(MaterialTheme.colors.primary)[CardSuitType.Fibonacci]
+        cards?.let {
             CardContent(
-                card = cardSuit.cards[0],
+                card = cards[0],
                 onClick = {}
             )
         } ?: error("Should not happen!")
