@@ -54,8 +54,8 @@ fun CardListScreen(
                     ) { index, cards ->
                         if (index == 0) {
                             Text(
-                                text = "Choose complexity",
-                                style = MaterialTheme.typography.h3,
+                                text = "Choose your card",
+                                style = MaterialTheme.typography.h1,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
                             )

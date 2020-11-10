@@ -66,15 +66,15 @@ class CardRepository {
                 else -> error("Undefined card name $name")
             }
             primaryBlue -> when (name) {
-                "0" -> R.drawable.ic_green_0
-                "1" -> R.drawable.ic_green_1
-                "2" -> R.drawable.ic_green_2
-                "3" -> R.drawable.ic_green_3
-                "5" -> R.drawable.ic_green_5
-                "8" -> R.drawable.ic_green_8
-                "13" -> R.drawable.ic_green_13
-                "21" -> R.drawable.ic_green_21
-                "?" -> R.drawable.ic_green_question
+                "0" -> R.drawable.ic_blue_0
+                "1" -> R.drawable.ic_blue_1
+                "2" -> R.drawable.ic_blue_2
+                "3" -> R.drawable.ic_blue_3
+                "5" -> R.drawable.ic_blue_5
+                "8" -> R.drawable.ic_blue_8
+                "13" -> R.drawable.ic_blue_13
+                "21" -> R.drawable.ic_blue_21
+                "?" -> R.drawable.ic_blue_question
                 else -> error("Undefined card name $name")
             }
             else -> error("Undefined color $color")

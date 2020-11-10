@@ -1,7 +1,10 @@
 package fr.publicissapient.planningpoker.ui
 
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -37,7 +40,7 @@ fun CardTypeScreen(
             ) {
                 Text(
                     text = "Choose your game",
-                    style = MaterialTheme.typography.h3,
+                    style = MaterialTheme.typography.h1,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(0.dp, 64.dp, 0.dp, 24.dp)
                 )

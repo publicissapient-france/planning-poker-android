@@ -35,7 +35,7 @@ fun CardContent(
         modifier = Modifier
             .padding(16.dp * ratio)
             .clickable(onClick = onClick)
-            .width(330.dp * ratio)
+            .width(325.dp * ratio)
             .height(480.dp * ratio),
         shape = RoundedCornerShape(32.dp * ratio),
         elevation = 8.dp
@@ -53,7 +53,7 @@ fun CardContent(
                 Image(
                     asset = imageResource(id = card.imageResourceId),
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
-                    contentScale = ContentScale.FillWidth
+                    contentScale = ContentScale.FillWidth,
                 )
                 Text(
                     card.description,
@@ -78,7 +78,7 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val style = MaterialTheme.typography.body1.copy(
-            fontSize = 40.sp * ratio,
+            fontSize = 35.sp * ratio,
             fontWeight = FontWeight.Bold
         )
         Text(
@@ -102,7 +102,7 @@ fun CardContentPreview() {
         val cards = CardRepository().allCards(MaterialTheme.colors.primary)[CardSuitType.Fibonacci]
         cards?.let {
             CardContent(
-                card = cards[1],
+                card = cards[7],
                 onClick = {}
             )
         } ?: error("Should not happen!")
