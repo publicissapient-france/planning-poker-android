@@ -1,4 +1,4 @@
-package fr.publicissapient.planningpoker.ui
+package fr.publicissapient.planningpoker.ui.screen
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
+import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
+import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.fab.SpeedDialFloatingActionButton
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
@@ -32,7 +34,7 @@ fun CardListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Complexity", textAlign = TextAlign.Center) },
+                title = { Text("Retour", textAlign = TextAlign.Center) },
                 backgroundColor = Color.Black,
                 contentColor = Color.White,
                 navigationIcon = {
@@ -43,42 +45,53 @@ fun CardListScreen(
             )
         },
         bodyContent = {
-            val cardSuit = CardRepository().allCards()[cardSuitType]
-            cardSuit?.let {
-                Column {
-                    val rows = cardSuit.cards.windowed(2, 2, true)
-                    LazyColumnForIndexed(
-                        modifier = Modifier.fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        items = rows,
-                    ) { index, cards ->
-                        if (index == 0) {
-                            Text(
-                                text = "Choose complexity",
-                                style = MaterialTheme.typography.h3,
-                                textAlign = TextAlign.Center,
-                                modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
-                            )
-                        }
-                        Row {
-                            cards.map { card ->
-                                CardContent(
-                                    card = card,
-                                    onClick = {
-                                        navigateToCard(card.id)
-                                    },
-                                    ratio = .58f
-                                )
-                            }
-                        }
-                    }
-                }
-            } ?: error("Unknown card suit!")
+            BodyWithBlop {
+                val cards = CardRepository().allCards(
+                    MaterialTheme.colors.primary,
+                    MaterialTheme.colors.secondary
+                )[cardSuitType]
+                cards?.let {
+                    CardListContent(cards, navigateToCard)
+                } ?: error("Unknown card suit!")
+            }
         },
         floatingActionButton = {
             SpeedDialFloatingActionButton(onFabDialClick)
         }
     )
+}
+
+@Composable
+private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit) {
+    Column {
+        val rows = cards.windowed(2, 2, true)
+        LazyColumnForIndexed(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            items = rows,
+        ) { index, cards ->
+            if (index == 0) {
+                Text(
+                    text = "Choisissez votre carte",
+                    style = MaterialTheme.typography.h1,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
+                )
+            }
+            Row {
+                cards.map { card ->
+                    CardContent(
+                        card = card,
+                        ratio = .58f,
+                        modifier = Modifier.padding(6.dp),
+                        onClick = {
+                            navigateToCard(card.name)
+                        },
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Preview

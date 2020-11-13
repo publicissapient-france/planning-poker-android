@@ -28,15 +28,15 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 @Composable
 fun CardContent(
     card: Card,
+    modifier: Modifier = Modifier,
+    ratio: Float = 1f,
     onClick: () -> Unit,
-    ratio: Float = 1f
 ) {
     Card(
-        modifier = Modifier
-            .padding(16.dp * ratio)
+        modifier = modifier
             .clickable(onClick = onClick)
-            .width(316.dp * ratio)
-            .height(470.dp * ratio),
+            .width(325.dp * ratio)
+            .height(480.dp * ratio),
         shape = RoundedCornerShape(32.dp * ratio),
         elevation = 8.dp
     ) {
@@ -53,14 +53,14 @@ fun CardContent(
                 Image(
                     asset = imageResource(id = card.imageResourceId),
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
-                    contentScale = ContentScale.FillWidth
+                    contentScale = ContentScale.FillWidth,
                 )
                 Text(
                     card.description,
                     modifier = Modifier.padding(horizontal = 30.dp * ratio),
-                    style = MaterialTheme.typography.body1.copy(
+                    style = MaterialTheme.typography.body2.copy(
                         textAlign = TextAlign.Center,
-                        fontSize = MaterialTheme.typography.body1.fontSize * ratio
+                        fontSize = MaterialTheme.typography.body2.fontSize * ratio
                     )
                 )
                 Count(card.name, Modifier.drawLayer(rotationZ = -180f), ratio)
@@ -78,18 +78,18 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val style = MaterialTheme.typography.body1.copy(
-            fontSize = 40.sp * ratio,
+            fontSize = 35.sp * ratio,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = cardName,
-            color = Color.White,
+            color = MaterialTheme.colors.onSurface,
             style = style,
             modifier = modifier
         )
         Text(
             text = cardName,
-            color = Color.White,
+            color = MaterialTheme.colors.onSurface,
             style = style,
             modifier = modifier
         )
@@ -99,10 +99,13 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
 @Composable
 fun CardContentPreview() {
     PlanningPokerTheme {
-        val cardSuit = CardRepository().allCards()[CardSuitType.Fibonacci]
-        cardSuit?.let {
+        val cards = CardRepository().allCards(
+            MaterialTheme.colors.primary,
+            MaterialTheme.colors.secondary,
+        )[CardSuitType.Fibonacci]
+        cards?.let {
             CardContent(
-                card = cardSuit.cards[0],
+                card = cards[7],
                 onClick = {}
             )
         } ?: error("Should not happen!")
