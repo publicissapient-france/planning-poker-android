@@ -1,9 +1,8 @@
 package fr.publicissapient.planningpoker.data
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.font.FontWeight
 
 fun fibo0(spanStyle: SpanStyle) =
     with(AnnotatedString.Builder("En 1991, le taux de couverture du marché du téléphone mobile dans le monde était de ")) {

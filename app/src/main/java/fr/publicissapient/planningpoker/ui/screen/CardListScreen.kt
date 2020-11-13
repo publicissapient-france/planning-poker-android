@@ -32,8 +32,8 @@ fun CardListScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Retour", textAlign = TextAlign.Center) },
-                backgroundColor = Color.Black,
-                contentColor = Color.White,
+                backgroundColor = MaterialTheme.colors.primary,
+                contentColor = MaterialTheme.colors.onPrimary,
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(vectorResource(id = R.drawable.ic_baseline_arrow_back))
@@ -44,8 +44,8 @@ fun CardListScreen(
         bodyContent = {
             BodyWithBlop {
                 val cards = CardRepository().allCards(
-                    MaterialTheme.colors.primary,
-                    MaterialTheme.colors.secondary
+                    MaterialTheme.colors.secondary,
+                    MaterialTheme.colors.onSecondary
                 )[cardSuitType]
                 cards?.let {
                     CardListContent(cards, navigateToCard)

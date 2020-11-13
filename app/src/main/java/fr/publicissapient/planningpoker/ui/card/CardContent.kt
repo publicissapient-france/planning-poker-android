@@ -42,7 +42,7 @@ fun CardContent(
         elevation = 8.dp
     ) {
         Surface(
-            color = MaterialTheme.colors.primary,
+            color = MaterialTheme.colors.secondary,
             border = BorderStroke(16.dp * ratio, color = Color.White),
             shape = RoundedCornerShape(24.dp * ratio)
         ) {
@@ -62,7 +62,8 @@ fun CardContent(
                         modifier = Modifier.padding(horizontal = 30.dp * ratio),
                         style = MaterialTheme.typography.body2.copy(
                             textAlign = TextAlign.Center,
-                            fontSize = MaterialTheme.typography.body2.fontSize * ratio
+                            fontSize = MaterialTheme.typography.body2.fontSize * ratio,
+                            color = MaterialTheme.colors.primary
                         )
                     )
                 }
@@ -86,13 +87,13 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
         )
         Text(
             text = cardName.toUpperCase(Locale.ROOT),
-            color = MaterialTheme.colors.onSurface,
+            color = MaterialTheme.colors.onPrimary,
             style = style,
             modifier = modifier
         )
         Text(
             text = cardName.toUpperCase(Locale.ROOT),
-            color = MaterialTheme.colors.onSurface,
+            color = MaterialTheme.colors.onPrimary,
             style = style,
             modifier = modifier
         )
@@ -103,8 +104,8 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
 fun CardContentPreview() {
     PlanningPokerTheme {
         val cards = CardRepository().allCards(
-            MaterialTheme.colors.primary,
             MaterialTheme.colors.secondary,
+            MaterialTheme.colors.onSecondary,
         )[CardSuitType.Fibonacci]
         cards?.let {
             CardContent(

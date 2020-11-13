@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,7 +30,7 @@ fun CardBackSideContent(
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(32.dp * ratio),
         elevation = 8.dp,
-        backgroundColor = Color.Black,
+        backgroundColor = MaterialTheme.colors.primary,
     ) {
         Image(vectorResource(id = R.drawable.ic_logo_pse))
     }

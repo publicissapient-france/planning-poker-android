@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.Colors
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -53,7 +54,7 @@ private fun SpeedDialFloatingButtonContent(
             icon = {
                 Image(asset = vectorResource(id = R.drawable.ic_fab))
             },
-            backgroundColor = Color.Black,
+            backgroundColor = MaterialTheme.colors.primary,
             modifier = Modifier.constrainAs(fab) {
                 bottom.linkTo(parent.bottom)
             }
@@ -122,7 +123,7 @@ private fun FloatingSpeedDialColor(
             icon = {
                 Icon(asset = vectorResource(id = R.drawable.ic_fab_dial), tint = tint)
             },
-            backgroundColor = Color.Black,
+            backgroundColor = MaterialTheme.colors.primary,
             modifier = modifier.width(35.dp).height(35.dp)
         )
     }

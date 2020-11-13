@@ -29,8 +29,8 @@ fun CardTypeScreen(
     topBar = {
         TopAppBar(
             title = { Text("Planning Poker", textAlign = TextAlign.Center) },
-            backgroundColor = Color.Black,
-            contentColor = Color.White
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = MaterialTheme.colors.onPrimary,
         )
     },
     bodyContent = {

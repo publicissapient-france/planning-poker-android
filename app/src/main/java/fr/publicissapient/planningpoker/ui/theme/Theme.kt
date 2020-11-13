@@ -8,35 +8,35 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 
 val RedThemeColors = lightColors(
-    primary = primaryRed,
-    primaryVariant = primaryRedVariant,
-    secondary = Color.White,
-    onSurface = Color.White,
-    onPrimary = Color.Black
+    primary = Color.Black,
+    secondary = primaryRed,
+    secondaryVariant = primaryRedVariant,
+    onPrimary = Color.White,
+    onSecondary = Color.White
 )
 
 val BlueThemeColors = lightColors(
-    primary = primaryBlue,
-    primaryVariant = primaryBlueVariant,
-    secondary = Color.White,
-    onSurface = Color.White,
-    onPrimary = Color.Black
+    primary = Color.Black,
+    secondary = primaryBlue,
+    secondaryVariant = primaryBlueVariant,
+    onPrimary = Color.White,
+    onSecondary = Color.White
 )
 
 val YellowThemeColors = lightColors(
-    primary = primaryYellow,
-    primaryVariant = primaryYellowVariant,
-    secondary = secondaryYellow,
-    onSurface = Color.Black,
-    onPrimary = Color.Black,
+    primary = Color.Black,
+    secondary = primaryYellow,
+    secondaryVariant = primaryYellowVariant,
+    onPrimary = Color.White,
+    onSecondary = onSecondaryYellow
 )
 
 val GreenThemeColors = lightColors(
-    primary = primaryGreen,
-    primaryVariant = primaryGreenVariant,
-    secondary = Color.White,
-    onSurface = Color.White,
-    onPrimary = Color.Black,
+    primary = Color.Black,
+    secondary = primaryGreen,
+    secondaryVariant = primaryGreenVariant,
+    onPrimary = Color.White,
+    onSecondary = Color.White
 )
 
 @Composable

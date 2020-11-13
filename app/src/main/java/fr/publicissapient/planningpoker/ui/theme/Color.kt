@@ -10,7 +10,7 @@ val primaryBlueVariant = Color(0xFFB9DDF4)
 
 val primaryYellow = Color(0xFFFFE63B)
 val primaryYellowVariant = Color(0xFFFFFCEB)
-val secondaryYellow = Color(0xFFCEBA01)
+val onSecondaryYellow = Color(0xFFCEBA01)
 
 val primaryGreen = Color(0xFF00E6C3)
 val primaryGreenVariant = Color(0xFFCDE9F0)
