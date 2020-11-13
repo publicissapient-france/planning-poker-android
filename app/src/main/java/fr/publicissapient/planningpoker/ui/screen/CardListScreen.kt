@@ -1,7 +1,10 @@
 package fr.publicissapient.planningpoker.ui.screen
 
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumnForIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -77,15 +80,14 @@ private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit)
             }
             Row {
                 cards.map { card ->
-                    Box(modifier = Modifier.padding(6.dp)) {
-                        CardContent(
-                            card = card,
-                            onClick = {
-                                navigateToCard(card.name)
-                            },
-                            ratio = .58f
-                        )
-                    }
+                    CardContent(
+                        card = card,
+                        ratio = .58f,
+                        modifier = Modifier.padding(6.dp),
+                        onClick = {
+                            navigateToCard(card.name)
+                        },
+                    )
                 }
             }
         }

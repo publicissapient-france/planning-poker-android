@@ -28,11 +28,12 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 @Composable
 fun CardContent(
     card: Card,
+    modifier: Modifier = Modifier,
+    ratio: Float = 1f,
     onClick: () -> Unit,
-    ratio: Float = 1f
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .clickable(onClick = onClick)
             .width(325.dp * ratio)
             .height(480.dp * ratio),
