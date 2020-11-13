@@ -94,7 +94,8 @@ private fun CardTypeStackEntry(
     currentColors: MutableState<Colors>,
     navController: NavHostController
 ) = PlanningPokerMultipleColorsTheme(currentColors) {
-    CardTypeScreen {
-        navController.navigate("cards/${it.type}")
-    }
+    CardTypeScreen(
+        navigateToList = { navController.navigate("cards/${it.type}") },
+        onFabDialClick = { colors -> currentColors.value = colors }
+    )
 }

@@ -2,6 +2,7 @@ package fr.publicissapient.planningpoker.ui.screen
 
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
@@ -11,17 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.ui.tooling.preview.Preview
-import fr.publicissapient.planningpoker.R
-import fr.publicissapient.planningpoker.model.Card
+import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
+import fr.publicissapient.planningpoker.model.CardSuitType.TShirt
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
+import fr.publicissapient.planningpoker.ui.fab.SpeedDialFloatingActionButton
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
 fun CardTypeScreen(
-    navigateToList: (CardSuitType) -> Unit,
+    navigateToList: (CardSuitType) -> Unit = {},
+    onFabDialClick: (colors: Colors) -> Unit = {}
 ) = Scaffold(
     topBar = {
         TopAppBar(
@@ -34,6 +37,9 @@ fun CardTypeScreen(
         BodyWithBlop {
             CardTypeScreenContent(navigateToList)
         }
+    },
+    floatingActionButton = {
+        SpeedDialFloatingActionButton(onFabDialClick)
     }
 )
 
@@ -56,16 +62,23 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
             modifier = Modifier.fillMaxWidth().weight(8f),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            CardContent(
-                card = Card(name = "", imageResourceId = R.drawable.ic_red_0),
-                onClick = { navigateToList(Fibonacci) },
-                ratio = .55f
+            val choiceCards = CardRepository().choiceCards(
+                MaterialTheme.colors.primary
             )
-            CardContent(
-                card = Card(name = "", imageResourceId = R.drawable.ic_red_0),
-                onClick = { navigateToList(Fibonacci) },
-                ratio = .55f
-            )
+            choiceCards[Fibonacci]?.let { fiboChoiceCard ->
+                CardContent(
+                    card = fiboChoiceCard,
+                    onClick = { navigateToList(Fibonacci) },
+                    ratio = .55f
+                )
+            }
+            choiceCards[TShirt]?.let { tshirtChoiceCard ->
+                CardContent(
+                    card = tshirtChoiceCard,
+                    onClick = { navigateToList(TShirt) },
+                    ratio = .55f
+                )
+            }
         }
     }
 
@@ -73,6 +86,6 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
 @Preview
 fun CardTypeScreenPreview() {
     PlanningPokerTheme {
-        CardTypeScreen {}
+        CardTypeScreen()
     }
 }
