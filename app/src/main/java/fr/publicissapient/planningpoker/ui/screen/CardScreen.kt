@@ -44,7 +44,10 @@ fun CardScreen(
         },
         bodyContent = {
             BodyWithBlop {
-                val cards = CardRepository().allCards(MaterialTheme.colors.primary)[cardSuit]
+                val cards = CardRepository().allCards(
+                    MaterialTheme.colors.primary,
+                    MaterialTheme.colors.secondary
+                )[cardSuit]
                 cards?.let {
                     it.find { card ->
                         card.name == cardId

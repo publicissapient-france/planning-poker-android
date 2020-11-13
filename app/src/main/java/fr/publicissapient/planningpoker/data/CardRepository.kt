@@ -1,6 +1,9 @@
 package fr.publicissapient.planningpoker.data
 
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontWeight
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
@@ -11,7 +14,7 @@ import fr.publicissapient.planningpoker.ui.theme.primaryYellow
 
 class CardRepository {
 
-    fun allCards(color: Color) = mapOf(
+    fun allCards(color: Color, highLightColor: Color) = mapOf(
         CardSuitType.Fibonacci to listOf(
             "0",
             "1",
@@ -23,7 +26,7 @@ class CardRepository {
             "21",
             "?"
         ).map { name ->
-            Card(name, getImage(color, name), getDescription(color, name))
+            Card(name, getImage(color, name), getDescription(highLightColor, name))
         }
     )
 
@@ -80,32 +83,24 @@ class CardRepository {
             else -> error("Undefined color $color")
         }
 
-    private fun getDescription(color: Color, name: String) =
-        when (color) {
-            primaryRed, primaryGreen, primaryBlue -> when (name) {
-                "0" -> fibo0(highlightLightSpanStyle)
-                "1" -> fibo1(highlightLightSpanStyle)
-                "2" -> fibo2(highlightLightSpanStyle)
-                "3" -> fibo3(highlightLightSpanStyle)
-                "5" -> fibo5(highlightLightSpanStyle)
-                "8" -> fibo8(highlightLightSpanStyle)
-                "13" -> fibo13(highlightLightSpanStyle)
-                "21" -> fibo21(highlightLightSpanStyle)
-                "?" -> fiboQuestion(highlightLightSpanStyle)
-                else -> error("Undefined card name $name")
-            }
-            primaryYellow -> when (name) {
-                "0" -> fibo0(highlightDarkSpanStyle)
-                "1" -> fibo1(highlightDarkSpanStyle)
-                "2" -> fibo2(highlightDarkSpanStyle)
-                "3" -> fibo3(highlightDarkSpanStyle)
-                "5" -> fibo5(highlightDarkSpanStyle)
-                "8" -> fibo8(highlightDarkSpanStyle)
-                "13" -> fibo13(highlightDarkSpanStyle)
-                "21" -> fibo21(highlightDarkSpanStyle)
-                "?" -> fiboQuestion(highlightDarkSpanStyle)
-                else -> error("Undefined card name $name")
-            }
+    private fun getDescription(highLightColor: Color, name: String): AnnotatedString {
+        val highlightLightSpanStyle = getHighLightSpanStyle(highLightColor)
+        return when (name) {
+            "0" -> fibo0(highlightLightSpanStyle)
+            "1" -> fibo1(highlightLightSpanStyle)
+            "2" -> fibo2(highlightLightSpanStyle)
+            "3" -> fibo3(highlightLightSpanStyle)
+            "5" -> fibo5(highlightLightSpanStyle)
+            "8" -> fibo8(highlightLightSpanStyle)
+            "13" -> fibo13(highlightLightSpanStyle)
+            "21" -> fibo21(highlightLightSpanStyle)
+            "?" -> fiboQuestion(highlightLightSpanStyle)
             else -> error("Undefined card name $name")
         }
+    }
+
+    private fun getHighLightSpanStyle(highLightColor: Color) = SpanStyle(
+        color = highLightColor,
+        fontWeight = FontWeight.Bold
+    )
 }

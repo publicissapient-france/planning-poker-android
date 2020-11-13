@@ -43,7 +43,10 @@ fun CardListScreen(
         },
         bodyContent = {
             BodyWithBlop {
-                val cards = CardRepository().allCards(MaterialTheme.colors.primary)[cardSuitType]
+                val cards = CardRepository().allCards(
+                    MaterialTheme.colors.primary,
+                    MaterialTheme.colors.secondary
+                )[cardSuitType]
                 cards?.let {
                     CardListContent(cards, navigateToCard)
                 } ?: error("Unknown card suit!")

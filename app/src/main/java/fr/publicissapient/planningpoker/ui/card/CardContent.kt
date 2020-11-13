@@ -82,13 +82,13 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
         )
         Text(
             text = cardName,
-            color = MaterialTheme.colors.onSecondary,
+            color = MaterialTheme.colors.onSurface,
             style = style,
             modifier = modifier
         )
         Text(
             text = cardName,
-            color = MaterialTheme.colors.onSecondary,
+            color = MaterialTheme.colors.onSurface,
             style = style,
             modifier = modifier
         )
@@ -98,7 +98,10 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
 @Composable
 fun CardContentPreview() {
     PlanningPokerTheme {
-        val cards = CardRepository().allCards(MaterialTheme.colors.primary)[CardSuitType.Fibonacci]
+        val cards = CardRepository().allCards(
+            MaterialTheme.colors.primary,
+            MaterialTheme.colors.secondary,
+        )[CardSuitType.Fibonacci]
         cards?.let {
             CardContent(
                 card = cards[7],
