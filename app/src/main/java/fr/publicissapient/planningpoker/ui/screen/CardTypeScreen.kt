@@ -1,11 +1,7 @@
 package fr.publicissapient.planningpoker.ui.screen
 
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.TopAppBar
@@ -14,12 +10,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
+import fr.publicissapient.planningpoker.R
+import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
-import fr.publicissapient.planningpoker.model.CardSuitType.TShirt
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
+import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
@@ -44,34 +41,30 @@ fun CardTypeScreen(
 private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
     Column(
         modifier = Modifier.fillMaxHeight().fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceAround
     ) {
+        Spacer(modifier = Modifier.weight(1f))
         Text(
             text = "Choisissez votre jeu",
             style = MaterialTheme.typography.h1,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(0.dp, 64.dp, 0.dp, 24.dp)
+            modifier = Modifier.weight(1f)
         )
-        Button(
-            modifier = Modifier.padding(8.dp),
-            onClick = {
-                navigateToList(Fibonacci)
-            }
+        Spacer(modifier = Modifier.weight(1f))
+        Row(
+            modifier = Modifier.fillMaxWidth().weight(8f),
+            horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-            Text(
-                text = "Fibonacci",
-                color = Color.White
+            CardContent(
+                card = Card(name = "", imageResourceId = R.drawable.ic_red_0),
+                onClick = { navigateToList(Fibonacci) },
+                ratio = .55f
             )
-        }
-        Button(
-            modifier = Modifier.padding(8.dp),
-            onClick = {
-                navigateToList(TShirt)
-            }
-        ) {
-            Text(
-                text = "T-shirt",
-                color = Color.White
+            CardContent(
+                card = Card(name = "", imageResourceId = R.drawable.ic_red_0),
+                onClick = { navigateToList(Fibonacci) },
+                ratio = .55f
             )
         }
     }
@@ -80,6 +73,6 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
 @Preview
 fun CardTypeScreenPreview() {
     PlanningPokerTheme {
-        CardTypeScreen({})
+        CardTypeScreen {}
     }
 }
