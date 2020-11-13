@@ -6,8 +6,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
-import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
-import fr.publicissapient.planningpoker.model.CardSuitType.TShirt
+import fr.publicissapient.planningpoker.model.CardSuitType.*
 import fr.publicissapient.planningpoker.ui.theme.primaryBlue
 import fr.publicissapient.planningpoker.ui.theme.primaryGreen
 import fr.publicissapient.planningpoker.ui.theme.primaryRed
@@ -38,7 +37,8 @@ class CardRepository {
             "?"
         ).map { name ->
             Card(name, getImage(color, name))
-        }
+        },
+        Choice to listOf()
     )
 
     fun choiceCards(color: Color) = mapOf(
