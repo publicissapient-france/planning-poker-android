@@ -1,5 +1,5 @@
 object GradlePlugin {
-    const val android_build_tools_version = "4.2.0-alpha15"
+    const val android_build_tools_version = "4.2.0-alpha16"
     const val kotlin_version = "1.4.10"
     const val google_services_version = "4.3.4"
     const val firebase_crashlytics_version = "2.4.1"
