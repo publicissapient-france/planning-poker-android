@@ -1,6 +1,10 @@
+//import fr.publicissapient.planningpoker.Dependencies
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -36,13 +40,13 @@ android {
     }
     composeOptions {
         kotlinCompilerVersion '1.4.0'
-        kotlinCompilerExtensionVersion "${Compose.compose_version}"
+        kotlinCompilerExtensionVersion "$Compose.compose_version"
     }
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$GradlePlugin.kotlin_version"
 
     implementation AndroidX.core
     implementation AndroidX.appcompat
@@ -57,6 +61,10 @@ dependencies {
     implementation Compose.material_icons_extended
     implementation Compose.runtime_livedata
     implementation Compose.runtime_rxjava2
+
+    implementation platform(Firebase.bom)
+    implementation Firebase.analytics
+    implementation Firebase.crashlytics
 
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:2.24.0'

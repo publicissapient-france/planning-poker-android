@@ -1,3 +1,10 @@
+object GradlePlugin {
+    const val android_build_tools_version = "4.2.0-alpha16"
+    const val kotlin_version = "1.4.10"
+    const val google_services_version = "4.3.4"
+    const val firebase_crashlytics_version = "2.4.1"
+}
+
 object AndroidX {
 
     private const val core_version = "1.3.1"
@@ -36,6 +43,12 @@ object Compose {
     val runtime_rxjava2 = "androidx.compose.runtime:runtime-rxjava2:$compose_version"
 
     val ui_test = "androidx.ui:ui-test:$compose_version"
+}
+
+object Firebase {
+    val bom = "com.google.firebase:firebase-bom:26.1.0"
+    val analytics = "com.google.firebase:firebase-analytics-ktx"
+    val crashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 }
 
 object Test {
