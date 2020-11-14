@@ -6,8 +6,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
-import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
-import fr.publicissapient.planningpoker.model.CardSuitType.TShirt
+import fr.publicissapient.planningpoker.model.CardSuitType.*
 import fr.publicissapient.planningpoker.ui.theme.primaryBlue
 import fr.publicissapient.planningpoker.ui.theme.primaryGreen
 import fr.publicissapient.planningpoker.ui.theme.primaryRed
@@ -38,7 +37,13 @@ class CardRepository {
             "?"
         ).map { name ->
             Card(name, getImage(color, name))
-        }
+        },
+        Choice to listOf()
+    )
+
+    fun choiceCards(color: Color) = mapOf(
+        Fibonacci to Card("", getImage(color, "fibo")),
+        TShirt to Card("", getImage(color, "tshirt"))
     )
 
     private fun getImage(color: Color, name: String) =
@@ -58,6 +63,8 @@ class CardRepository {
                 "m" -> R.drawable.ic_red_m
                 "l" -> R.drawable.ic_red_l
                 "xl" -> R.drawable.ic_red_xl
+                "fibo" -> R.drawable.ic_fibo_red
+                "tshirt" -> R.drawable.ic_tshirt_red
                 else -> error("Undefined card name $name")
             }
             primaryYellow -> when (name) {
@@ -75,6 +82,8 @@ class CardRepository {
                 "m" -> R.drawable.ic_yellow_m
                 "l" -> R.drawable.ic_yellow_l
                 "xl" -> R.drawable.ic_yellow_xl
+                "fibo" -> R.drawable.ic_fibo_yellow
+                "tshirt" -> R.drawable.ic_tshirt_yellow
                 else -> error("Undefined card name $name")
             }
             primaryGreen -> when (name) {
@@ -92,6 +101,8 @@ class CardRepository {
                 "m" -> R.drawable.ic_green_m
                 "l" -> R.drawable.ic_green_l
                 "xl" -> R.drawable.ic_green_xl
+                "fibo" -> R.drawable.ic_fibo_green
+                "tshirt" -> R.drawable.ic_tshirt_green
                 else -> error("Undefined card name $name")
             }
             primaryBlue -> when (name) {
@@ -109,6 +120,8 @@ class CardRepository {
                 "m" -> R.drawable.ic_blue_m
                 "l" -> R.drawable.ic_blue_l
                 "xl" -> R.drawable.ic_blue_xl
+                "fibo" -> R.drawable.ic_fibo_blue
+                "tshirt" -> R.drawable.ic_tshirt_blue
                 else -> error("Undefined card name $name")
             }
             else -> error("Undefined color $color")
