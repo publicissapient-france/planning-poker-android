@@ -22,7 +22,7 @@ fun BodyWithBlop(content: @Composable () -> Unit) {
         Image(
             modifier = Modifier.fillMaxHeight(.9f),
             asset = vectorResource(id = R.drawable.ic_blop),
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.primaryVariant),
+            colorFilter = ColorFilter.tint(MaterialTheme.colors.secondaryVariant),
             contentScale = ContentScale.FillHeight
         )
         content()
