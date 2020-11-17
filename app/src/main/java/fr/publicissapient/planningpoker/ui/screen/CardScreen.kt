@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.ui.tooling.preview.Preview
@@ -62,22 +63,26 @@ fun CardScreen(
 @Composable
 fun CardScreenContent(card: Card, faceUp: Boolean) {
     val isFaceUp = remember { mutableStateOf(faceUp) }
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        alignment = Alignment.Center,
-    ) {
-        val toggleVisibility = {
-            isFaceUp.value = !isFaceUp.value
-        }
-        if (isFaceUp.value) {
-            CardContent(
-                card = card,
-                onClick = toggleVisibility
-            )
-        } else {
-            CardBackSideContent(
-                onClick = toggleVisibility
-            )
+    WithConstraints {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            alignment = Alignment.Center,
+        ) {
+            val toggleVisibility = {
+                isFaceUp.value = !isFaceUp.value
+            }
+            if (isFaceUp.value) {
+                CardContent(
+                    card = card,
+                    onClick = toggleVisibility,
+                    width = maxWidth * .85f
+                )
+            } else {
+                CardBackSideContent(
+                    onClick = toggleVisibility,
+                    width = maxWidth * .85f
+                )
+            }
         }
     }
 }
