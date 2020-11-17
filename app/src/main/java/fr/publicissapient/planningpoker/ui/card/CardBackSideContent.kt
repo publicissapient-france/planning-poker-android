@@ -11,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
@@ -18,22 +19,38 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
 fun CardBackSideContent(
+    width: Dp = CARD_WIDTH,
     ratio: Float = 1f,
     onClick: () -> Unit = {}
+) {
+    CardWithDimensions(
+        width * ratio,
+        width * CARD_FACTOR * ratio,
+        ratio,
+        onClick
+    )
+}
+
+@Composable
+private fun CardWithDimensions(
+    width: Dp,
+    height: Dp,
+    ratio: Float,
+    onClick: () -> Unit,
 ) {
     Card(
         modifier = Modifier
             .padding(16.dp * ratio)
-            .width(325.dp * ratio)
-            .height(480.dp * ratio)
+            .width(width)
+            .height(height)
             .clickable(onClick = onClick),
-        shape = RoundedCornerShape(32.dp * ratio),
-        elevation = 8.dp,
+        shape = RoundedCornerShape(CARD_CORNER * ratio),
+        elevation = CARD_WIDTH,
         backgroundColor = MaterialTheme.colors.primary,
     ) {
         Image(
             asset = imageResource(id = R.drawable.ic_logo_ps),
-            modifier = Modifier.width(160.dp * ratio)
+            modifier = Modifier.width(CARD_WIDTH / 2 * ratio)
         )
     }
 }

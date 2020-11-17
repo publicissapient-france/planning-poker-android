@@ -9,6 +9,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.text.style.TextAlign
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
@@ -44,39 +45,41 @@ fun CardTypeScreen(
 
 @Composable
 private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
-    Column(
-        modifier = Modifier.fillMaxHeight().fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceAround
-    ) {
-        Spacer(modifier = Modifier.weight(1f))
-        Text(
-            text = "Choisissez votre jeu",
-            style = MaterialTheme.typography.h1,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        Row(
-            modifier = Modifier.fillMaxWidth().weight(8f),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+    WithConstraints {
+        Column(
+            modifier = Modifier.fillMaxHeight().fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceAround
         ) {
-            val choiceCards = CardRepository().choiceCards(
-                MaterialTheme.colors.secondary
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = "Choisissez votre jeu",
+                style = MaterialTheme.typography.h1,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.weight(1f)
             )
-            choiceCards[Fibonacci]?.let { fiboChoiceCard ->
-                CardContent(
-                    card = fiboChoiceCard,
-                    onClick = { navigateToList(Fibonacci) },
-                    ratio = .55f
+            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier.fillMaxWidth().weight(8f),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+            ) {
+                val choiceCards = CardRepository().choiceCards(
+                    MaterialTheme.colors.secondary
                 )
-            }
-            choiceCards[TShirt]?.let { tshirtChoiceCard ->
-                CardContent(
-                    card = tshirtChoiceCard,
-                    onClick = { navigateToList(TShirt) },
-                    ratio = .55f
-                )
+                choiceCards[Fibonacci]?.let { fiboChoiceCard ->
+                    CardContent(
+                        card = fiboChoiceCard,
+                        onClick = { navigateToList(Fibonacci) },
+                        width = maxWidth * .4f
+                    )
+                }
+                choiceCards[TShirt]?.let { tshirtChoiceCard ->
+                    CardContent(
+                        card = tshirtChoiceCard,
+                        onClick = { navigateToList(TShirt) },
+                        width = maxWidth * .4f
+                    )
+                }
             }
         }
     }

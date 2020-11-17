@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.ui.tooling.preview.Preview
@@ -26,20 +27,39 @@ import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 import java.util.*
 
+const val CARD_FACTOR = 1.48f
+
+val CARD_WIDTH = 325.dp
+val CARD_CORNER = 32.dp
+val CARD_ELEVATION = 8.dp
+
 @Composable
 fun CardContent(
     card: Card,
+    width: Dp = CARD_WIDTH,
     modifier: Modifier = Modifier,
-    ratio: Float = 1f,
     onClick: () -> Unit,
 ) {
-    Card(
+    CardWithDimensions(
+        card = card,
+        ratio = width / CARD_WIDTH,
         modifier = modifier
-            .clickable(onClick = onClick)
-            .width(325.dp * ratio)
-            .height(480.dp * ratio),
-        shape = RoundedCornerShape(32.dp * ratio),
-        elevation = 8.dp
+            .width(width)
+            .height(width * CARD_FACTOR)
+            .clickable(onClick = onClick),
+    )
+}
+
+@Composable
+private fun CardWithDimensions(
+    card: Card,
+    ratio: Float,
+    modifier: Modifier,
+) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(CARD_CORNER * ratio),
+        elevation = CARD_ELEVATION
     ) {
         Surface(
             color = MaterialTheme.colors.secondary,
@@ -109,9 +129,8 @@ fun CardContentPreview() {
         )[CardSuitType.Fibonacci]
         cards?.let {
             CardContent(
-                card = cards[7],
-                onClick = {}
-            )
+                card = cards[7]
+            ) {}
         } ?: error("Should not happen!")
     }
 }
