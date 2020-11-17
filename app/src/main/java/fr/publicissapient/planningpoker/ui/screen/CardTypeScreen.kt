@@ -9,7 +9,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
@@ -63,7 +62,7 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             val choiceCards = CardRepository().choiceCards(
-                MaterialTheme.colors.primary
+                MaterialTheme.colors.secondary
             )
             choiceCards[Fibonacci]?.let { fiboChoiceCard ->
                 CardContent(
