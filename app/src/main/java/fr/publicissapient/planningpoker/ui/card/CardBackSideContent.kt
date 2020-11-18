@@ -10,8 +10,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
@@ -32,7 +31,10 @@ fun CardBackSideContent(
         elevation = 8.dp,
         backgroundColor = MaterialTheme.colors.primary,
     ) {
-        Image(vectorResource(id = R.drawable.ic_logo_pse))
+        Image(
+            asset = imageResource(id = R.drawable.ic_logo_ps),
+            modifier = Modifier.width(160.dp * ratio)
+        )
     }
 }
 
