@@ -7,7 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -60,35 +60,41 @@ fun CardListScreen(
 
 @Composable
 private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit) {
-    Column {
-        val rows = cards.windowed(2, 2, true)
-        LazyColumnForIndexed(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            items = rows,
-        ) { index, cards ->
-            if (index == 0) {
-                Text(
-                    text = "Choisissez votre carte",
-                    style = MaterialTheme.typography.h1,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
-                )
-            }
-            Row {
-                cards.map { card ->
-                    CardContent(
-                        card = card,
-                        ratio = .58f,
-                        modifier = Modifier.padding(6.dp),
-                        onClick = {
-                            navigateToCard(card.name)
-                        },
+    WithConstraints {
+        Column {
+            val rows = cards.windowed(3, 3, true)
+            LazyColumnForIndexed(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                items = rows,
+            ) { index, cards ->
+                if (index == 0) {
+                    Text(
+                        text = "Choisissez votre carte",
+                        style = MaterialTheme.typography.h1,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
                     )
                 }
-            }
-            if (index == rows.size - 1) {
-                Spacer(modifier = Modifier.height(32.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth().weight(8f),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                ) {
+                    cards.map { card ->
+                        CardContent(
+                            card = card,
+                            width = maxWidth * .28f
+                        ) {
+                            navigateToCard(card.name)
+                        }
+                    }
+                }
+                val lastRow = index == rows.size - 1
+                if (lastRow) {
+                    Spacer(modifier = Modifier.height(64.dp))
+                } else {
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
         }
     }
