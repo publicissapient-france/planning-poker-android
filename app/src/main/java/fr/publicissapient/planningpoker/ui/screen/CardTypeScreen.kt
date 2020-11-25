@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.WithConstraints
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.CardSuitType
@@ -67,18 +68,26 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
                     MaterialTheme.colors.secondary
                 )
                 choiceCards[Fibonacci]?.let { fiboChoiceCard ->
-                    CardContent(
-                        card = fiboChoiceCard,
-                        onClick = { navigateToList(Fibonacci) },
-                        width = maxWidth * .4f
-                    )
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CardContent(
+                            card = fiboChoiceCard,
+                            onClick = { navigateToList(Fibonacci) },
+                            width = maxWidth * .4f
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = "FIBONACCI", style = MaterialTheme.typography.body2)
+                    }
                 }
                 choiceCards[TShirt]?.let { tshirtChoiceCard ->
-                    CardContent(
-                        card = tshirtChoiceCard,
-                        onClick = { navigateToList(TShirt) },
-                        width = maxWidth * .4f
-                    )
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        CardContent(
+                            card = tshirtChoiceCard,
+                            onClick = { navigateToList(TShirt) },
+                            width = maxWidth * .4f
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text(text = "TSHIRT", style = MaterialTheme.typography.body2)
+                    }
                 }
             }
         }
