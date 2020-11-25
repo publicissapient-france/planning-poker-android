@@ -1,6 +1,5 @@
 package fr.publicissapient.planningpoker.ui.card
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
@@ -59,12 +58,13 @@ private fun CardWithDimensions(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(CARD_CORNER * ratio),
-        elevation = CARD_ELEVATION
+        elevation = CARD_ELEVATION,
+        backgroundColor = Color.White
     ) {
         Surface(
+            modifier = Modifier.padding(16.dp * ratio),
             color = MaterialTheme.colors.secondary,
-            border = BorderStroke(16.dp * ratio, color = Color.White),
-            shape = RoundedCornerShape(24.dp * ratio)
+            shape = RoundedCornerShape((CARD_CORNER - 16.dp) * ratio)
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -98,11 +98,11 @@ private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp * ratio, 16.dp * ratio),
+            .padding(4.dp * ratio, 0.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val style = MaterialTheme.typography.body1.copy(
-            fontSize = 35.sp * ratio,
+            fontSize = 33.sp * ratio,
             fontWeight = FontWeight.Bold
         )
         Text(
