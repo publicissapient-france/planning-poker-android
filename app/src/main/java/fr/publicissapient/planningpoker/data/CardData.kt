@@ -1,6 +1,5 @@
 package fr.publicissapient.planningpoker.data
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 
@@ -70,10 +69,37 @@ fun fibo21(spanStyle: SpanStyle) = with(AnnotatedString.Builder("Le binaire de "
     toAnnotatedString()
 }
 
-fun fiboQuestion(spanStyle: SpanStyle) = with(AnnotatedString.Builder("Aux échecs, en notation algébrique : « ")) {
+fun fibo40(spanStyle: SpanStyle) = with(
+    AnnotatedString.Builder(
+        "En 1996, le tout premier serveur des créateurs\n" +
+            "de Google représentait un stockage de "
+    )
+) {
     pushStyle(spanStyle)
-    append("?")
+    append("40")
     pop()
-    append(" » signale un mauvais coup, « ?? » une erreur grossière, « ?! » un coup douteux, « !? » un coup intéressant.")
+    append("Go et il était installé sur des briques de Lego.")
     toAnnotatedString()
 }
+
+fun fibo100(spanStyle: SpanStyle) = with(
+    AnnotatedString.Builder(
+        "Le nom « Google » vient du mot « Googol »" +
+            "(ou « Gogol » en français), un terme mathématique qui vaut 10 puissance 100, c’est-à-dire un 1 suivi de "
+    )
+) {
+    pushStyle(spanStyle)
+    append("100")
+    pop()
+    append(" zéros.")
+    toAnnotatedString()
+}
+
+fun fiboQuestion(spanStyle: SpanStyle) =
+    with(AnnotatedString.Builder("Aux échecs, en notation algébrique : « ")) {
+        pushStyle(spanStyle)
+        append("?")
+        pop()
+        append(" » signale un mauvais coup, « ?? » une erreur grossière, « ?! » un coup douteux, « !? » un coup intéressant.")
+        toAnnotatedString()
+    }

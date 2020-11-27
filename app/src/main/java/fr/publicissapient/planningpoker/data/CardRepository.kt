@@ -24,6 +24,8 @@ class CardRepository {
             "8",
             "13",
             "21",
+            "40",
+            "100",
             "?"
         ).map { name ->
             Card(name, getImage(color, name), getDescription(highLightColor, name))
@@ -57,6 +59,8 @@ class CardRepository {
                 "8" -> R.drawable.ic_red_8
                 "13" -> R.drawable.ic_red_13
                 "21" -> R.drawable.ic_red_21
+                "40" -> R.drawable.ic_red_40
+                "100" -> R.drawable.ic_red_100
                 "?" -> R.drawable.ic_red_question
                 "xs" -> R.drawable.ic_red_xs
                 "s" -> R.drawable.ic_red_s
@@ -76,6 +80,8 @@ class CardRepository {
                 "8" -> R.drawable.ic_yellow_8
                 "13" -> R.drawable.ic_yellow_13
                 "21" -> R.drawable.ic_yellow_21
+                "40" -> R.drawable.ic_yellow_40
+                "100" -> R.drawable.ic_yellow_100
                 "?" -> R.drawable.ic_yellow_question
                 "xs" -> R.drawable.ic_yellow_xs
                 "s" -> R.drawable.ic_yellow_s
@@ -95,6 +101,8 @@ class CardRepository {
                 "8" -> R.drawable.ic_green_8
                 "13" -> R.drawable.ic_green_13
                 "21" -> R.drawable.ic_green_21
+                "40" -> R.drawable.ic_green_40
+                "100" -> R.drawable.ic_green_100
                 "?" -> R.drawable.ic_green_question
                 "xs" -> R.drawable.ic_green_xs
                 "s" -> R.drawable.ic_green_s
@@ -114,6 +122,8 @@ class CardRepository {
                 "8" -> R.drawable.ic_blue_8
                 "13" -> R.drawable.ic_blue_13
                 "21" -> R.drawable.ic_blue_21
+                "40" -> R.drawable.ic_blue_40
+                "100" -> R.drawable.ic_blue_100
                 "?" -> R.drawable.ic_blue_question
                 "xs" -> R.drawable.ic_blue_xs
                 "s" -> R.drawable.ic_blue_s
@@ -138,6 +148,8 @@ class CardRepository {
             "8" -> fibo8(highlightLightSpanStyle)
             "13" -> fibo13(highlightLightSpanStyle)
             "21" -> fibo21(highlightLightSpanStyle)
+            "40" -> fibo40(highlightLightSpanStyle)
+            "100" -> fibo100(highlightLightSpanStyle)
             "?" -> fiboQuestion(highlightLightSpanStyle)
             else -> error("Undefined card name $name")
         }
