@@ -1,7 +1,6 @@
 package fr.publicissapient.planningpoker.ui.screen
 
 import androidx.compose.animation.core.FloatPropKey
-import androidx.compose.animation.core.IntPropKey
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.transitionDefinition
 import androidx.compose.animation.transition
@@ -17,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.DrawLayerModifier
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.WithConstraints
+import androidx.compose.ui.draw.drawOpacity
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.ui.tooling.preview.Preview
@@ -31,8 +31,8 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 val backRotationState = FloatPropKey()
 val frontRotationState = FloatPropKey()
-val backVisibility = IntPropKey()
-val frontVisibility = IntPropKey()
+val backOpacity = FloatPropKey()
+val frontOpacity = FloatPropKey()
 
 enum class FlipState {
     IDLE, FLIPPED
@@ -42,16 +42,16 @@ val flipTransitionDefinition = transitionDefinition<FlipState> {
     state(FlipState.IDLE) {
         this[backRotationState] = 0f
         this[frontRotationState] = 270f
-        this[backVisibility] = 1
-        this[frontVisibility] = 0
+        this[backOpacity] = 1f
+        this[frontOpacity] = 0f
     }
     state(FlipState.FLIPPED) {
         this[backRotationState] = 90f
         this[frontRotationState] = 360f
-        this[backVisibility] = 0
-        this[frontVisibility] = 1
+        this[backOpacity] = 0f
+        this[frontOpacity] = 1f
     }
-    val duration = 300
+    val duration = 500
     transition(fromState = FlipState.IDLE, toState = FlipState.FLIPPED) {
         backRotationState using keyframes {
             durationMillis = duration
@@ -62,15 +62,14 @@ val flipTransitionDefinition = transitionDefinition<FlipState> {
             270f at duration / 2
             360f at duration
         }
-        backVisibility using keyframes {
+        backOpacity using keyframes {
             durationMillis = duration
-            1 at duration / 2 - 1
-            0 at duration / 2
+            1f at duration / 2
+            0f at duration
         }
-        frontVisibility using keyframes {
+        frontOpacity using keyframes {
             durationMillis = duration
-            0 at duration / 2 - 1
-            1 at duration / 2
+            1f at duration / 2
         }
     }
     transition(fromState = FlipState.FLIPPED, toState = FlipState.IDLE) {
@@ -83,15 +82,14 @@ val flipTransitionDefinition = transitionDefinition<FlipState> {
             durationMillis = duration
             270f at duration / 2
         }
-        backVisibility using keyframes {
+        backOpacity using keyframes {
             durationMillis = duration
-            0 at duration / 2 - 1
-            1 at duration / 2
+            1f at duration / 2
         }
-        frontVisibility using keyframes {
+        frontOpacity using keyframes {
             durationMillis = duration
-            1 at duration / 2 - 1
-            0 at duration / 2
+            1f at duration / 2
+            0f at duration
         }
     }
 }
@@ -181,10 +179,16 @@ fun Flip(
             override val rotationY: Float
                 get() = state[frontRotationState]
         }
-        if (state[backVisibility] == 1) {
+        Box(
+            modifier = Modifier.fillMaxSize().drawOpacity(state[backOpacity]),
+            alignment = Alignment.Center
+        ) {
             backSide(backModifier)
         }
-        if (state[frontVisibility] == 1) {
+        Box(
+            modifier = Modifier.fillMaxSize().drawOpacity(state[frontOpacity]),
+            alignment = Alignment.Center
+        ) {
             frontSide(frontModifier)
         }
         Box(
