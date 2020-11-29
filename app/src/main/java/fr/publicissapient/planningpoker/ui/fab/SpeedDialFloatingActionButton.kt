@@ -14,6 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
@@ -52,7 +54,11 @@ private fun SpeedDialFloatingButtonContent(
         FloatingActionButton(
             onClick = onFabClick,
             icon = {
-                Image(asset = vectorResource(id = R.drawable.ic_fab))
+                Image(
+                    asset = imageResource(id = R.drawable.ic_fab),
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.height(32.dp).width(32.dp)
+                )
             },
             backgroundColor = MaterialTheme.colors.primary,
             modifier = Modifier.constrainAs(fab) {
