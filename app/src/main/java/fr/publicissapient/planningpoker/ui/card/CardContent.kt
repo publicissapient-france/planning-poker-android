@@ -37,7 +37,7 @@ fun CardContent(
     card: Card,
     width: Dp = CARD_WIDTH,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
 ) {
     CardWithDimensions(
         card = card,
