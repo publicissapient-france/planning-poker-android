@@ -51,7 +51,7 @@ val flipTransitionDefinition = transitionDefinition<FlipState> {
         this[backOpacity] = 0f
         this[frontOpacity] = 1f
     }
-    val duration = 500
+    val duration = 400
     transition(fromState = FlipState.IDLE, toState = FlipState.FLIPPED) {
         backRotationState using keyframes {
             durationMillis = duration
