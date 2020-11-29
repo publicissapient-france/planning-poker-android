@@ -19,7 +19,7 @@ import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
 import fr.publicissapient.planningpoker.model.CardSuitType.TShirt
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
-import fr.publicissapient.planningpoker.ui.fab.SpeedDialFloatingActionButton
+import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
@@ -40,7 +40,7 @@ fun CardTypeScreen(
         }
     },
     floatingActionButton = {
-        SpeedDialFloatingActionButton(onFabDialClick)
+        AnimatedSpeedDialFloatingActionButton(onFabDialClick)
     }
 )
 

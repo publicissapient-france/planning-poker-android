@@ -18,7 +18,7 @@ import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
-import fr.publicissapient.planningpoker.ui.fab.SpeedDialFloatingActionButton
+import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
@@ -53,7 +53,7 @@ fun CardListScreen(
             }
         },
         floatingActionButton = {
-            SpeedDialFloatingActionButton(onFabDialClick)
+            AnimatedSpeedDialFloatingActionButton(onFabDialClick)
         }
     )
 }
