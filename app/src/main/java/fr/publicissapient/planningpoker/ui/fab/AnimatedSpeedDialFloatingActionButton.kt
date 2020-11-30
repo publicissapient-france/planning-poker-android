@@ -10,10 +10,7 @@ import androidx.compose.animation.transition
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Colors
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -155,7 +152,7 @@ private fun AnimatedSpeedDialFloatingButtonContent(
                 Image(
                     asset = imageResource(id = R.drawable.ic_fab),
                     contentScale = ContentScale.Fit,
-                    modifier = Modifier.height(32.dp).width(32.dp)
+                    modifier = Modifier.size(32.dp)
                 )
             },
             backgroundColor = MaterialTheme.colors.primary,
