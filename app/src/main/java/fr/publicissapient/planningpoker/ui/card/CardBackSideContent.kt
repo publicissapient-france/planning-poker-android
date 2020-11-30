@@ -20,14 +20,15 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 fun CardBackSideContent(
     width: Dp = CARD_WIDTH,
     ratio: Float = 1f,
-    onClick: () -> Unit = {}
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
 ) {
     CardWithDimensions(
         ratio = ratio,
-        modifier = Modifier
+        modifier = modifier
             .width(width)
             .height(width * CARD_FACTOR)
-            .clickable(onClick = onClick),
+            .clickable(onClick = onClick)
     )
 }
 
@@ -39,7 +40,7 @@ private fun CardWithDimensions(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(CARD_CORNER * ratio),
-        elevation = CARD_WIDTH,
+        elevation = CARD_ELEVATION,
         backgroundColor = MaterialTheme.colors.primary,
     ) {
         WithConstraints {
