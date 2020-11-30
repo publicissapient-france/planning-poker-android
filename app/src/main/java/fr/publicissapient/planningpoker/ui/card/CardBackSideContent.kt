@@ -20,8 +20,8 @@ import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 fun CardBackSideContent(
     width: Dp = CARD_WIDTH,
     ratio: Float = 1f,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
     CardWithDimensions(
         ratio = ratio,

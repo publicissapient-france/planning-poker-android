@@ -134,15 +134,16 @@ fun CardScreen(
 @Composable
 fun CardScreenContent(card: Card) {
     WithConstraints {
+        val width = maxWidth * .85f
         Flip(backSide = {
             CardBackSideContent(
-                width = maxWidth * .85f,
+                width = width,
                 modifier = it
             )
         }, frontSide = {
             CardContent(
                 card = card,
-                width = maxWidth * .85f,
+                width = width,
                 modifier = it
             )
         })
