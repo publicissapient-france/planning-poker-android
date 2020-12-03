@@ -17,11 +17,11 @@ import fr.publicissapient.planningpoker.R
 fun BodyWithBlop(content: @Composable () -> Unit) {
     Box(
         modifier = Modifier.fillMaxSize(),
-        alignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart
     ) {
         Image(
             modifier = Modifier.fillMaxHeight(.9f),
-            asset = vectorResource(id = R.drawable.ic_blop),
+            imageVector = vectorResource(id = R.drawable.ic_blop),
             colorFilter = ColorFilter.tint(MaterialTheme.colors.secondaryVariant),
             contentScale = ContentScale.FillHeight
         )

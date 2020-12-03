@@ -9,18 +9,18 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.WithConstraints
+import androidx.compose.ui.layout.WithConstraints
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
 @Composable
 fun CardBackSideContent(
+    modifier: Modifier = Modifier,
     width: Dp = CARD_WIDTH,
     ratio: Float = 1f,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
 ) {
     CardWithDimensions(
@@ -45,7 +45,7 @@ private fun CardWithDimensions(
     ) {
         WithConstraints {
             Image(
-                asset = imageResource(id = R.drawable.ic_logo_ps),
+                bitmap = imageResource(id = R.drawable.ic_logo_ps),
                 modifier = Modifier.width(maxWidth * .5f)
             )
         }
