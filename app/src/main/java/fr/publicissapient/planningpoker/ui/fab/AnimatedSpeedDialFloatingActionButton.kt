@@ -9,12 +9,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.transition
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Colors
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,14 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.ui.theme.*
 
-val sizeState = FloatPropKey()
-val colorState = ColorPropKey()
-val paddingState = DpPropKey()
+val sizeState = FloatPropKey(label = "sizeState")
+val colorState = ColorPropKey(label = "colorState")
+val paddingState = DpPropKey(label = "paddingState")
 
 enum class FabState {
     IDLE, EXPLODED
@@ -91,7 +87,7 @@ private fun AnimatedSpeedDialFloatingButtonContent(
     onFabDialClick: (colors: Colors) -> Unit,
 ) {
     Box(
-        alignment = Alignment.BottomEnd
+        contentAlignment = Alignment.BottomEnd
     ) {
         val delta = (state[paddingState] - 10.dp) * .8f
         Canvas(
@@ -105,52 +101,48 @@ private fun AnimatedSpeedDialFloatingButtonContent(
                 end = 68.dp,
                 bottom = 16.dp
             ),
-            style = MaterialTheme.typography.body2,
-            color = state[colorState]
+            color = state[colorState],
+            style = MaterialTheme.typography.body2
         )
         FloatingSpeedDialColor(
-            tint = primaryGreen,
-            onClick = {
-                onFabDialClick(GreenThemeColors)
-            },
             modifier = Modifier.padding(
                 bottom = state[paddingState] + delta * 3
-            )
-        )
+            ),
+            tint = primaryGreen
+        ) {
+            onFabDialClick(GreenThemeColors)
+        }
         FloatingSpeedDialColor(
-            tint = primaryYellow,
-            onClick = {
-                onFabDialClick(YellowThemeColors)
-            },
             modifier = Modifier.padding(
                 bottom = state[paddingState] + delta * 2
-            )
-        )
+            ),
+            tint = primaryYellow
+        ) {
+            onFabDialClick(YellowThemeColors)
+        }
         FloatingSpeedDialColor(
-            tint = primaryBlue,
-            onClick = {
-                onFabDialClick(BlueThemeColors)
-            },
             modifier = Modifier.padding(
                 bottom = state[paddingState] + delta
-            )
-        )
+            ),
+            tint = primaryBlue
+        ) {
+            onFabDialClick(BlueThemeColors)
+        }
         FloatingSpeedDialColor(
-            tint = primaryRed,
-            onClick = {
-                onFabDialClick(RedThemeColors)
-            },
             modifier = Modifier.padding(
                 bottom = state[paddingState]
-            )
-        )
+            ),
+            tint = primaryRed
+        ) {
+            onFabDialClick(RedThemeColors)
+        }
         FloatingActionButton(
             onClick = {
                 onFabClick()
             },
-            icon = {
+            content = {
                 Image(
-                    asset = imageResource(id = R.drawable.ic_fab),
+                    bitmap = imageResource(id = R.drawable.ic_fab),
                     contentScale = ContentScale.Fit,
                     modifier = Modifier.size(32.dp)
                 )
@@ -162,14 +154,14 @@ private fun AnimatedSpeedDialFloatingButtonContent(
 
 @Composable
 private fun FloatingSpeedDialColor(
+    modifier: Modifier = Modifier,
     tint: Color,
-    onClick: () -> Unit = {},
-    modifier: Modifier = Modifier
+    onClick: () -> Unit = {}
 ) {
     FloatingActionButton(
         onClick = onClick,
-        icon = {
-            Icon(asset = vectorResource(id = R.drawable.ic_fab_dial), tint = tint)
+        content = {
+            Icon(imageVector = vectorResource(id = R.drawable.ic_fab_dial), tint = tint)
         },
         backgroundColor = MaterialTheme.colors.primary,
         modifier = modifier.padding(end = 10.dp).width(35.dp).height(35.dp)

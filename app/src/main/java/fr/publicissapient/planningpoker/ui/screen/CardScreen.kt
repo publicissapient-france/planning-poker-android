@@ -4,7 +4,6 @@ import androidx.compose.animation.core.FloatPropKey
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.transitionDefinition
 import androidx.compose.animation.transition
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,13 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.DrawLayerModifier
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.WithConstraints
-import androidx.compose.ui.draw.drawOpacity
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.WithConstraints
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
@@ -29,10 +28,10 @@ import fr.publicissapient.planningpoker.ui.card.CardBackSideContent
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
-val backRotationState = FloatPropKey()
-val frontRotationState = FloatPropKey()
-val backOpacity = FloatPropKey()
-val frontOpacity = FloatPropKey()
+val backRotationState = FloatPropKey("backRotationState")
+val frontRotationState = FloatPropKey("frontRotationState")
+val backOpacity = FloatPropKey("backOpacity")
+val frontOpacity = FloatPropKey("frontOpacity")
 
 enum class FlipState {
     IDLE, FLIPPED
@@ -137,14 +136,14 @@ fun CardScreenContent(card: Card) {
         val width = maxWidth * .85f
         Flip(backSide = {
             CardBackSideContent(
-                width = width,
-                modifier = it
+                modifier = it,
+                width = width
             )
         }, frontSide = {
             CardContent(
+                modifier = it,
                 card = card,
-                width = width,
-                modifier = it
+                width = width
             )
         })
     }
@@ -161,7 +160,7 @@ fun Flip(
     }
     Box(
         modifier = Modifier.fillMaxSize(),
-        alignment = Alignment.Center
+        contentAlignment = Alignment.Center
     ) {
         val state = transition(
             definition = flipTransitionDefinition,
@@ -172,25 +171,17 @@ fun Flip(
                 FlipState.FLIPPED
             }
         )
-        val backModifier = object : DrawLayerModifier {
-            override val rotationY: Float
-                get() = state[backRotationState]
-        }
-        val frontModifier = object : DrawLayerModifier {
-            override val rotationY: Float
-                get() = state[frontRotationState]
+        Box(
+            modifier = Modifier.fillMaxSize().alpha(state[backOpacity]),
+            contentAlignment = Alignment.Center
+        ) {
+            backSide(Modifier.graphicsLayer(rotationY = state[backRotationState]))
         }
         Box(
-            modifier = Modifier.fillMaxSize().drawOpacity(state[backOpacity]),
-            alignment = Alignment.Center
+            modifier = Modifier.fillMaxSize().alpha(state[frontOpacity]),
+            contentAlignment = Alignment.Center
         ) {
-            backSide(backModifier)
-        }
-        Box(
-            modifier = Modifier.fillMaxSize().drawOpacity(state[frontOpacity]),
-            alignment = Alignment.Center
-        ) {
-            frontSide(frontModifier)
+            frontSide(Modifier.graphicsLayer(rotationY = state[frontRotationState]))
         }
         Box(
             modifier = Modifier.fillMaxSize().clickable(onClick = flip)

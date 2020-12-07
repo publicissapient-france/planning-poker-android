@@ -1,11 +1,12 @@
-//import fr.publicissapient.planningpoker.Dependencies
-
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
+
+def kotlin_version = '1.4.20'
+def compose_version = '1.0.0-alpha08'
 
 android {
     compileSdkVersion 30
@@ -15,9 +16,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName "1.1.0"
     }
 
     buildFeatures {
@@ -30,44 +29,34 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-        useIR = true
-    }
+
     composeOptions {
-        kotlinCompilerVersion '1.4.0'
-        kotlinCompilerExtensionVersion "$Compose.compose_version"
+        kotlinCompilerVersion kotlin_version
+        kotlinCompilerExtensionVersion compose_version
     }
 }
 
 dependencies {
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.navigation:navigation-compose:1.0.0-alpha03'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$GradlePlugin.kotlin_version"
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.material:material-icons-core:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
-    implementation AndroidX.core
-    implementation AndroidX.appcompat
-    implementation AndroidX.material
-    implementation AndroidX.nav
+    implementation platform("com.google.firebase:firebase-bom:26.1.0")
+    implementation "com.google.firebase:firebase-analytics-ktx"
+    implementation "com.google.firebase:firebase-crashlytics-ktx"
+}
 
-    implementation Compose.ui
-    implementation Compose.tooling
-    implementation Compose.foundation
-    implementation Compose.material
-    implementation Compose.material_icon
-    implementation Compose.material_icons_extended
-    implementation Compose.runtime_livedata
-    implementation Compose.runtime_rxjava2
-
-    implementation platform(Firebase.bom)
-    implementation Firebase.analytics
-    implementation Firebase.crashlytics
-
-    testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-core:2.24.0'
-
-    androidTestImplementation Compose.ui_test
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += ['-Xallow-jvm-ir-dependencies', '-Xskip-prerelease-check']
+    }
 }

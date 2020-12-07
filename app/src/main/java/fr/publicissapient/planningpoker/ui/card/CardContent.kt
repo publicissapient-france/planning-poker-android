@@ -1,25 +1,25 @@
 package fr.publicissapient.planningpoker.ui.card
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.drawLayer
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
@@ -34,9 +34,9 @@ val CARD_ELEVATION = 8.dp
 
 @Composable
 fun CardContent(
+    modifier: Modifier = Modifier,
     card: Card,
     width: Dp = CARD_WIDTH,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
 ) {
     CardWithDimensions(
@@ -70,9 +70,9 @@ private fun CardWithDimensions(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Count(card.name, ratio = ratio)
+                Count(cardName = card.name, ratio = ratio)
                 Image(
-                    asset = imageResource(id = card.imageResourceId),
+                    bitmap = imageResource(id = card.imageResourceId),
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
                     contentScale = ContentScale.FillWidth,
                 )
@@ -87,14 +87,18 @@ private fun CardWithDimensions(
                         )
                     )
                 }
-                Count(card.name, Modifier.drawLayer(rotationZ = -180f), ratio)
+                Count(Modifier.graphicsLayer(rotationZ = -180f), card.name, ratio)
             }
         }
     }
 }
 
 @Composable
-private fun Count(cardName: String, modifier: Modifier = Modifier, ratio: Float = 1f) =
+private fun Count(
+    modifier: Modifier = Modifier,
+    cardName: String,
+    ratio: Float = 1f
+) =
     Row(
         modifier = Modifier
             .fillMaxWidth()

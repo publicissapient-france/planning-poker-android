@@ -1,18 +1,14 @@
 package fr.publicissapient.planningpoker.ui.screen
 
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.WithConstraints
+import androidx.compose.ui.layout.WithConstraints
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
@@ -71,9 +67,8 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CardContent(
                             card = fiboChoiceCard,
-                            onClick = { navigateToList(Fibonacci) },
                             width = maxWidth * .4f
-                        )
+                        ) { navigateToList(Fibonacci) }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(text = "FIBONACCI", style = MaterialTheme.typography.body2)
                     }
@@ -82,9 +77,8 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CardContent(
                             card = tshirtChoiceCard,
-                            onClick = { navigateToList(TShirt) },
                             width = maxWidth * .4f
-                        )
+                        ) { navigateToList(TShirt) }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(text = "TSHIRT", style = MaterialTheme.typography.body2)
                     }
