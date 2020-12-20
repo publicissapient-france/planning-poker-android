@@ -1,6 +1,5 @@
 package fr.publicissapient.planningpoker.ui.card
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -10,9 +9,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.WithConstraints
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import dev.chrisbanes.accompanist.coil.CoilImage
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
@@ -44,8 +43,8 @@ private fun CardWithDimensions(
         backgroundColor = MaterialTheme.colors.primary,
     ) {
         WithConstraints {
-            Image(
-                bitmap = imageResource(id = R.drawable.ic_logo_ps),
+            CoilImage(
+                data = R.drawable.ic_logo_ps,
                 modifier = Modifier.width(maxWidth * .5f)
             )
         }

@@ -1,25 +1,24 @@
 package fr.publicissapient.planningpoker.ui.card
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.chrisbanes.accompanist.coil.CoilImage
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
@@ -61,20 +60,19 @@ private fun CardWithDimensions(
         elevation = CARD_ELEVATION,
         backgroundColor = Color.White
     ) {
-        Surface(
-            modifier = Modifier.padding(16.dp * ratio),
-            color = MaterialTheme.colors.secondary,
-            shape = RoundedCornerShape((CARD_CORNER - 16.dp) * ratio)
+        Box(
+            modifier = Modifier.padding(16.dp * ratio)
+                .clip(RoundedCornerShape((CARD_CORNER - 16.dp) * ratio))
+                .background(MaterialTheme.colors.secondary),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Count(cardName = card.name, ratio = ratio)
-                Image(
-                    bitmap = imageResource(id = card.imageResourceId),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp * ratio),
-                    contentScale = ContentScale.FillWidth,
+                CoilImage(
+                    data = card.imageResourceId,
+                    modifier = Modifier.padding(horizontal = 30.dp * ratio)
                 )
                 card.description?.let { description ->
                     Text(
