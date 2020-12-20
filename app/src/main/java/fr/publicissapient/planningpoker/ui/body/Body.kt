@@ -1,6 +1,5 @@
 package fr.publicissapient.planningpoker.ui.body
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.vectorResource
+import dev.chrisbanes.accompanist.coil.CoilImage
 import fr.publicissapient.planningpoker.R
 
 @Composable
@@ -19,9 +18,9 @@ fun BodyWithBlop(content: @Composable () -> Unit) {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.CenterStart
     ) {
-        Image(
-            modifier = Modifier.fillMaxHeight(.9f),
-            imageVector = vectorResource(id = R.drawable.ic_blop),
+        CoilImage(
+            data = R.drawable.ic_blop,
+            modifier = Modifier.fillMaxHeight(.85f),
             colorFilter = ColorFilter.tint(MaterialTheme.colors.secondaryVariant),
             contentScale = ContentScale.FillHeight
         )

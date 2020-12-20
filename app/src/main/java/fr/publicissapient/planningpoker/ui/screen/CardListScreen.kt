@@ -1,7 +1,7 @@
 package fr.publicissapient.planningpoker.ui.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumnForIndexed
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -62,37 +62,38 @@ private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit)
     WithConstraints {
         Column {
             val rows = cards.windowed(3, 3, true)
-            LazyColumnForIndexed(
+            LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                items = rows,
-            ) { index, cards ->
-                if (index == 0) {
-                    Text(
-                        text = "Choisissez votre carte",
-                        style = MaterialTheme.typography.h1,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
-                    )
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth().weight(8f),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                ) {
-                    cards.map { card ->
-                        CardContent(
-                            card = card,
-                            width = maxWidth * .28f
-                        ) {
-                            navigateToCard(card.name)
+            ) {
+                itemsIndexed(rows) { index, items ->
+                    if (index == 0) {
+                        Text(
+                            text = "Choisissez votre carte",
+                            style = MaterialTheme.typography.h1,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth().weight(8f),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                    ) {
+                        items.map { card ->
+                            CardContent(
+                                card = card,
+                                width = maxWidth * .28f
+                            ) {
+                                navigateToCard(card.name)
+                            }
                         }
                     }
-                }
-                val lastRow = index == rows.size - 1
-                if (lastRow) {
-                    Spacer(modifier = Modifier.height(64.dp))
-                } else {
-                    Spacer(modifier = Modifier.height(16.dp))
+                    val lastRow = index == rows.size - 1
+                    if (lastRow) {
+                        Spacer(modifier = Modifier.height(64.dp))
+                    } else {
+                        Spacer(modifier = Modifier.height(16.dp))
+                    }
                 }
             }
         }
