@@ -1,5 +1,6 @@
 package fr.publicissapient.planningpoker.ui.card
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.chrisbanes.accompanist.coil.CoilImage
+import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
@@ -61,7 +62,8 @@ private fun CardWithDimensions(
         backgroundColor = Color.White
     ) {
         Box(
-            modifier = Modifier.padding(16.dp * ratio)
+            modifier = Modifier
+                .padding(16.dp * ratio)
                 .clip(RoundedCornerShape((CARD_CORNER - 16.dp) * ratio))
                 .background(MaterialTheme.colors.secondary),
         ) {
@@ -70,8 +72,12 @@ private fun CardWithDimensions(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Count(cardName = card.name, ratio = ratio)
-                CoilImage(
-                    data = card.imageResourceId,
+                Image(
+                    painter = rememberImagePainter(
+                        data = card.imageResourceId,
+                        onExecute = { _, _ -> true },
+                    ),
+                    contentDescription = null,
                     modifier = Modifier.padding(horizontal = 30.dp * ratio)
                 )
                 card.description?.let { description ->
@@ -108,13 +114,13 @@ private fun Count(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = cardName.toUpperCase(Locale.ROOT),
+            text = cardName.uppercase(Locale.ROOT),
             color = MaterialTheme.colors.onPrimary,
             style = style,
             modifier = modifier
         )
         Text(
-            text = cardName.toUpperCase(Locale.ROOT),
+            text = cardName.uppercase(Locale.ROOT),
             color = MaterialTheme.colors.onPrimary,
             style = style,
             modifier = modifier

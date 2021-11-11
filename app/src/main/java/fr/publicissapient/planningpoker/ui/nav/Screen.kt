@@ -1,7 +1,7 @@
 package fr.publicissapient.planningpoker.ui.nav
 
 import androidx.navigation.NavType
-import androidx.navigation.compose.navArgument
+import androidx.navigation.navArgument
 
 sealed class Screen(val route: String) {
 

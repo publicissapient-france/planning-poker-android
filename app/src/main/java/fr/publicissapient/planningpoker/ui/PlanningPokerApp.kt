@@ -9,7 +9,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.nav.Screen

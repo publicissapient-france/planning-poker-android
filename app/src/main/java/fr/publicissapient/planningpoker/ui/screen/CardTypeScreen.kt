@@ -5,7 +5,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.WithConstraints
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +29,7 @@ fun CardTypeScreen(
             contentColor = MaterialTheme.colors.onPrimary,
         )
     },
-    bodyContent = {
+    content = {
         BodyWithBlop {
             CardTypeScreenContent(navigateToList)
         }
@@ -42,9 +41,13 @@ fun CardTypeScreen(
 
 @Composable
 private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
-    WithConstraints {
+    BoxWithConstraints(
+        contentAlignment = Alignment.Center
+    ) {
         Column(
-            modifier = Modifier.fillMaxHeight().fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround
         ) {
@@ -57,7 +60,9 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
             )
             Spacer(modifier = Modifier.weight(1f))
             Row(
-                modifier = Modifier.fillMaxWidth().weight(8f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(8f),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 val choiceCards = CardRepository().choiceCards(
@@ -67,7 +72,7 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CardContent(
                             card = fiboChoiceCard,
-                            width = maxWidth * .4f
+                            width = this@BoxWithConstraints.maxWidth * .4f
                         ) { navigateToList(Fibonacci) }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(text = "FIBONACCI", style = MaterialTheme.typography.body2)
@@ -77,7 +82,7 @@ private fun CardTypeScreenContent(navigateToList: (CardSuitType) -> Unit) =
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CardContent(
                             card = tshirtChoiceCard,
-                            width = maxWidth * .4f
+                            width = this@BoxWithConstraints.maxWidth * .4f
                         ) { navigateToList(TShirt) }
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(text = "TSHIRT", style = MaterialTheme.typography.body2)
