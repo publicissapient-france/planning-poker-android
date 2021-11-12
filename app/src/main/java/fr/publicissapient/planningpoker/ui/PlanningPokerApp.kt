@@ -42,51 +42,51 @@ private fun CardStackEntry(
     screenCard: Screen.Card,
     currentColors: MutableState<Colors>,
     navController: NavHostController
-) = backStackEntry.arguments?.let { bundle ->
-    val cardSuitTypeBundle = bundle.getString(Screen.CardList.navArgCardSuit)
-    cardSuitTypeBundle?.let { cardSuitTypeString ->
-        val cardSuitType = when (cardSuitTypeString) {
-            "fibonacci" -> CardSuitType.Fibonacci
-            "t-shirt" -> CardSuitType.TShirt
-            else -> error("Unknown card suit type!")
+) {
+    val args = checkNotNull(backStackEntry.arguments) { "Card screen should have arguments!" }
+    val cardSuitType = args.getString(Screen.CardList.navArgCardSuit)
+    checkNotNull(cardSuitType) { "Card suit required!" }
+    val cardSuitTypeKey = when (cardSuitType) {
+        "fibonacci" -> CardSuitType.Fibonacci
+        "t-shirt" -> CardSuitType.TShirt
+        else -> error("Unknown card suit type: $cardSuitType")
+    }
+    args.getString(screenCard.navArgCardId)?.let { cardId ->
+        PlanningPokerMultipleColorsTheme(currentColors) {
+            CardScreen(
+                cardSuit = cardSuitTypeKey,
+                cardId = cardId,
+                onBackClick = navController::popBackStack
+            )
         }
-        bundle.getString(screenCard.navArgCardId)?.let { cardId ->
-            PlanningPokerMultipleColorsTheme(currentColors) {
-                CardScreen(
-                    cardSuitType,
-                    cardId,
-                    navController::popBackStack
-                )
-            }
-        }
-    } ?: error("Card suit required!")
-} ?: error("Card screen should have arguments!")
+    }
+}
 
 @Composable
 private fun CardListStackEntry(
     backStackEntry: NavBackStackEntry,
     currentColors: MutableState<Colors>,
     navController: NavHostController
-) = backStackEntry.arguments?.let { bundle ->
-    val cardSuitTypeBundle = bundle.getString(Screen.CardList.navArgCardSuit)
-    cardSuitTypeBundle?.let { cardSuitTypeString ->
-        val cardSuitType = when (cardSuitTypeString) {
-            "fibonacci" -> CardSuitType.Fibonacci
-            "t-shirt" -> CardSuitType.TShirt
-            else -> error("Unknown card suit type!")
-        }
-        PlanningPokerMultipleColorsTheme(currentColors) {
-            CardListScreen(
-                cardSuitType = cardSuitType,
-                navigateToCard = { cardId ->
-                    navController.navigate("cards/${cardSuitType.type}/$cardId")
-                },
-                onBackClick = navController::popBackStack,
-                onFabDialClick = { colors -> currentColors.value = colors }
-            )
-        }
-    } ?: error("Card suit required!")
-} ?: error("Arguments required!")
+) {
+    val args = checkNotNull(backStackEntry.arguments) { "Arguments required!" }
+    val cardSuitType = args.getString(Screen.CardList.navArgCardSuit)
+    checkNotNull(cardSuitType) { "Card suit required!" }
+    val cardSuitTypeKey = when (cardSuitType) {
+        "fibonacci" -> CardSuitType.Fibonacci
+        "t-shirt" -> CardSuitType.TShirt
+        else -> error("Unknown card suit type: $cardSuitType")
+    }
+    PlanningPokerMultipleColorsTheme(currentColors) {
+        CardListScreen(
+            cardSuitType = cardSuitTypeKey,
+            navigateToCard = { cardId ->
+                navController.navigate("cards/${cardSuitTypeKey.type}/$cardId")
+            },
+            onBackClick = navController::popBackStack,
+            onFabDialClick = { colors -> currentColors.value = colors }
+        )
+    }
+}
 
 @Composable
 private fun CardTypeStackEntry(
