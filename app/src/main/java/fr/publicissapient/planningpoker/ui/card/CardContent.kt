@@ -2,10 +2,10 @@ package fr.publicissapient.planningpoker.ui.card
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -44,22 +44,25 @@ fun CardContent(
         ratio = width / CARD_WIDTH,
         modifier = modifier
             .width(width)
-            .height(width * CARD_FACTOR)
-            .clickable(onClick = onClick),
+            .height(width * CARD_FACTOR),
+        onClick = onClick
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun CardWithDimensions(
     card: Card,
     ratio: Float,
     modifier: Modifier,
+    onClick: () -> Unit = {},
 ) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(CARD_CORNER * ratio),
         elevation = CARD_ELEVATION,
-        backgroundColor = Color.White
+        backgroundColor = Color.White,
+        onClick = onClick
     ) {
         Box(
             modifier = Modifier

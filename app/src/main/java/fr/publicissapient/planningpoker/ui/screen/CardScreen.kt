@@ -3,7 +3,6 @@ package fr.publicissapient.planningpoker.ui.screen
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +14,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
@@ -40,15 +38,7 @@ fun CardScreen(
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
-                            painter = rememberImagePainter(
-                                data = R.drawable.ic_baseline_arrow_back,
-                                onExecute = { _, _ -> true },
-                                builder = {
-                                    crossfade(true)
-                                    placeholder(R.drawable.ic_baseline_arrow_back)
-                                    transformations(CircleCropTransformation())
-                                }
-                            ),
+                            painter = rememberImagePainter(R.drawable.ic_baseline_arrow_back),
                             contentDescription = null
                         )
                     }
@@ -82,21 +72,23 @@ fun CardScreenContent(card: Card) {
         var cardFace by remember {
             mutableStateOf(CardFace.Back)
         }
+        val onFlip = {
+            cardFace = cardFace.next
+        }
 
         FlipCard(
             cardFace,
-            onFlip = {
-                cardFace = cardFace.next
-            },
             backSide = {
                 CardBackSideContent(
-                    width = width
+                    width = width,
+                    onClick = { onFlip() }
                 )
             },
             frontSide = {
                 CardContent(
                     card = card,
-                    width = width
+                    width = width,
+                    onClick = { onFlip() }
                 )
             }
         )
@@ -106,7 +98,6 @@ fun CardScreenContent(card: Card) {
 @Composable
 fun FlipCard(
     cardFace: CardFace,
-    onFlip: (CardFace) -> Unit,
     modifier: Modifier = Modifier,
     backSide: @Composable () -> Unit,
     frontSide: @Composable () -> Unit,
@@ -124,8 +115,7 @@ fun FlipCard(
                 rotationY = rotation.value
                 cameraDistance = 12f * density
             }
-            .fillMaxSize()
-            .clickable(onClick = { onFlip(cardFace) }),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         if (rotation.value <= 90f) {

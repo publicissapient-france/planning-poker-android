@@ -66,6 +66,6 @@ dependencies {
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs += ['-Xskip-prerelease-check', '-Xjvm-default=all']
+        freeCompilerArgs += ['-Xskip-prerelease-check', '-Xjvm-default=all', '-Xopt-in=kotlin.RequiresOptIn']
     }
 }
