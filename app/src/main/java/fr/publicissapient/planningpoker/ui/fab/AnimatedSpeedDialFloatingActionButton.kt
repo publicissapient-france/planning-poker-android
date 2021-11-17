@@ -1,53 +1,28 @@
 package fr.publicissapient.planningpoker.ui.fab
 
-import androidx.compose.animation.ColorPropKey
-import androidx.compose.animation.DpPropKey
-import androidx.compose.animation.core.FloatPropKey
-import androidx.compose.animation.core.TransitionState
-import androidx.compose.animation.core.transitionDefinition
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.transition
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.chrisbanes.accompanist.coil.CoilImage
+import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.ui.theme.*
 
-val sizeState = FloatPropKey(label = "sizeState")
-val colorState = ColorPropKey(label = "colorState")
-val paddingState = DpPropKey(label = "paddingState")
-
 enum class FabState {
     IDLE, EXPLODED
-}
-
-val fabExplosionTransitionDefinition = transitionDefinition<FabState> {
-    state(FabState.IDLE) {
-        this[sizeState] = 0f
-        this[colorState] = Color.Transparent
-        this[paddingState] = 10.dp
-    }
-    state(FabState.EXPLODED) {
-        this[sizeState] = 4000f
-        this[colorState] = Color.Black
-        this[paddingState] = 75.dp
-    }
-    transition(fromState = FabState.IDLE, toState = FabState.EXPLODED) {
-        sizeState using tween(500)
-        colorState using tween(500)
-        paddingState using tween(500)
-    }
 }
 
 @Composable
@@ -55,15 +30,11 @@ fun AnimatedSpeedDialFloatingActionButton(
     onFabDialClick: (colors: Colors) -> Unit = {}
 ) {
     val animatingFab = remember { mutableStateOf(false) }
-    val state = transition(
-        definition = fabExplosionTransitionDefinition,
-        initState = FabState.IDLE,
-        toState = if (!animatingFab.value) {
-            FabState.IDLE
-        } else {
-            FabState.EXPLODED
-        }
-    )
+    val state = if (!animatingFab.value) {
+        FabState.IDLE
+    } else {
+        FabState.EXPLODED
+    }
     val onFabClick = {
         animatingFab.value = !animatingFab.value
     }
@@ -81,18 +52,30 @@ fun AnimatedSpeedDialFloatingActionButton(
 
 @Composable
 private fun AnimatedSpeedDialFloatingButtonContent(
-    state: TransitionState,
+    state: FabState,
     onFabClick: () -> Unit,
     onFabDialClick: (colors: Colors) -> Unit,
 ) {
+    val sizeState by animateFloatAsState(
+        targetValue = if (state == FabState.IDLE) 0f else 4000f,
+        animationSpec = tween(500)
+    )
+    val paddingState by animateDpAsState(
+        targetValue = if (state == FabState.IDLE) 10.dp else 75.dp,
+        animationSpec = tween(500)
+    )
+    val colorState by animateColorAsState(
+        targetValue = if (state == FabState.IDLE) Color.Transparent else Color.Black,
+        animationSpec = tween(500)
+    )
     Box(
         contentAlignment = Alignment.BottomEnd
     ) {
-        val delta = (state[paddingState] - 10.dp) * .8f
+        val delta = (paddingState - 10.dp) * .8f
         Canvas(
             modifier = Modifier.padding(28.dp)
         ) {
-            drawCircle(Color(0xF2FFFFFF), state[sizeState])
+            drawCircle(Color(0xF2FFFFFF), sizeState)
         }
         Text(
             text = "Choisissez votre couleur",
@@ -100,12 +83,12 @@ private fun AnimatedSpeedDialFloatingButtonContent(
                 end = 68.dp,
                 bottom = 16.dp
             ),
-            color = state[colorState],
+            color = colorState,
             style = MaterialTheme.typography.body2
         )
         FloatingSpeedDialColor(
             modifier = Modifier.padding(
-                bottom = state[paddingState] + delta * 3
+                bottom = paddingState + delta * 3
             ),
             tint = primaryGreen
         ) {
@@ -113,7 +96,7 @@ private fun AnimatedSpeedDialFloatingButtonContent(
         }
         FloatingSpeedDialColor(
             modifier = Modifier.padding(
-                bottom = state[paddingState] + delta * 2
+                bottom = paddingState + delta * 2
             ),
             tint = primaryYellow
         ) {
@@ -121,7 +104,7 @@ private fun AnimatedSpeedDialFloatingButtonContent(
         }
         FloatingSpeedDialColor(
             modifier = Modifier.padding(
-                bottom = state[paddingState] + delta
+                bottom = paddingState + delta
             ),
             tint = primaryBlue
         ) {
@@ -129,7 +112,7 @@ private fun AnimatedSpeedDialFloatingButtonContent(
         }
         FloatingSpeedDialColor(
             modifier = Modifier.padding(
-                bottom = state[paddingState]
+                bottom = paddingState
             ),
             tint = primaryRed
         ) {
@@ -140,9 +123,12 @@ private fun AnimatedSpeedDialFloatingButtonContent(
                 onFabClick()
             },
             content = {
-                CoilImage(
-                    R.drawable.ic_fab,
-                    contentScale = ContentScale.Fit,
+                Image(
+                    painter = rememberImagePainter(
+                        data = R.drawable.ic_fab,
+                        onExecute = { _, _ -> true },
+                    ),
+                    contentDescription = null,
                     modifier = Modifier.size(32.dp)
                 )
             },
@@ -160,10 +146,20 @@ private fun FloatingSpeedDialColor(
     FloatingActionButton(
         onClick = onClick,
         content = {
-            Icon(imageVector = vectorResource(id = R.drawable.ic_fab_dial), tint = tint)
+            Icon(
+                painter = rememberImagePainter(
+                    data = R.drawable.ic_fab_dial,
+                    onExecute = { _, _ -> true },
+                ),
+                tint = tint,
+                contentDescription = null,
+            )
         },
         backgroundColor = MaterialTheme.colors.primary,
-        modifier = modifier.padding(end = 10.dp).width(35.dp).height(35.dp)
+        modifier = modifier
+            .padding(end = 10.dp)
+            .width(35.dp)
+            .height(35.dp)
     )
 }
 
@@ -174,11 +170,7 @@ fun SpeedDialFloatingActionButtonPreview() {
         AnimatedSpeedDialFloatingButtonContent(
             onFabDialClick = {},
             onFabClick = {},
-            state = transition(
-                definition = fabExplosionTransitionDefinition,
-                initState = FabState.IDLE,
-                toState = FabState.IDLE
-            )
+            state = FabState.IDLE,
         )
     }
 }
