@@ -1,51 +1,56 @@
 package fr.publicissapient.planningpoker.ui.theme
 
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.lightColors
+import android.os.Build
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 
-val RedThemeColors = lightColors(
+val RedThemeColors = lightColorScheme(
     primary = Color.Black,
     secondary = primaryRed,
-    secondaryVariant = primaryRedVariant,
+    onSecondaryContainer = primaryRedVariant,
     onPrimary = Color.White,
     onSecondary = Color.White
 )
 
-val BlueThemeColors = lightColors(
+val BlueThemeColors = lightColorScheme(
     primary = Color.Black,
     secondary = primaryBlue,
-    secondaryVariant = primaryBlueVariant,
+    onSecondaryContainer = primaryBlueVariant,
     onPrimary = Color.White,
     onSecondary = Color.White
 )
 
-val YellowThemeColors = lightColors(
+val YellowThemeColors = lightColorScheme(
     primary = Color.Black,
     secondary = primaryYellow,
-    secondaryVariant = primaryYellowVariant,
+    onSecondaryContainer = primaryYellowVariant,
     onPrimary = Color.White,
     onSecondary = onSecondaryYellow
 )
 
-val GreenThemeColors = lightColors(
+val GreenThemeColors = lightColorScheme(
     primary = Color.Black,
     secondary = primaryGreen,
-    secondaryVariant = primaryGreenVariant,
+    onSecondaryContainer = primaryGreenVariant,
     onPrimary = Color.White,
     onSecondary = Color.White
 )
 
 @Composable
 fun PlanningPokerTheme(
-    colors: Colors = RedThemeColors,
+    colors: ColorScheme? = null,
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colors = colors,
+        colorScheme = colorScheme(colors),
         typography = planningPokerTypography,
         content = content
     )
@@ -53,10 +58,25 @@ fun PlanningPokerTheme(
 
 @Composable
 fun PlanningPokerMultipleColorsTheme(
-    currentColors: MutableState<Colors>,
+    currentColors: MutableState<ColorScheme?>,
     content: @Composable () -> Unit
 ) {
     PlanningPokerTheme(colors = currentColors.value) {
         content()
+    }
+}
+
+@Composable
+private fun colorScheme(
+    colors: ColorScheme? = null
+): ColorScheme {
+    val darkTheme = isSystemInDarkTheme()
+    val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val defaultColorScheme = colors ?: RedThemeColors
+    return when {
+        dynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        dynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> defaultColorScheme
+        else -> defaultColorScheme
     }
 }

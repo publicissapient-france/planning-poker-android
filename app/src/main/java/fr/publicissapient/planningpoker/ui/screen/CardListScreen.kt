@@ -1,117 +1,125 @@
 package fr.publicissapient.planningpoker.ui.screen
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.*
+import androidx.compose.animation.rememberSplineBasedDecay
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
+import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.rememberInsetsPaddingValues
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
+import fr.publicissapient.planningpoker.ui.design.LargeTopAppBar
 import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardListScreen(
     cardSuitType: CardSuitType,
     navigateToCard: (String) -> Unit = {},
     onBackClick: () -> Unit = {},
-    onFabDialClick: (colors: Colors) -> Unit = {}
+    onFabDialClick: (colors: ColorScheme) -> Unit = {}
 ) {
+    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+    val scrollBehavior = remember(decayAnimationSpec) {
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
+    }
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            TopAppBar(
-                title = { Text("Retour", textAlign = TextAlign.Center) },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
+            LargeTopAppBar(
+                title = {
+                    Text("Choisissez votre carte")
+                },
+                scrollBehavior = scrollBehavior,
+                contentPadding = rememberInsetsPaddingValues(
+                    LocalWindowInsets.current.statusBars,
+                    applyBottom = false,
+                ),
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
-                            painter = rememberImagePainter(
-                                data = R.drawable.ic_baseline_arrow_back,
-                                onExecute = { _, _ -> true },
-                                builder = {
-                                    crossfade(true)
-                                    placeholder(R.drawable.ic_baseline_arrow_back)
-                                    transformations(CircleCropTransformation())
-                                }
-                            ),
-                            contentDescription = null
+                            Icons.Default.ArrowBack,
+                            contentDescription = stringResource(R.string.a11y_navigate_up)
                         )
                     }
                 }
             )
         },
-        content = {
-            BodyWithBlop {
-                val cards = CardRepository().allCards(
-                    MaterialTheme.colors.secondary,
-                    MaterialTheme.colors.onSecondary
-                )[cardSuitType]
-                cards?.let {
-                    CardListContent(cards, navigateToCard)
-                } ?: error("Unknown card suit!")
-            }
-        },
         floatingActionButton = {
-            AnimatedSpeedDialFloatingActionButton(onFabDialClick)
+            AnimatedSpeedDialFloatingActionButton(
+                modifier = Modifier.navigationBarsPadding(),
+                onFabDialClick = onFabDialClick
+            )
+        }) {
+        BodyWithBlop {
+            val cards = CardRepository().allCards(
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.onSecondary
+            )[cardSuitType]
+            cards?.let {
+                CardListContent(cards, navigateToCard)
+            } ?: error("Unknown card suit!")
         }
-    )
+    }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit) {
     BoxWithConstraints(
         contentAlignment = Alignment.Center
     ) {
         Column {
-            val rows = cards.windowed(3, 3, true)
-            LazyColumn(
+            LazyVerticalGrid(
+                cells = GridCells.Fixed(3),
+                contentPadding = PaddingValues(16.dp),
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                itemsIndexed(rows) { index, items ->
-                    if (index == 0) {
-                        Text(
-                            text = "Choisissez votre carte",
-                            style = MaterialTheme.typography.h1,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(24.dp, 36.dp, 24.dp, 24.dp)
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(8f),
-                        horizontalArrangement = Arrangement.SpaceEvenly,
+                items(cards) { card ->
+                    CardContent(
+                        modifier = Modifier.padding(6.dp),
+                        card = card,
+                        width = this@BoxWithConstraints.maxWidth * .28f
                     ) {
-                        items.map { card ->
-                            CardContent(
-                                card = card,
-                                width = this@BoxWithConstraints.maxWidth * .28f
-                            ) {
-                                navigateToCard(card.name)
-                            }
-                        }
-                    }
-                    val lastRow = index == rows.size - 1
-                    if (lastRow) {
-                        Spacer(modifier = Modifier.height(64.dp))
-                    } else {
-                        Spacer(modifier = Modifier.height(16.dp))
+                        navigateToCard(card.name)
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(64.dp))
         }
     }
 }

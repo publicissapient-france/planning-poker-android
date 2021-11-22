@@ -6,8 +6,16 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,7 +27,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.R
-import fr.publicissapient.planningpoker.ui.theme.*
+import fr.publicissapient.planningpoker.ui.theme.BlueThemeColors
+import fr.publicissapient.planningpoker.ui.theme.GreenThemeColors
+import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.ui.theme.RedThemeColors
+import fr.publicissapient.planningpoker.ui.theme.YellowThemeColors
+import fr.publicissapient.planningpoker.ui.theme.primaryBlue
+import fr.publicissapient.planningpoker.ui.theme.primaryGreen
+import fr.publicissapient.planningpoker.ui.theme.primaryRed
+import fr.publicissapient.planningpoker.ui.theme.primaryYellow
 
 enum class FabState {
     IDLE, EXPLODED
@@ -27,7 +43,8 @@ enum class FabState {
 
 @Composable
 fun AnimatedSpeedDialFloatingActionButton(
-    onFabDialClick: (colors: Colors) -> Unit = {}
+    modifier: Modifier = Modifier,
+    onFabDialClick: (colors: ColorScheme) -> Unit = {}
 ) {
     val animatingFab = remember { mutableStateOf(false) }
     val state = if (!animatingFab.value) {
@@ -40,21 +57,22 @@ fun AnimatedSpeedDialFloatingActionButton(
     }
     AnimatedSpeedDialFloatingButtonContent(
         state = state,
+        modifier,
         onFabClick = {
             onFabClick()
         },
-        onFabDialClick = {
-            onFabClick()
-            onFabDialClick(it)
-        },
-    )
+    ) {
+        onFabClick()
+        onFabDialClick(it)
+    }
 }
 
 @Composable
 private fun AnimatedSpeedDialFloatingButtonContent(
     state: FabState,
+    modifier: Modifier = Modifier,
     onFabClick: () -> Unit,
-    onFabDialClick: (colors: Colors) -> Unit,
+    onFabDialClick: (colors: ColorScheme) -> Unit,
 ) {
     val sizeState by animateFloatAsState(
         targetValue = if (state == FabState.IDLE) 0f else 4000f,
@@ -69,7 +87,8 @@ private fun AnimatedSpeedDialFloatingButtonContent(
         animationSpec = tween(500)
     )
     Box(
-        contentAlignment = Alignment.BottomEnd
+        modifier = modifier,
+        contentAlignment = Alignment.BottomEnd,
     ) {
         val delta = (paddingState - 10.dp) * .8f
         Canvas(
@@ -84,7 +103,7 @@ private fun AnimatedSpeedDialFloatingButtonContent(
                 bottom = 16.dp
             ),
             color = colorState,
-            style = MaterialTheme.typography.body2
+            style = MaterialTheme.typography.bodyMedium
         )
         FloatingSpeedDialColor(
             modifier = Modifier.padding(
@@ -132,7 +151,7 @@ private fun AnimatedSpeedDialFloatingButtonContent(
                     modifier = Modifier.size(32.dp)
                 )
             },
-            backgroundColor = MaterialTheme.colors.primary,
+            containerColor = MaterialTheme.colorScheme.primary,
         )
     }
 }
@@ -147,15 +166,12 @@ private fun FloatingSpeedDialColor(
         onClick = onClick,
         content = {
             Icon(
-                painter = rememberImagePainter(
-                    data = R.drawable.ic_fab_dial,
-                    onExecute = { _, _ -> true },
-                ),
+                painter = rememberImagePainter(R.drawable.ic_fab_dial),
                 tint = tint,
                 contentDescription = null,
             )
         },
-        backgroundColor = MaterialTheme.colors.primary,
+        containerColor = MaterialTheme.colorScheme.primary,
         modifier = modifier
             .padding(end = 10.dp)
             .width(35.dp)
@@ -168,9 +184,8 @@ private fun FloatingSpeedDialColor(
 fun SpeedDialFloatingActionButtonPreview() {
     PlanningPokerTheme {
         AnimatedSpeedDialFloatingButtonContent(
-            onFabDialClick = {},
-            onFabClick = {},
             state = FabState.IDLE,
-        )
+            onFabClick = {},
+        ) {}
     }
 }

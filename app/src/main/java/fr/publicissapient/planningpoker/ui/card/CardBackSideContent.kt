@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,11 +38,12 @@ private fun CardWithDimensions(
     ratio: Float,
     modifier: Modifier,
 ) {
-    Card(
+    Surface(
         modifier = modifier,
         shape = RoundedCornerShape(CARD_CORNER * ratio),
-        elevation = CARD_ELEVATION,
-        backgroundColor = MaterialTheme.colors.primary,
+        tonalElevation = CARD_ELEVATION,
+        shadowElevation = CARD_ELEVATION,
+        color = MaterialTheme.colorScheme.primary,
     ) {
         BoxWithConstraints(
             contentAlignment = Alignment.Center

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Planning Poker</string>
+    <string name="a11y_navigate_up">Remonter</string>
 </resources>

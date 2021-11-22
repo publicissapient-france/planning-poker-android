@@ -9,7 +9,6 @@ import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType.*
 import fr.publicissapient.planningpoker.ui.theme.primaryBlue
 import fr.publicissapient.planningpoker.ui.theme.primaryGreen
-import fr.publicissapient.planningpoker.ui.theme.primaryRed
 import fr.publicissapient.planningpoker.ui.theme.primaryYellow
 
 class CardRepository {
@@ -28,7 +27,7 @@ class CardRepository {
             "100",
             "?"
         ).map { name ->
-            Card(name, getImage(color, name), getDescription(highLightColor, name))
+            Card(name, getCardImage(color, name), getDescription(highLightColor, name))
         },
         TShirt to listOf(
             "xs",
@@ -38,39 +37,18 @@ class CardRepository {
             "xl",
             "?"
         ).map { name ->
-            Card(name, getImage(color, name))
+            Card(name, getCardImage(color, name))
         },
         Choice to listOf()
     )
 
     fun choiceCards(color: Color) = mapOf(
-        Fibonacci to Card("", getImage(color, "fibo")),
-        TShirt to Card("", getImage(color, "tshirt"))
+        Fibonacci to Card("", getCardImage(color, "fibo")),
+        TShirt to Card("", getCardImage(color, "tshirt"))
     )
 
-    private fun getImage(color: Color, name: String) =
+    fun getCardImage(color: Color, name: String) =
         when (color) {
-            primaryRed -> when (name) {
-                "0" -> R.drawable.ic_red_0
-                "1" -> R.drawable.ic_red_1
-                "2" -> R.drawable.ic_red_2
-                "3" -> R.drawable.ic_red_3
-                "5" -> R.drawable.ic_red_5
-                "8" -> R.drawable.ic_red_8
-                "13" -> R.drawable.ic_red_13
-                "21" -> R.drawable.ic_red_21
-                "40" -> R.drawable.ic_red_40
-                "100" -> R.drawable.ic_red_100
-                "?" -> R.drawable.ic_red_question
-                "xs" -> R.drawable.ic_red_xs
-                "s" -> R.drawable.ic_red_s
-                "m" -> R.drawable.ic_red_m
-                "l" -> R.drawable.ic_red_l
-                "xl" -> R.drawable.ic_red_xl
-                "fibo" -> R.drawable.ic_fibo_red
-                "tshirt" -> R.drawable.ic_tshirt_red
-                else -> error("Undefined card name $name")
-            }
             primaryYellow -> when (name) {
                 "0" -> R.drawable.ic_yellow_0
                 "1" -> R.drawable.ic_yellow_1
@@ -134,7 +112,27 @@ class CardRepository {
                 "tshirt" -> R.drawable.ic_tshirt_blue
                 else -> error("Undefined card name $name")
             }
-            else -> error("Undefined color $color")
+            else -> when (name) {
+                "0" -> R.drawable.ic_red_0
+                "1" -> R.drawable.ic_red_1
+                "2" -> R.drawable.ic_red_2
+                "3" -> R.drawable.ic_red_3
+                "5" -> R.drawable.ic_red_5
+                "8" -> R.drawable.ic_red_8
+                "13" -> R.drawable.ic_red_13
+                "21" -> R.drawable.ic_red_21
+                "40" -> R.drawable.ic_red_40
+                "100" -> R.drawable.ic_red_100
+                "?" -> R.drawable.ic_red_question
+                "xs" -> R.drawable.ic_red_xs
+                "s" -> R.drawable.ic_red_s
+                "m" -> R.drawable.ic_red_m
+                "l" -> R.drawable.ic_red_l
+                "xl" -> R.drawable.ic_red_xl
+                "fibo" -> R.drawable.ic_fibo_red
+                "tshirt" -> R.drawable.ic_tshirt_red
+                else -> error("Undefined card name $name")
+            }
         }
 
     private fun getDescription(highLightColor: Color, name: String): AnnotatedString {

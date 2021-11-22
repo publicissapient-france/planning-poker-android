@@ -4,7 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,21 +14,21 @@ import coil.size.Scale
 import fr.publicissapient.planningpoker.R
 
 @Composable
-fun BodyWithBlop(content: @Composable () -> Unit) {
+fun BodyWithBlop(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.CenterStart
     ) {
         Image(
-            painter = rememberImagePainter(
-                data = R.drawable.ic_blop,
-                onExecute = { _, _ -> true },
-            ) {
+            painter = rememberImagePainter(R.drawable.ic_blop) {
                 scale(Scale.FILL)
             },
-            colorFilter = ColorFilter.tint(MaterialTheme.colors.secondaryVariant),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary),
             contentDescription = null,
-            modifier = Modifier.fillMaxHeight(.85f)
+            modifier = Modifier.fillMaxHeight(.75f)
         )
         content()
     }

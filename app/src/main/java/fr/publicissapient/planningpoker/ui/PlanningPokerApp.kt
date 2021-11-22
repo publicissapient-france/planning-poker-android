@@ -1,6 +1,6 @@
 package fr.publicissapient.planningpoker.ui
 
-import androidx.compose.material.Colors
+import androidx.compose.material3.ColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -21,7 +21,7 @@ import fr.publicissapient.planningpoker.ui.theme.RedThemeColors
 @Composable
 fun PlanningPokerApp() {
     val navController = rememberNavController()
-    val currentColors = remember { mutableStateOf(RedThemeColors) }
+    val currentColors: MutableState<ColorScheme?> = remember { mutableStateOf(RedThemeColors) }
     NavHost(navController = navController, startDestination = Screen.CardType.route) {
         composable(Screen.CardType.route) {
             CardTypeStackEntry(currentColors, navController)
@@ -40,7 +40,7 @@ fun PlanningPokerApp() {
 private fun CardStackEntry(
     backStackEntry: NavBackStackEntry,
     screenCard: Screen.Card,
-    currentColors: MutableState<Colors>,
+    currentColors: MutableState<ColorScheme?>,
     navController: NavHostController
 ) {
     val args = checkNotNull(backStackEntry.arguments) { "Card screen should have arguments!" }
@@ -65,7 +65,7 @@ private fun CardStackEntry(
 @Composable
 private fun CardListStackEntry(
     backStackEntry: NavBackStackEntry,
-    currentColors: MutableState<Colors>,
+    currentColors: MutableState<ColorScheme?>,
     navController: NavHostController
 ) {
     val args = checkNotNull(backStackEntry.arguments) { "Arguments required!" }
@@ -90,7 +90,7 @@ private fun CardListStackEntry(
 
 @Composable
 private fun CardTypeStackEntry(
-    currentColors: MutableState<Colors>,
+    currentColors: MutableState<ColorScheme?>,
     navController: NavHostController
 ) = PlanningPokerMultipleColorsTheme(currentColors) {
     CardTypeScreen(

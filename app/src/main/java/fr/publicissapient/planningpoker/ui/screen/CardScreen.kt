@@ -6,14 +6,26 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
@@ -23,6 +35,7 @@ import fr.publicissapient.planningpoker.ui.card.CardBackSideContent
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardScreen(
     cardSuit: CardSuitType,
@@ -31,15 +44,13 @@ fun CardScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            MediumTopAppBar(
                 title = { Text("Retour", textAlign = TextAlign.Center) },
-                backgroundColor = MaterialTheme.colors.primary,
-                contentColor = MaterialTheme.colors.onPrimary,
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
-                            painter = rememberImagePainter(R.drawable.ic_baseline_arrow_back),
-                            contentDescription = null
+                            Icons.Default.ArrowBack,
+                            contentDescription = stringResource(R.string.a11y_navigate_up)
                         )
                     }
                 }
@@ -48,8 +59,8 @@ fun CardScreen(
         content = {
             BodyWithBlop {
                 val cards = CardRepository().allCards(
-                    MaterialTheme.colors.secondary,
-                    MaterialTheme.colors.onSecondary
+                    MaterialTheme.colorScheme.secondary,
+                    MaterialTheme.colorScheme.onSecondary
                 )[cardSuit]
                 cards?.let {
                     it.find { (cardName) ->

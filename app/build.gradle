@@ -1,11 +1,18 @@
 plugins {
     id 'com.android.application'
+    id 'dagger.hilt.android.plugin'
+
     id 'kotlin-android'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
+    id 'kotlin-kapt'
 }
 
-def compose_version = '1.1.0-beta02'
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
+def compose_version = '1.1.0-beta03'
+def useReleaseKeystore = rootProject.file("release/app-release.jks").exists()
 
 android {
     compileSdkVersion 31
@@ -16,12 +23,28 @@ android {
         targetSdkVersion 31
         versionCode 1
         versionName "1.1.1"
+
+        // For now we're sticking to just shipping EN/FR
+        resConfigs "en", "fr"
     }
 
     buildTypes {
+//        debug {
+//            signingConfig signingConfigs.debug
+//            versionNameSuffix "-dev"
+//            applicationIdSuffix ".debug"
+//        }
+
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (useReleaseKeystore) {
+                signingConfig signingConfigs.release
+            } else {
+                // Otherwise just use the debug keystore (this is mainly for PR CI builds)
+                signingConfig signingConfigs.debug
+            }
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles 'proguard-rules.pro'
         }
     }
 
@@ -34,6 +57,17 @@ android {
         jvmTarget = "11"
     }
 
+    lintOptions {
+        // Disable lintVital. Not needed since lint is run on CI
+        checkReleaseBuilds false
+        // Ignore any tests
+        ignoreTestSources true
+        // Make the build fail on any lint errors
+        abortOnError true
+        // Allow lint to check dependencies
+        checkDependencies true
+    }
+
     buildFeatures {
         compose = true
         buildConfig = true
@@ -41,31 +75,50 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
     }
+
+    packagingOptions {
+        // Exclude AndroidX version files
+        exclude 'META-INF/*.version'
+        // Exclude consumer proguard files
+        exclude 'META-INF/proguard/*'
+        // Exclude the Firebase/Fabric/other random properties files
+        exclude '/*.properties'
+        exclude 'fabric/*.properties'
+        exclude 'META-INF/*.properties'
+    }
 }
 
 dependencies {
     implementation AndroidX.core.ktx
-    implementation AndroidX.appCompat
-    implementation Google.android.material
     implementation AndroidX.navigation.compose
 
     implementation AndroidX.compose.ui
+    implementation AndroidX.appCompatResources
+    implementation AndroidX.activity.compose
     implementation AndroidX.compose.ui.tooling
     implementation AndroidX.compose.foundation
-    implementation AndroidX.compose.material
     implementation AndroidX.compose.material.icons.core
     implementation AndroidX.compose.material.icons.extended
+    implementation "androidx.compose.material3:material3:_"
+    implementation Google.accompanist.insets
+    implementation Google.accompanist.systemuicontroller
+    implementation "com.google.accompanist:accompanist-navigation-animation:_"
 
-    implementation("io.coil-kt:coil-compose:_")
+    implementation(COIL.compose)
+
+    implementation Google.dagger.hilt.android
+    implementation AndroidX.hilt.navigationCompose
+    kapt Google.dagger.hilt.android.compiler
+
+//    implementation AndroidX.hilt.work
+    kapt AndroidX.hilt.compiler
 
     implementation platform(Firebase.bom)
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-crashlytics-ktx"
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-    kotlinOptions {
-        jvmTarget = "11"
-        freeCompilerArgs += ['-Xskip-prerelease-check', '-Xjvm-default=all', '-Xopt-in=kotlin.RequiresOptIn']
-    }
+if (file("google-services.json").exists()) {
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
 }

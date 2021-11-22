@@ -1,6 +1,6 @@
 package fr.publicissapient.planningpoker.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -14,12 +14,13 @@ private val futuraNextFontFamily = FontFamily(
 )
 
 val planningPokerTypography = Typography(
-    defaultFontFamily = futuraNextFontFamily,
-    h1 = TextStyle(
+    displayLarge = TextStyle(
+        fontFamily = futuraNextFontFamily,
         fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
     ),
-    body2 = TextStyle(
+    bodyMedium = TextStyle(
+        fontFamily = futuraNextFontFamily,
         fontSize = 14.sp,
     )
 )
