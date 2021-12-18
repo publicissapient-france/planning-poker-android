@@ -32,7 +32,7 @@ import fr.publicissapient.planningpoker.model.CardSuitType.TShirt
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
-import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

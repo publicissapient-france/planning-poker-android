@@ -42,7 +42,8 @@ import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.design.LargeTopAppBar
 import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
-import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -128,6 +129,6 @@ private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit)
 @Composable
 fun CardListScreenPreview() {
     PlanningPokerTheme {
-        CardListScreen(cardSuitType = CardSuitType.Fibonacci) {}
+        CardListScreen(cardSuitType = Fibonacci) {}
     }
 }

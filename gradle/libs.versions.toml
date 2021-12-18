@@ -1,0 +1,111 @@
+[versions]
+accompanist = "0.21.0-beta"
+androidxhilt = "1.0.0"
+androidxlifecycle = "2.4.0"
+androidxtest = "1.4.0"
+compose = "1.1.0-beta03"
+composesnapshot = "-" # a single character = no snapshot
+kotlin = "1.5.31"
+okhttp = "4.9.2"
+paging = "3.1.0-rc01"
+
+[libraries]
+accompanist-flowlayout = "com.google.accompanist:accompanist-flowlayout:_"
+accompanist-insets = "com.google.accompanist:accompanist-insets:_"
+accompanist-insetsui = "com.google.accompanist:accompanist-insets-ui:_"
+accompanist-navigation-animation = "com.google.accompanist:accompanist-navigation-animation:_"
+accompanist-swiperefresh = "com.google.accompanist:accompanist-swiperefresh:_"
+accompanist-pager-pager = "com.google.accompanist:accompanist-pager:_"
+accompanist-pager-indicators = "com.google.accompanist:accompanist-pager-indicators:_"
+
+
+android-pluginGradle = "com.android.tools.build:gradle:7.1.0-beta03"
+
+androidx-activity-compose = "androidx.activity:activity-compose:_"
+androidx-archCoreTesting = "androidx.arch.core:core-testing:_"
+androidx-browser = "androidx.browser:browser:_"
+androidx-collection = "androidx.collection:collection-ktx:_"
+androidx-core = "androidx.core:core-ktx:_"
+androidx-emoji = "androidx.emoji:emoji:_"
+
+androidx-hilt-compiler = "androidx.hilt:hilt-compiler:_"
+androidx-hilt-compose = "androidx.hilt:hilt-navigation-compose:_"
+androidx-hilt-work = "androidx.hilt:hilt-work:_"
+
+androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:_"
+androidx-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:_"
+androidx-lifecycle-viewmodel-ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:_"
+
+androidx-navigation-compose = "androidx.navigation:navigation-compose:_"
+
+androidx-paging-common = "androidx.paging:paging-common-ktx:_"
+androidx-paging-runtime = "androidx.paging:paging-runtime-ktx:_"
+androidx-paging-compose = "androidx.paging:paging-compose:1.0.0-alpha14"
+
+
+androidx-test-core = "androidx.test:core:_"
+androidx-test-junit = "androidx.test.ext:junit-ktx:1.1.3"
+androidx-test-rules = "androidx.test:rules:_"
+androidx-test-runner = "androidx.test:runner:_"
+
+coil-coil = "io.coil-kt:coil:_"
+coil-compose = "io.coil-kt:coil-compose:_"
+coil-gif = "io.coil-kt:coil-gif:_"
+
+compose-animation-animation = "androidx.compose.animation:animation:_"
+compose-foundation-foundation = "androidx.compose.foundation:foundation:_"
+compose-foundation-layout = "androidx.compose.foundation:foundation-layout:_"
+compose-material-iconsext = "androidx.compose.material:material-icons-extended:_"
+compose-material-material = "androidx.compose.material:material:_"
+compose-material-material3 = "androidx.compose.material3:material3:_"
+compose-ui-test = "androidx.compose.ui:ui-test-junit4:_"
+compose-ui-tooling = "androidx.compose.ui:ui-tooling:_"
+compose-ui-ui = "androidx.compose.ui:ui:_"
+compose-ui-util = "androidx.compose.ui:ui-util:_"
+compose-ui-viewbinding = "androidx.compose.ui:ui-viewbinding:_"
+
+dagger-compiler = "com.google.dagger:dagger-compiler:_"
+dagger-dagger = "com.google.dagger:dagger:_"
+
+google-analytics = "com.google.firebase:firebase-analytics-ktx:_"
+google-crashlytics = "com.google.firebase:firebase-crashlytics-ktx:_"
+google-crashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:_"
+google-gmsGoogleServices = "com.google.gms:google-services:_"
+
+hilt-compiler = "com.google.dagger:hilt-android-compiler:_"
+hilt-pluginGradle = "com.google.dagger:hilt-android-gradle-plugin:_"
+hilt-library = "com.google.dagger:hilt-android:_"
+hilt-testing = "com.google.dagger:hilt-android-testing:_"
+
+junit = "junit:junit:_"
+
+kotlin-coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:_"
+kotlin-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:_"
+kotlin-coroutines-test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:_"
+kotlin-extensions = "org.jetbrains.kotlin:kotlin-android-extensions:_"
+kotlin-pluginGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:_"
+kotlin-stdlib = "org.jetbrains.kotlin:kotlin-stdlib:_"
+
+leakCanary = "com.squareup.leakcanary:leakcanary-android:_"
+
+mockK = "io.mockk:mockk:_"
+
+okhttp-loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:_"
+okhttp-okhttp = "com.squareup.okhttp3:okhttp:_"
+
+retrofit-gsonConverter = "com.squareup.retrofit2:converter-gson:_"
+retrofit-retrofit = "com.squareup.retrofit2:retrofit:_"
+
+robolectric = "org.robolectric:robolectric:4.6.1"
+
+store = "com.dropbox.mobile.store:store4:4.0.2-KT15"
+
+threeTenAbp = "com.jakewharton.threetenabp:threetenabp:1.3.1"
+
+timber = "com.jakewharton.timber:timber:5.0.1"
+
+tmdbJava = "com.uwetrottmann.tmdb2:tmdb-java:2.5.0"
+
+traktJava = "com.uwetrottmann.trakt5:trakt-java:6.10.0"
+
+truth = "com.google.truth:truth:1.1.3"

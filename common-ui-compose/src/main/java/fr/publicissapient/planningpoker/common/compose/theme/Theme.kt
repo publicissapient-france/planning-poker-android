@@ -1,4 +1,4 @@
-package fr.publicissapient.planningpoker.ui.theme
+package fr.publicissapient.planningpoker.common.compose.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -31,9 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.R
+import fr.publicissapient.planningpoker.R.drawable
 import fr.publicissapient.planningpoker.data.fibo21
 import fr.publicissapient.planningpoker.model.Card
-import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
 import java.util.Locale
 
 const val CARD_FACTOR = 1.48f
@@ -146,7 +147,7 @@ fun CardContentPreview() {
     PlanningPokerTheme {
         val card = Card(
             name = "21",
-            imageResourceId = R.drawable.ic_yellow_21,
+            imageResourceId = drawable.ic_yellow_21,
             description = fibo21(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.tertiary,

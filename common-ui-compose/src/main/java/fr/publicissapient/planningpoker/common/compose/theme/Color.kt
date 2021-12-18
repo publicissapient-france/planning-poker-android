@@ -1,4 +1,4 @@
-package fr.publicissapient.planningpoker.ui.theme
+package fr.publicissapient.planningpoker.common.compose.theme
 
 import androidx.compose.ui.graphics.Color
 

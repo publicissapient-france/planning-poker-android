@@ -7,9 +7,9 @@ import androidx.compose.ui.text.font.FontWeight
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType.*
-import fr.publicissapient.planningpoker.ui.theme.primaryBlue
-import fr.publicissapient.planningpoker.ui.theme.primaryGreen
-import fr.publicissapient.planningpoker.ui.theme.primaryYellow
+import fr.publicissapient.planningpoker.common.compose.theme.primaryBlue
+import fr.publicissapient.planningpoker.common.compose.theme.primaryGreen
+import fr.publicissapient.planningpoker.common.compose.theme.primaryYellow
 
 class CardRepository {
 

@@ -27,15 +27,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.R
-import fr.publicissapient.planningpoker.ui.theme.BlueThemeColors
-import fr.publicissapient.planningpoker.ui.theme.GreenThemeColors
-import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
-import fr.publicissapient.planningpoker.ui.theme.RedThemeColors
-import fr.publicissapient.planningpoker.ui.theme.YellowThemeColors
-import fr.publicissapient.planningpoker.ui.theme.primaryBlue
-import fr.publicissapient.planningpoker.ui.theme.primaryGreen
-import fr.publicissapient.planningpoker.ui.theme.primaryRed
-import fr.publicissapient.planningpoker.ui.theme.primaryYellow
+import fr.publicissapient.planningpoker.common.compose.theme.BlueThemeColors
+import fr.publicissapient.planningpoker.common.compose.theme.GreenThemeColors
+import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.common.compose.theme.RedThemeColors
+import fr.publicissapient.planningpoker.common.compose.theme.YellowThemeColors
+import fr.publicissapient.planningpoker.common.compose.theme.primaryBlue
+import fr.publicissapient.planningpoker.common.compose.theme.primaryGreen
+import fr.publicissapient.planningpoker.common.compose.theme.primaryRed
+import fr.publicissapient.planningpoker.common.compose.theme.primaryYellow
+import fr.publicissapient.planningpoker.ui.fab.FabState.IDLE
 
 enum class FabState {
     IDLE, EXPLODED
@@ -184,7 +185,7 @@ private fun FloatingSpeedDialColor(
 fun SpeedDialFloatingActionButtonPreview() {
     PlanningPokerTheme {
         AnimatedSpeedDialFloatingButtonContent(
-            state = FabState.IDLE,
+            state = IDLE,
             onFabClick = {},
         ) {}
     }

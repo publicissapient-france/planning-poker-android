@@ -1,11 +1,16 @@
 buildscript {
+    ext.buildConfig = [
+        'compileSdk': 31,
+        'minSdk'    : 23,
+        'targetSdk' : 31,
+    ]
 	repositories {
 		google()
         mavenCentral()
 	}
 	dependencies {
 		classpath "com.android.tools.build:gradle:_"
-		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:_"
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:_'
         classpath Google.playServicesGradlePlugin
         classpath Firebase.crashlyticsGradlePlugin
 

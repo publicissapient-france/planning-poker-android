@@ -23,7 +23,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
@@ -33,7 +36,8 @@ import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardBackSideContent
 import fr.publicissapient.planningpoker.ui.card.CardContent
-import fr.publicissapient.planningpoker.ui.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
+import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -154,7 +158,7 @@ fun FlipCard(
 fun CardScreenPreview() {
     PlanningPokerTheme {
         CardScreen(
-            cardSuit = CardSuitType.Fibonacci,
+            cardSuit = Fibonacci,
             cardId = "fib0"
         )
     }

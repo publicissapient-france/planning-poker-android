@@ -11,16 +11,15 @@ kapt {
     useBuildCache = true
 }
 
-def compose_version = '1.1.0-beta03'
 def useReleaseKeystore = rootProject.file("release/app-release.jks").exists()
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion buildConfig.compileSdk
 
     defaultConfig {
         applicationId "fr.publicissapient.planningpoker"
-        minSdkVersion 23
-        targetSdkVersion 31
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
         versionCode 1
         versionName "1.1.1"
 
@@ -73,7 +72,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion libs.versions.compose.get()
     }
 
     packagingOptions {
@@ -89,6 +88,9 @@ android {
 }
 
 dependencies {
+
+    implementation project(":common-ui-compose")
+
     implementation AndroidX.core.ktx
     implementation AndroidX.navigation.compose
 
@@ -99,10 +101,10 @@ dependencies {
     implementation AndroidX.compose.foundation
     implementation AndroidX.compose.material.icons.core
     implementation AndroidX.compose.material.icons.extended
-    implementation "androidx.compose.material3:material3:_"
+    implementation libs.compose.material.material3
     implementation Google.accompanist.insets
     implementation Google.accompanist.systemuicontroller
-    implementation "com.google.accompanist:accompanist-navigation-animation:_"
+    implementation libs.accompanist.navigation.animation
 
     implementation(COIL.compose)
 

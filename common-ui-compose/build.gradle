@@ -1,0 +1,46 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk buildConfig.compileSdk
+
+    defaultConfig {
+        minSdk buildConfig.minSdk
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion libs.versions.compose.get()
+    }
+}
+
+dependencies {
+    
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:_"
+    implementation "androidx.savedstate:savedstate-ktx:1.1.0"
+    implementation AndroidX.core.ktx
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:_"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:_"
+
+    implementation AndroidX.compose.ui
+    implementation AndroidX.compose.foundation
+    implementation "androidx.compose.foundation:foundation-layout:_"
+    implementation AndroidX.compose.ui.tooling
+    implementation libs.compose.material.material3
+//    implementation "androidx.lifecycle:lifecycle-common-java8:_"
+
+    implementation COIL.compose
+
+    api Google.accompanist.insets
+}

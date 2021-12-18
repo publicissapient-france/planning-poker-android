@@ -15,8 +15,8 @@ import fr.publicissapient.planningpoker.ui.nav.Screen
 import fr.publicissapient.planningpoker.ui.screen.CardListScreen
 import fr.publicissapient.planningpoker.ui.screen.CardScreen
 import fr.publicissapient.planningpoker.ui.screen.CardTypeScreen
-import fr.publicissapient.planningpoker.ui.theme.PlanningPokerMultipleColorsTheme
-import fr.publicissapient.planningpoker.ui.theme.RedThemeColors
+import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerMultipleColorsTheme
+import fr.publicissapient.planningpoker.common.compose.theme.RedThemeColors
 
 @Composable
 fun PlanningPokerApp() {
