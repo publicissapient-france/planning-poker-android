@@ -32,7 +32,7 @@ import fr.publicissapient.planningpoker.model.CardSuitType.TShirt
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
-import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
+import planningpoker.compose.theme.PlanningPokerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,9 +97,7 @@ private fun CardTypeScreenContent(
                     .weight(8f),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
-                val choiceCards = CardRepository().choiceCards(
-                    MaterialTheme.colorScheme.secondary
-                )
+                val choiceCards = CardRepository.choiceCards()
                 choiceCards[Fibonacci]?.let { fiboChoiceCard ->
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         CardContent(

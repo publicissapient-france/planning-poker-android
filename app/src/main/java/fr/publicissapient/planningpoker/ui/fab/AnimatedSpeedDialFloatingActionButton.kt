@@ -23,20 +23,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.R
-import fr.publicissapient.planningpoker.common.compose.theme.BlueThemeColors
-import fr.publicissapient.planningpoker.common.compose.theme.GreenThemeColors
-import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
-import fr.publicissapient.planningpoker.common.compose.theme.RedThemeColors
-import fr.publicissapient.planningpoker.common.compose.theme.YellowThemeColors
-import fr.publicissapient.planningpoker.common.compose.theme.primaryBlue
-import fr.publicissapient.planningpoker.common.compose.theme.primaryGreen
-import fr.publicissapient.planningpoker.common.compose.theme.primaryRed
-import fr.publicissapient.planningpoker.common.compose.theme.primaryYellow
 import fr.publicissapient.planningpoker.ui.fab.FabState.IDLE
+import planningpoker.compose.illustrations.FabDial
+import planningpoker.compose.illustrations.Illu
+import planningpoker.compose.theme.BlueThemeColors
+import planningpoker.compose.theme.GreenThemeColors
+import planningpoker.compose.theme.PlanningPokerTheme
+import planningpoker.compose.theme.RedThemeColors
+import planningpoker.compose.theme.YellowThemeColors
+import planningpoker.compose.theme.primaryBlue
+import planningpoker.compose.theme.primaryGreen
+import planningpoker.compose.theme.primaryRed
+import planningpoker.compose.theme.primaryYellow
 
 enum class FabState {
     IDLE, EXPLODED
@@ -167,7 +170,7 @@ private fun FloatingSpeedDialColor(
         onClick = onClick,
         content = {
             Icon(
-                painter = rememberImagePainter(R.drawable.ic_fab_dial),
+                painter = rememberVectorPainter(Illu.FabDial),
                 tint = tint,
                 contentDescription = null,
             )

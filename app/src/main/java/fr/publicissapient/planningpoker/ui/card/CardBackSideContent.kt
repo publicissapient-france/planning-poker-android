@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import coil.compose.rememberImagePainter
 import fr.publicissapient.planningpoker.R
-import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
+import planningpoker.compose.theme.PlanningPokerTheme
 
 @Composable
 fun CardBackSideContent(

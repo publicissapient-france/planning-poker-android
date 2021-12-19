@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -34,7 +35,9 @@ import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.R.drawable
 import fr.publicissapient.planningpoker.data.fibo21
 import fr.publicissapient.planningpoker.model.Card
-import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
+import planningpoker.compose.illustrations.Illu
+import planningpoker.compose.illustrations.fibonacci.TwentyOne
+import planningpoker.compose.theme.PlanningPokerTheme
 import java.util.Locale
 
 const val CARD_FACTOR = 1.48f
@@ -88,9 +91,7 @@ private fun CardWithDimensions(
             ) {
                 Count(cardName = card.name, ratio = ratio)
                 Image(
-                    painter = rememberImagePainter(data = card.imageResourceId) {
-                        placeholder(R.drawable.ic_blue_21)
-                    },
+                    painter = rememberVectorPainter(image = card.image),
                     contentDescription = null,
                     modifier = Modifier.padding(horizontal = 30.dp * ratio)
                 )
@@ -147,7 +148,7 @@ fun CardContentPreview() {
     PlanningPokerTheme {
         val card = Card(
             name = "21",
-            imageResourceId = drawable.ic_yellow_21,
+            image = Illu.Cards.TwentyOne,
             description = fibo21(
                 SpanStyle(
                     color = MaterialTheme.colorScheme.tertiary,

@@ -23,21 +23,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
+import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardBackSideContent
 import fr.publicissapient.planningpoker.ui.card.CardContent
-import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
-import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
+import planningpoker.compose.theme.PlanningPokerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,8 +59,7 @@ fun CardScreen(
         },
         content = {
             BodyWithBlop {
-                val cards = CardRepository().allCards(
-                    MaterialTheme.colorScheme.secondary,
+                val cards = CardRepository.allCards(
                     MaterialTheme.colorScheme.onSecondary
                 )[cardSuit]
                 cards?.let {

@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,16 +35,16 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.rememberInsetsPaddingValues
-import fr.publicissapient.planningpoker.R
+import fr.publicissapient.planningpoker.R.string
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType
+import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.design.LargeTopAppBar
 import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
-import fr.publicissapient.planningpoker.common.compose.theme.PlanningPokerTheme
-import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
+import planningpoker.compose.theme.PlanningPokerTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,31 +54,15 @@ fun CardListScreen(
     onBackClick: () -> Unit = {},
     onFabDialClick: (colors: ColorScheme) -> Unit = {}
 ) {
-    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
-    val scrollBehavior = remember(decayAnimationSpec) {
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
-    }
+    // TODO-Scott (19 déc. 2021): ScrollBehavior is VERY Laggy currently, wait b/207957336
+//    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+//    val scrollBehavior = remember(decayAnimationSpec) {
+//        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
+//    }
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+//        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            LargeTopAppBar(
-                title = {
-                    Text("Choisissez votre carte")
-                },
-                scrollBehavior = scrollBehavior,
-                contentPadding = rememberInsetsPaddingValues(
-                    LocalWindowInsets.current.statusBars,
-                    applyBottom = false,
-                ),
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            Icons.Default.ArrowBack,
-                            contentDescription = stringResource(R.string.a11y_navigate_up)
-                        )
-                    }
-                }
-            )
+            CardListToolbar(onBackClick)
         },
         floatingActionButton = {
             AnimatedSpeedDialFloatingActionButton(
@@ -86,15 +71,38 @@ fun CardListScreen(
             )
         }) {
         BodyWithBlop {
-            val cards = CardRepository().allCards(
-                MaterialTheme.colorScheme.secondary,
-                MaterialTheme.colorScheme.onSecondary
-            )[cardSuitType]
+            val cards =
+                CardRepository.allCards(MaterialTheme.colorScheme.onSecondary)[cardSuitType]
             cards?.let {
                 CardListContent(cards, navigateToCard)
             } ?: error("Unknown card suit!")
         }
     }
+}
+
+@Composable
+private fun CardListToolbar(
+//    scrollBehavior: TopAppBarScrollBehavior,
+    onBackClick: () -> Unit
+) {
+    LargeTopAppBar(
+        title = {
+            Text("Choisissez votre carte")
+        },
+//        scrollBehavior = scrollBehavior,
+        contentPadding = rememberInsetsPaddingValues(
+            LocalWindowInsets.current.statusBars,
+            applyBottom = false,
+        ),
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    Icons.Default.ArrowBack,
+                    contentDescription = stringResource(string.a11y_navigate_up)
+                )
+            }
+        }
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -107,7 +115,9 @@ private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit)
             LazyVerticalGrid(
                 cells = GridCells.Fixed(3),
                 contentPadding = PaddingValues(16.dp),
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .navigationBarsPadding(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 items(cards) { card ->

@@ -1,19 +1,36 @@
 package fr.publicissapient.planningpoker.data
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType.*
-import fr.publicissapient.planningpoker.common.compose.theme.primaryBlue
-import fr.publicissapient.planningpoker.common.compose.theme.primaryGreen
-import fr.publicissapient.planningpoker.common.compose.theme.primaryYellow
+import planningpoker.compose.illustrations.Illu
+import planningpoker.compose.illustrations.One
+import planningpoker.compose.illustrations.Three
+import planningpoker.compose.illustrations.Two
+import planningpoker.compose.illustrations.Zero
+import planningpoker.compose.illustrations.fibonacci.Eight
+import planningpoker.compose.illustrations.fibonacci.Five
+import planningpoker.compose.illustrations.fibonacci.Forty
+import planningpoker.compose.illustrations.fibonacci.Hundred
+import planningpoker.compose.illustrations.fibonacci.Thirteen
+import planningpoker.compose.illustrations.fibonacci.TwentyOne
+import planningpoker.compose.illustrations.tshirt.L
+import planningpoker.compose.illustrations.tshirt.M
+import planningpoker.compose.illustrations.tshirt.Question
+import planningpoker.compose.illustrations.tshirt.S
+import planningpoker.compose.illustrations.tshirt.Xl
+import planningpoker.compose.illustrations.tshirt.Xs
 
-class CardRepository {
+object CardRepository {
 
-    fun allCards(color: Color, highLightColor: Color) = mapOf(
+    @Composable
+    fun allCards(highLightColor: Color) = mapOf(
         Fibonacci to listOf(
             "0",
             "1",
@@ -27,7 +44,7 @@ class CardRepository {
             "100",
             "?"
         ).map { name ->
-            Card(name, getCardImage(color, name), getDescription(highLightColor, name))
+            Card(name, getCardImage(name), getDescription(highLightColor, name))
         },
         TShirt to listOf(
             "xs",
@@ -37,103 +54,40 @@ class CardRepository {
             "xl",
             "?"
         ).map { name ->
-            Card(name, getCardImage(color, name))
+            Card(name, getCardImage(name))
         },
         Choice to listOf()
     )
 
-    fun choiceCards(color: Color) = mapOf(
-        Fibonacci to Card("", getCardImage(color, "fibo")),
-        TShirt to Card("", getCardImage(color, "tshirt"))
+
+    @Composable
+    fun choiceCards() = mapOf(
+        Fibonacci to Card("", getCardImage("fibo")),
+        TShirt to Card("", getCardImage("tshirt"))
     )
 
-    fun getCardImage(color: Color, name: String) =
-        when (color) {
-            primaryYellow -> when (name) {
-                "0" -> R.drawable.ic_yellow_0
-                "1" -> R.drawable.ic_yellow_1
-                "2" -> R.drawable.ic_yellow_2
-                "3" -> R.drawable.ic_yellow_3
-                "5" -> R.drawable.ic_yellow_5
-                "8" -> R.drawable.ic_yellow_8
-                "13" -> R.drawable.ic_yellow_13
-                "21" -> R.drawable.ic_yellow_21
-                "40" -> R.drawable.ic_yellow_40
-                "100" -> R.drawable.ic_yellow_100
-                "?" -> R.drawable.ic_yellow_question
-                "xs" -> R.drawable.ic_yellow_xs
-                "s" -> R.drawable.ic_yellow_s
-                "m" -> R.drawable.ic_yellow_m
-                "l" -> R.drawable.ic_yellow_l
-                "xl" -> R.drawable.ic_yellow_xl
-                "fibo" -> R.drawable.ic_fibo_yellow
-                "tshirt" -> R.drawable.ic_tshirt_yellow
-                else -> error("Undefined card name $name")
-            }
-            primaryGreen -> when (name) {
-                "0" -> R.drawable.ic_green_0
-                "1" -> R.drawable.ic_green_1
-                "2" -> R.drawable.ic_green_2
-                "3" -> R.drawable.ic_green_3
-                "5" -> R.drawable.ic_green_5
-                "8" -> R.drawable.ic_green_8
-                "13" -> R.drawable.ic_green_13
-                "21" -> R.drawable.ic_green_21
-                "40" -> R.drawable.ic_green_40
-                "100" -> R.drawable.ic_green_100
-                "?" -> R.drawable.ic_green_question
-                "xs" -> R.drawable.ic_green_xs
-                "s" -> R.drawable.ic_green_s
-                "m" -> R.drawable.ic_green_m
-                "l" -> R.drawable.ic_green_l
-                "xl" -> R.drawable.ic_green_xl
-                "fibo" -> R.drawable.ic_fibo_green
-                "tshirt" -> R.drawable.ic_tshirt_green
-                else -> error("Undefined card name $name")
-            }
-            primaryBlue -> when (name) {
-                "0" -> R.drawable.ic_blue_0
-                "1" -> R.drawable.ic_blue_1
-                "2" -> R.drawable.ic_blue_2
-                "3" -> R.drawable.ic_blue_3
-                "5" -> R.drawable.ic_blue_5
-                "8" -> R.drawable.ic_blue_8
-                "13" -> R.drawable.ic_blue_13
-                "21" -> R.drawable.ic_blue_21
-                "40" -> R.drawable.ic_blue_40
-                "100" -> R.drawable.ic_blue_100
-                "?" -> R.drawable.ic_blue_question
-                "xs" -> R.drawable.ic_blue_xs
-                "s" -> R.drawable.ic_blue_s
-                "m" -> R.drawable.ic_blue_m
-                "l" -> R.drawable.ic_blue_l
-                "xl" -> R.drawable.ic_blue_xl
-                "fibo" -> R.drawable.ic_fibo_blue
-                "tshirt" -> R.drawable.ic_tshirt_blue
-                else -> error("Undefined card name $name")
-            }
-            else -> when (name) {
-                "0" -> R.drawable.ic_red_0
-                "1" -> R.drawable.ic_red_1
-                "2" -> R.drawable.ic_red_2
-                "3" -> R.drawable.ic_red_3
-                "5" -> R.drawable.ic_red_5
-                "8" -> R.drawable.ic_red_8
-                "13" -> R.drawable.ic_red_13
-                "21" -> R.drawable.ic_red_21
-                "40" -> R.drawable.ic_red_40
-                "100" -> R.drawable.ic_red_100
-                "?" -> R.drawable.ic_red_question
-                "xs" -> R.drawable.ic_red_xs
-                "s" -> R.drawable.ic_red_s
-                "m" -> R.drawable.ic_red_m
-                "l" -> R.drawable.ic_red_l
-                "xl" -> R.drawable.ic_red_xl
-                "fibo" -> R.drawable.ic_fibo_red
-                "tshirt" -> R.drawable.ic_tshirt_red
-                else -> error("Undefined card name $name")
-            }
-        }
+    @Composable
+    fun getCardImage(name: String): ImageVector = when (name) {
+        "0" -> Illu.Cards.Zero
+        "1" -> Illu.Cards.One
+        "2" -> Illu.Cards.Two
+        "3" -> Illu.Cards.Three
+        "5" -> Illu.Cards.Five
+        "8" -> Illu.Cards.Eight
+        "13" -> Illu.Cards.Thirteen
+        "21" -> Illu.Cards.TwentyOne
+        "40" -> Illu.Cards.Forty
+        "100" -> Illu.Cards.Hundred
+        "?" -> Illu.Cards.Question
+        "xs" -> Illu.Cards.Xs
+        "s" -> Illu.Cards.S
+        "m" -> Illu.Cards.M
+        "l" -> Illu.Cards.L
+        "xl" -> Illu.Cards.Xl
+        "fibo" -> Illu.Cards.Xl
+        "tshirt" -> Illu.Cards.Xl
+        else -> error("Undefined card name $name")
+    }
 
     private fun getDescription(highLightColor: Color, name: String): AnnotatedString {
         val highlightLightSpanStyle = getHighLightSpanStyle(highLightColor)

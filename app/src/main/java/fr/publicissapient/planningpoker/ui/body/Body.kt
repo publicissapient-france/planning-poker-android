@@ -4,14 +4,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
-import coil.compose.rememberImagePainter
-import coil.size.Scale
-import fr.publicissapient.planningpoker.R
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
+import planningpoker.compose.illustrations.Blop
+import planningpoker.compose.illustrations.Illu
 
 @Composable
 fun BodyWithBlop(
@@ -23,12 +25,14 @@ fun BodyWithBlop(
         contentAlignment = Alignment.CenterStart
     ) {
         Image(
-            painter = rememberImagePainter(R.drawable.ic_blop) {
-                scale(Scale.FILL)
-            },
+            painter = rememberVectorPainter(Illu.Blop),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary),
             contentDescription = null,
-            modifier = Modifier.fillMaxHeight(.75f)
+            alignment = Alignment.CenterStart,
+            modifier = Modifier
+                .fillMaxHeight(.75f)
+                .fillMaxWidth(),
+            contentScale = ContentScale.FillBounds
         )
         content()
     }
