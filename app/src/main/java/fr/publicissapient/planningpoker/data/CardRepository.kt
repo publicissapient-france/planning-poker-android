@@ -6,13 +6,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
-import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.model.Card
 import fr.publicissapient.planningpoker.model.CardSuitType.*
 import planningpoker.compose.illustrations.Illu
-import planningpoker.compose.illustrations.One
+import planningpoker.compose.illustrations.fibonacci.One
 import planningpoker.compose.illustrations.Three
-import planningpoker.compose.illustrations.Two
+import planningpoker.compose.illustrations.fibonacci.Two
 import planningpoker.compose.illustrations.Zero
 import planningpoker.compose.illustrations.fibonacci.Eight
 import planningpoker.compose.illustrations.fibonacci.Five
@@ -30,7 +29,7 @@ import planningpoker.compose.illustrations.tshirt.Xs
 object CardRepository {
 
     @Composable
-    fun allCards(highLightColor: Color) = mapOf(
+    fun allCards() = mapOf(
         Fibonacci to listOf(
             "0",
             "1",
@@ -44,7 +43,7 @@ object CardRepository {
             "100",
             "?"
         ).map { name ->
-            Card(name, getCardImage(name), getDescription(highLightColor, name))
+            Card(name, getCardImage(name))
         },
         TShirt to listOf(
             "xs",
@@ -88,27 +87,4 @@ object CardRepository {
         "tshirt" -> Illu.Cards.Xl
         else -> error("Undefined card name $name")
     }
-
-    private fun getDescription(highLightColor: Color, name: String): AnnotatedString {
-        val highlightLightSpanStyle = getHighLightSpanStyle(highLightColor)
-        return when (name) {
-            "0" -> fibo0(highlightLightSpanStyle)
-            "1" -> fibo1(highlightLightSpanStyle)
-            "2" -> fibo2(highlightLightSpanStyle)
-            "3" -> fibo3(highlightLightSpanStyle)
-            "5" -> fibo5(highlightLightSpanStyle)
-            "8" -> fibo8(highlightLightSpanStyle)
-            "13" -> fibo13(highlightLightSpanStyle)
-            "21" -> fibo21(highlightLightSpanStyle)
-            "40" -> fibo40(highlightLightSpanStyle)
-            "100" -> fibo100(highlightLightSpanStyle)
-            "?" -> fiboQuestion(highlightLightSpanStyle)
-            else -> error("Undefined card name $name")
-        }
-    }
-
-    private fun getHighLightSpanStyle(highLightColor: Color) = SpanStyle(
-        color = highLightColor,
-        fontWeight = FontWeight.Bold
-    )
 }

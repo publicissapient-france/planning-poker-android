@@ -512,7 +512,7 @@ private var _five: ImageVector? = null
 @Preview
 @Composable
 private fun ImagePreview() {
-    PlanningPokerTheme(RedThemeColors) {
+    PlanningPokerTheme {
         Box {
             Image(
                 imageVector = Cards.Five,

@@ -11,10 +11,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,8 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.insets.LocalWindowInsets
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.rememberInsetsPaddingValues
 import fr.publicissapient.planningpoker.R
 import fr.publicissapient.planningpoker.data.CardRepository
 import fr.publicissapient.planningpoker.model.Card
@@ -35,6 +34,7 @@ import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardBackSideContent
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import planningpoker.compose.theme.PlanningPokerTheme
+import planningpoker.compose.toolbars.SmallTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,8 +45,11 @@ fun CardScreen(
 ) {
     Scaffold(
         topBar = {
-            MediumTopAppBar(
-                title = { Text("Retour", textAlign = TextAlign.Center) },
+            SmallTopAppBar(
+                contentPadding = rememberInsetsPaddingValues(
+                    LocalWindowInsets.current.statusBars,
+                    applyBottom = false,
+                ),
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(
@@ -59,16 +62,13 @@ fun CardScreen(
         },
         content = {
             BodyWithBlop {
-                val cards = CardRepository.allCards(
-                    MaterialTheme.colorScheme.onSecondary
-                )[cardSuit]
-                cards?.let {
-                    it.find { (cardName) ->
-                        cardName == cardId
-                    }?.let { card ->
-                        CardScreenContent(card)
-                    } ?: error("Cannot find card")
-                } ?: error("Cannot find suit $cardSuit")
+                val cards = CardRepository.allCards()[cardSuit]
+                requireNotNull(cards) { "Cannot find suit $cardSuit" }
+                val selectedCard = cards.find { (cardName) ->
+                    cardName == cardId
+                }
+                requireNotNull(selectedCard) { "Cannot find card $cardId in suit ${cardSuit.type}" }
+                CardScreenContent(selectedCard)
             }
         }
     )
@@ -91,6 +91,7 @@ fun CardScreenContent(card: Card) {
             cardFace,
             backSide = {
                 CardBackSideContent(
+                    modifier = Modifier.navigationBarsPadding(),
                     width = width,
                     onClick = { onFlip() }
                 )
@@ -98,6 +99,7 @@ fun CardScreenContent(card: Card) {
             frontSide = {
                 CardContent(
                     card = card,
+                    modifier = Modifier.navigationBarsPadding(),
                     width = width,
                     onClick = { onFlip() }
                 )

@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType.Companion.NonZero
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap.Companion.Butt
-import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
 import androidx.compose.ui.graphics.vector.addPathNodes
@@ -16,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import planningpoker.compose.illustrations.Illu
 import planningpoker.compose.illustrations.Illu.Cards
+import planningpoker.compose.theme.PlanningPokerTheme
+import planningpoker.compose.theme.RedThemeColors
 
 
 public val Illu.Cards.TwentyOne: ImageVector
@@ -30,13 +29,7 @@ public val Illu.Cards.TwentyOne: ImageVector
             addPath(
                 pathData = addPathNodes("M122.64 87.69c0.92-2.78 3.92-12.12 5.96-21.58 2.43-11.29 4.56-26.85-5.17-33.37-9.72-6.52-22.49 1.25-29.17-1.25-6.69-2.51-6.99-15.05-24.92-18.82-17.93-3.77-27.96 9.28-35.86 16.31-7.9 7.03-16.71 2.26-28.26 9.79-11.42 7.45-1.74 41.15 6.71 48.93h110.71v-0.01ZM122.64 87.69c0.92-2.78 3.92-12.12 5.96-21.58 2.43-11.29 4.56-26.85-5.17-33.37-9.72-6.52-22.49 1.25-29.17-1.25-6.69-2.51-6.99-15.05-24.92-18.82-17.93-3.77-27.96 9.28-35.86 16.31-7.9 7.03-16.71 2.26-28.26 9.79-11.42 7.45-1.74 41.15 6.71 48.93h110.71v-0.01Z"),
                 fill = SolidColor(MaterialTheme.colorScheme.secondaryContainer),
-                stroke = null,
                 fillAlpha = 0.7f,
-                strokeLineWidth = 0.0f,
-                strokeLineCap = Butt,
-                strokeLineJoin = Miter,
-                strokeLineMiter = 4.0f,
-                pathFillType = NonZero
             )
             addPath(
                 pathData = addPathNodes(
@@ -426,10 +419,12 @@ private var _twentyOne: ImageVector? = null
 @Preview
 @Composable
 private fun ImagePreview() {
-    Box {
-        Image(
-            imageVector = Cards.TwentyOne,
-            contentDescription = null,
-        )
+    PlanningPokerTheme {
+        Box {
+            Image(
+                imageVector = Cards.TwentyOne,
+                contentDescription = null,
+            )
+        }
     }
 }

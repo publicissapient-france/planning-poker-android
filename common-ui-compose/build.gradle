@@ -1,3 +1,5 @@
+import static de.fayard.refreshVersions.core.Versions.versionFor
+
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
@@ -21,24 +23,25 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.get()
+        kotlinCompilerExtensionVersion versionFor(AndroidX.compose.compiler)
     }
 }
 
 dependencies {
     
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:_"
-    implementation "androidx.savedstate:savedstate-ktx:1.1.0"
+    implementation AndroidX.lifecycle.runtimeKtx
+    implementation AndroidX.savedState.ktx
     implementation AndroidX.core.ktx
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:_"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:_"
+    implementation Kotlin.stdlib
+    implementation AndroidX.lifecycle.viewModelKtx
 
     implementation AndroidX.compose.ui
-    implementation AndroidX.compose.foundation
-    implementation "androidx.compose.foundation:foundation-layout:_"
     implementation AndroidX.compose.ui.tooling
+    implementation AndroidX.compose.ui.util
+    implementation AndroidX.compose.foundation
+    implementation AndroidX.compose.foundation.layout
     implementation libs.compose.material.material3
-//    implementation "androidx.lifecycle:lifecycle-common-java8:_"
+    implementation AndroidX.compose.material.ripple
 
     implementation COIL.compose
 

@@ -33,12 +33,13 @@ import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
 import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
 import planningpoker.compose.theme.PlanningPokerTheme
+import planningpoker.compose.theme.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardTypeScreen(
     navigateToList: (CardSuitType) -> Unit = {},
-    onFabDialClick: (colors: ColorScheme) -> Unit = {}
+    onThemeChange: (theme: Theme) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -57,7 +58,7 @@ fun CardTypeScreen(
         floatingActionButton = {
             AnimatedSpeedDialFloatingActionButton(
                 modifier = Modifier.navigationBarsPadding(),
-                onFabDialClick = onFabDialClick
+                onFabDialClick = onThemeChange
             )
         }) { contentPadding ->
         BodyWithBlop {
@@ -126,6 +127,6 @@ private fun CardTypeScreenContent(
 @Preview
 fun CardTypeScreenPreview() {
     PlanningPokerTheme {
-        CardTypeScreen()
+        CardTypeScreen() {}
     }
 }

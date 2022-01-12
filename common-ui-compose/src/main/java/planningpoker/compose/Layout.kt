@@ -48,9 +48,9 @@ object Layout {
 
     val columns: Int
         @Composable get() = when (LocalConfiguration.current.screenWidthDp) {
-            in 0..599 -> 4
-            in 600..904 -> 8
-            else -> 12
+            in 0..599 -> 3
+            in 600..904 -> 7
+            else -> 11
         }
 }
 

@@ -1,11 +1,9 @@
 package fr.publicissapient.planningpoker.ui.screen
 
-import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -19,16 +17,11 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,9 +35,11 @@ import fr.publicissapient.planningpoker.model.CardSuitType
 import fr.publicissapient.planningpoker.model.CardSuitType.Fibonacci
 import fr.publicissapient.planningpoker.ui.body.BodyWithBlop
 import fr.publicissapient.planningpoker.ui.card.CardContent
-import fr.publicissapient.planningpoker.ui.design.LargeTopAppBar
+import planningpoker.compose.toolbars.LargeTopAppBar
 import fr.publicissapient.planningpoker.ui.fab.AnimatedSpeedDialFloatingActionButton
+import planningpoker.compose.Layout
 import planningpoker.compose.theme.PlanningPokerTheme
+import planningpoker.compose.theme.Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +47,7 @@ fun CardListScreen(
     cardSuitType: CardSuitType,
     navigateToCard: (String) -> Unit = {},
     onBackClick: () -> Unit = {},
-    onFabDialClick: (colors: ColorScheme) -> Unit = {}
+    onThemeChange: (theme: Theme) -> Unit,
 ) {
     // TODO-Scott (19 déc. 2021): ScrollBehavior is VERY Laggy currently, wait b/207957336
 //    val decayAnimationSpec = rememberSplineBasedDecay<Float>()
@@ -67,12 +62,12 @@ fun CardListScreen(
         floatingActionButton = {
             AnimatedSpeedDialFloatingActionButton(
                 modifier = Modifier.navigationBarsPadding(),
-                onFabDialClick = onFabDialClick
+                onFabDialClick = onThemeChange
             )
         }) {
         BodyWithBlop {
             val cards =
-                CardRepository.allCards(MaterialTheme.colorScheme.onSecondary)[cardSuitType]
+                CardRepository.allCards()[cardSuitType]
             cards?.let {
                 CardListContent(cards, navigateToCard)
             } ?: error("Unknown card suit!")
@@ -109,15 +104,19 @@ private fun CardListToolbar(
 @Composable
 private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit) {
     BoxWithConstraints(
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column {
             LazyVerticalGrid(
-                cells = GridCells.Fixed(3),
-                contentPadding = PaddingValues(16.dp),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .navigationBarsPadding(),
+                cells = GridCells.Fixed(Layout.columns),
+                contentPadding = rememberInsetsPaddingValues(
+                    insets = LocalWindowInsets.current.systemBars,
+                    applyTop = false,
+                    applyBottom = true,
+                    additionalStart = Layout.bodyMargin,
+                    additionalEnd = Layout.bodyMargin,
+                ),
+                modifier = Modifier.fillMaxSize(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 items(cards) { card ->
@@ -138,7 +137,7 @@ private fun CardListContent(cards: List<Card>, navigateToCard: (String) -> Unit)
 @Preview
 @Composable
 fun CardListScreenPreview() {
-    PlanningPokerTheme {
+    PlanningPokerTheme() {
         CardListScreen(cardSuitType = Fibonacci) {}
     }
 }

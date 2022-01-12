@@ -360,7 +360,7 @@ private var _hundred: ImageVector? = null
 @Preview
 @Composable
 private fun ImagePreview() {
-    PlanningPokerTheme(RedThemeColors) {
+    PlanningPokerTheme {
         Box {
             Image(
                 imageVector = Cards.Hundred,

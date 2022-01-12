@@ -1,3 +1,5 @@
+import static de.fayard.refreshVersions.core.Versions.versionFor
+
 plugins {
     id 'com.android.application'
     id 'dagger.hilt.android.plugin'
@@ -72,7 +74,7 @@ android {
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.compose.get()
+        kotlinCompilerExtensionVersion versionFor(AndroidX.compose.compiler)
     }
 
     packagingOptions {
@@ -95,7 +97,7 @@ dependencies {
     implementation AndroidX.navigation.compose
 
     implementation AndroidX.compose.ui
-    implementation AndroidX.appCompatResources
+    implementation AndroidX.appCompat.resources
     implementation AndroidX.activity.compose
     implementation AndroidX.compose.ui.tooling
     implementation AndroidX.compose.foundation

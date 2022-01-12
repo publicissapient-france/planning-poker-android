@@ -26,7 +26,7 @@ fun BodyWithBlop(
     ) {
         Image(
             painter = rememberVectorPainter(Illu.Blop),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondaryContainer),
             contentDescription = null,
             alignment = Alignment.CenterStart,
             modifier = Modifier

@@ -1,100 +1,38 @@
 package fr.publicissapient.planningpoker.ui
 
-import androidx.compose.material3.ColorScheme
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import fr.publicissapient.planningpoker.model.CardSuitType
-import fr.publicissapient.planningpoker.ui.nav.Screen
-import fr.publicissapient.planningpoker.ui.screen.CardListScreen
-import fr.publicissapient.planningpoker.ui.screen.CardScreen
-import fr.publicissapient.planningpoker.ui.screen.CardTypeScreen
-import planningpoker.compose.theme.PlanningPokerMultipleColorsTheme
-import planningpoker.compose.theme.RedThemeColors
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import planningpoker.compose.theme.PlanningPokerTheme
+import planningpoker.compose.theme.Theme
+import planningpoker.compose.theme.ThemeSaver
 
 @Composable
 fun PlanningPokerApp() {
-    val navController = rememberNavController()
-    val currentColors: MutableState<ColorScheme?> = remember { mutableStateOf(RedThemeColors) }
-    NavHost(navController = navController, startDestination = Screen.CardType.route) {
-        composable(Screen.CardType.route) {
-            CardTypeStackEntry(currentColors, navController)
-        }
-        composable(Screen.CardList.route, Screen.CardList.arguments) {
-            CardListStackEntry(it, currentColors, navController)
-        }
-        val screenCard = Screen.Card()
-        composable(screenCard.route, screenCard.arguments) {
-            CardStackEntry(it, screenCard, currentColors, navController)
-        }
-    }
-}
 
-@Composable
-private fun CardStackEntry(
-    backStackEntry: NavBackStackEntry,
-    screenCard: Screen.Card,
-    currentColors: MutableState<ColorScheme?>,
-    navController: NavHostController
-) {
-    val args = checkNotNull(backStackEntry.arguments) { "Card screen should have arguments!" }
-    val cardSuitType = args.getString(Screen.CardList.navArgCardSuit)
-    checkNotNull(cardSuitType) { "Card suit required!" }
-    val cardSuitTypeKey = when (cardSuitType) {
-        "fibonacci" -> CardSuitType.Fibonacci
-        "t-shirt" -> CardSuitType.TShirt
-        else -> error("Unknown card suit type: $cardSuitType")
-    }
-    args.getString(screenCard.navArgCardId)?.let { cardId ->
-        PlanningPokerMultipleColorsTheme(currentColors) {
-            CardScreen(
-                cardSuit = cardSuitTypeKey,
-                cardId = cardId,
-                onBackClick = navController::popBackStack
-            )
-        }
-    }
-}
-
-@Composable
-private fun CardListStackEntry(
-    backStackEntry: NavBackStackEntry,
-    currentColors: MutableState<ColorScheme?>,
-    navController: NavHostController
-) {
-    val args = checkNotNull(backStackEntry.arguments) { "Arguments required!" }
-    val cardSuitType = args.getString(Screen.CardList.navArgCardSuit)
-    checkNotNull(cardSuitType) { "Card suit required!" }
-    val cardSuitTypeKey = when (cardSuitType) {
-        "fibonacci" -> CardSuitType.Fibonacci
-        "t-shirt" -> CardSuitType.TShirt
-        else -> error("Unknown card suit type: $cardSuitType")
-    }
-    PlanningPokerMultipleColorsTheme(currentColors) {
-        CardListScreen(
-            cardSuitType = cardSuitTypeKey,
-            navigateToCard = { cardId ->
-                navController.navigate("cards/${cardSuitTypeKey.type}/$cardId")
-            },
-            onBackClick = navController::popBackStack,
-            onFabDialClick = { colors -> currentColors.value = colors }
+    var theme by rememberSaveable(stateSaver = ThemeSaver) { mutableStateOf(Theme()) }
+    PlanningPokerTheme(theme = theme) {
+        NavGraph(
+            onThemeChange = { theme = it }
         )
     }
 }
 
-@Composable
-private fun CardTypeStackEntry(
-    currentColors: MutableState<ColorScheme?>,
-    navController: NavHostController
-) = PlanningPokerMultipleColorsTheme(currentColors) {
-    CardTypeScreen(
-        navigateToList = { navController.navigate("cards/${it.type}") },
-        onFabDialClick = { colors -> currentColors.value = colors }
-    )
+inline fun <reified T : Context> Context.findBaseContext(): T? {
+    var ctx: Context? = this
+    do {
+        if (ctx is T) {
+            return ctx
+        }
+        if (ctx is ContextWrapper) {
+            ctx = ctx.baseContext
+        }
+    } while (ctx != null)
+
+    // If we reach here, there's not an Context of type T in our Context hierarchy
+    return null
 }

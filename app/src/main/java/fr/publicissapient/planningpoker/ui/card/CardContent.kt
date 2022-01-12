@@ -1,7 +1,9 @@
 package fr.publicissapient.planningpoker.ui.card
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,29 +14,28 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
-import fr.publicissapient.planningpoker.R
-import fr.publicissapient.planningpoker.R.drawable
-import fr.publicissapient.planningpoker.data.fibo21
 import fr.publicissapient.planningpoker.model.Card
+import planningpoker.compose.ThemedImage
 import planningpoker.compose.illustrations.Illu
 import planningpoker.compose.illustrations.fibonacci.TwentyOne
 import planningpoker.compose.theme.PlanningPokerTheme
@@ -75,38 +76,57 @@ private fun CardWithDimensions(
         modifier = modifier,
         shape = RoundedCornerShape(CARD_CORNER * ratio),
         shadowElevation = CARD_ELEVATION,
-        color = Color.White,
+        color = if (isSystemInDarkTheme()) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface,
         onClick = onClick
     ) {
+        val cardContentColor =
+            if (isSystemInDarkTheme()) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.primary
         Box(
             modifier = Modifier
                 .padding(16.dp * ratio)
                 .clip(RoundedCornerShape((CARD_CORNER - 16.dp) * ratio))
-                .background(MaterialTheme.colorScheme.primaryContainer),
+                .background(
+                    if (isSystemInDarkTheme()) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.primary
+                ),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Count(cardName = card.name, ratio = ratio)
-                Image(
-                    painter = rememberVectorPainter(image = card.image),
-                    contentDescription = null,
-                    modifier = Modifier.padding(horizontal = 30.dp * ratio)
+                Count(
+                    cardName = card.name,
+                    color = contentColorFor(cardContentColor),
+                    ratio = ratio
                 )
-                card.description?.let { description ->
+                MaterialTheme
+                ThemedImage(
+                    imageVector = card.image,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp * ratio),
+                    contentScale = ContentScale.FillWidth
+                )
+                val highlightColor =
+                    if (cardContentColor.luminance() > 0.5f) Color.White else Color.Black
+                card.getDescription(highlightColor).takeIf { it.isNotEmpty() }?.let { description ->
                     Text(
                         description,
                         modifier = Modifier.padding(horizontal = 30.dp * ratio),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             textAlign = TextAlign.Center,
                             fontSize = MaterialTheme.typography.bodyMedium.fontSize * ratio,
-                            color = MaterialTheme.colorScheme.secondary
+                            lineHeight = MaterialTheme.typography.bodyMedium.lineHeight * ratio,
+                            color = contentColorFor(cardContentColor)
                         )
                     )
                 }
-                Count(Modifier.graphicsLayer(rotationZ = -180f), card.name, ratio)
+                Count(
+                    modifier = Modifier.graphicsLayer(rotationZ = -180f),
+                    cardName = card.name,
+                    color = contentColorFor(cardContentColor),
+                    ratio = ratio
+                )
             }
         }
     }
@@ -116,6 +136,7 @@ private fun CardWithDimensions(
 private fun Count(
     modifier: Modifier = Modifier,
     cardName: String,
+    color: Color,
     ratio: Float = 1f
 ) =
     Row(
@@ -125,18 +146,16 @@ private fun Count(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val style = MaterialTheme.typography.bodyLarge.copy(
+            color = color,
             fontSize = 33.sp * ratio,
-            fontWeight = FontWeight.Bold
         )
         Text(
             text = cardName.uppercase(Locale.ROOT),
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
             style = style,
             modifier = modifier
         )
         Text(
             text = cardName.uppercase(Locale.ROOT),
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
             style = style,
             modifier = modifier
         )
@@ -148,13 +167,21 @@ fun CardContentPreview() {
     PlanningPokerTheme {
         val card = Card(
             name = "21",
-            image = Illu.Cards.TwentyOne,
-            description = fibo21(
-                SpanStyle(
-                    color = MaterialTheme.colorScheme.tertiary,
-                    fontWeight = FontWeight.Bold
-                )
-            )
+            image = Illu.Cards.TwentyOne
+        )
+        CardContent(
+            card = card
+        ) {}
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+@Composable
+fun CardContentDarkPreview() {
+    PlanningPokerTheme {
+        val card = Card(
+            name = "21",
+            image = Illu.Cards.TwentyOne
         )
         CardContent(
             card = card
