@@ -1,9 +1,7 @@
 package planningpoker.compose.theme
 
 import android.os.Build
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -11,6 +9,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.ui.graphics.Color
@@ -18,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import planningpoker.compose.theme.ColorMode.Blue
 import planningpoker.compose.theme.ColorMode.Dynamic
 import planningpoker.compose.theme.ColorMode.Green
+import planningpoker.compose.theme.ColorMode.Red
 import planningpoker.compose.theme.ColorMode.Yellow
 
 val RedThemeColors = lightColorScheme(
@@ -61,9 +61,9 @@ fun PlanningPokerTheme(
     theme: Theme = Theme(),
     content: @Composable () -> Unit
 ) {
-    val rippleIndication = rememberRipple()
     val colorScheme = selectColorScheme(theme)
-    CompositionLocalProvider(LocalIndication provides rippleIndication) {
+
+    CompositionLocalProvider(LocalColorSchemeName provides theme.colorMode.label) {
         MaterialTheme(
             colorScheme = colorScheme,
             typography = planningPokerTypography,
@@ -126,4 +126,8 @@ val ThemeSaver =
 
 private const val ColorModeKey = "colorMode"
 
-val LocalColorSchemeName = compositionLocalOf { "Rouge" }
+val MaterialTheme.colorSchemeName
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalColorSchemeName.current
+val LocalColorSchemeName = compositionLocalOf { Red.label }

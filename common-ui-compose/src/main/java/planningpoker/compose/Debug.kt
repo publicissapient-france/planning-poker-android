@@ -10,7 +10,7 @@ import fr.publicissapient.planningpoker.common.compose.BuildConfig
 
 class Ref(var value: Int)
 
-const val EnableDebugCompositionLogs = false
+const val EnableDebugCompositionLogs = true
 
 /**
  * An effect which logs the number compositions at the invoked point of the slot table.

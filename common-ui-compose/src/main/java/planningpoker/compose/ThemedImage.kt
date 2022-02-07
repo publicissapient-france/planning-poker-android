@@ -1,6 +1,7 @@
 package planningpoker.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Composition
 import androidx.compose.runtime.CompositionContext
@@ -8,7 +9,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCompositionContext
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import planningpoker.compose.theme.LocalColorSchemeName
+import planningpoker.compose.theme.colorSchemeName
 import planningpoker.compose.vector.RenderVectorGroup
 import planningpoker.compose.vector.VectorApplier
 
@@ -38,9 +39,10 @@ fun ThemedImage(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null
 ) {
+    LogCompositions("ThemedImage")
     Image(
         painter = rememberVectorPainter(imageVector),
-        contentDescription = LocalColorSchemeName.current,
+        contentDescription = "MaterialTheme.colorSchemeName",
         modifier = modifier,
         alignment = alignment,
         contentScale = contentScale,
@@ -56,7 +58,7 @@ fun rememberVectorPainter(image: ImageVector) =
         defaultHeight = image.defaultHeight,
         viewportWidth = image.viewportWidth,
         viewportHeight = image.viewportHeight,
-        name = LocalColorSchemeName.current,
+        name = MaterialTheme.colorSchemeName,
         tintColor = image.tintColor,
         tintBlendMode = image.tintBlendMode,
         content = { _, _ -> RenderVectorGroup(group = image.root) }
@@ -68,7 +70,7 @@ fun rememberVectorPainter(
     defaultHeight: Dp,
     viewportWidth: Float = Float.NaN,
     viewportHeight: Float = Float.NaN,
-    name: String = LocalColorSchemeName.current,
+    name: String = "",
     tintColor: Color = Color.Unspecified,
     tintBlendMode: BlendMode = BlendMode.SrcIn,
     content: @Composable (viewportWidth: Float, viewportHeight: Float) -> Unit
@@ -81,7 +83,7 @@ fun rememberVectorPainter(
     val vpHeight = if (viewportHeight.isNaN()) heightPx else viewportHeight
     LogCompositions("create painter")
 
-    val painter = remember(LocalColorSchemeName.current) { VectorPainter() }.apply {
+    val painter = VectorPainter().apply {
         // This assignment is thread safe as the internal Size parameter is
         // backed by a mutableState object
         size = Size(widthPx, heightPx)

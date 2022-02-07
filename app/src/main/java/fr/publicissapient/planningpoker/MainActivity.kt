@@ -28,9 +28,7 @@ class MainActivity : ComponentActivity() {
             }
 
             ProvideWindowInsets(consumeWindowInsets = false) {
-                //                TiviTheme(useDarkColors = preferences.shouldUseDarkColors()) {
                 PlanningPokerApp()
-                //                }
             }
         }
     }

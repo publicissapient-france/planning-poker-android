@@ -3,10 +3,14 @@ package fr.publicissapient.planningpoker.ui
 import android.content.Context
 import android.content.ContextWrapper
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.view.ViewCompat
+import fr.publicissapient.planningpoker.MainActivity
 import planningpoker.compose.theme.PlanningPokerTheme
 import planningpoker.compose.theme.Theme
 import planningpoker.compose.theme.ThemeSaver
@@ -15,9 +19,12 @@ import planningpoker.compose.theme.ThemeSaver
 fun PlanningPokerApp() {
 
     var theme by rememberSaveable(stateSaver = ThemeSaver) { mutableStateOf(Theme()) }
+//    val activity = LocalContext.current.findBaseContext<MainActivity>()
     PlanningPokerTheme(theme = theme) {
         NavGraph(
-            onThemeChange = { theme = it }
+            onThemeChange = {
+                theme = it
+            }
         )
     }
 }

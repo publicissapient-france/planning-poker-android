@@ -1,7 +1,6 @@
 package fr.publicissapient.planningpoker.ui.card
 
 import android.content.res.Configuration
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -27,7 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +32,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import fr.publicissapient.planningpoker.model.Card
+import planningpoker.compose.LogCompositions
 import planningpoker.compose.ThemedImage
 import planningpoker.compose.illustrations.Illu
 import planningpoker.compose.illustrations.fibonacci.TwentyOne
@@ -72,6 +70,7 @@ private fun CardWithDimensions(
     modifier: Modifier,
     onClick: () -> Unit = {},
 ) {
+    LogCompositions("CardWithDimensions")
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(CARD_CORNER * ratio),
@@ -85,9 +84,7 @@ private fun CardWithDimensions(
             modifier = Modifier
                 .padding(16.dp * ratio)
                 .clip(RoundedCornerShape((CARD_CORNER - 16.dp) * ratio))
-                .background(
-                    if (isSystemInDarkTheme()) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.primary
-                ),
+                .background(cardContentColor),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -99,7 +96,6 @@ private fun CardWithDimensions(
                     color = contentColorFor(cardContentColor),
                     ratio = ratio
                 )
-                MaterialTheme
                 ThemedImage(
                     imageVector = card.image,
                     modifier = Modifier
